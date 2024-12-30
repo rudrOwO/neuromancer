@@ -1,0 +1,190 @@
+{
+  "main": {
+    "id": "a1c7d7893aa6766a",
+    "type": "split",
+    "children": [
+      {
+        "id": "d44b8dd313e5d62a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4adeca72462db2c3",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "design.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "design.excalidraw"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "fc923b53f8ccb794",
+    "type": "split",
+    "children": [
+      {
+        "id": "571b59cf67c816b4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "848024c1defa225b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "53498d5db5a08c45",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "9cfb82d0a00d64a7",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "right": {
+    "id": "956cd3e251765b4f",
+    "type": "split",
+    "children": [
+      {
+        "id": "444e2948d6d19ed6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "710a4f6c27e9a54c",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "f38b1f135e207560",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "69fda5e877ccf545",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "835d8044679e9e36",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "create a link.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of create a link"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
+    }
+  },
+  "active": "4adeca72462db2c3",
+  "lastOpenFiles": [
+    "plan.md~",
+    "subgraph.md",
+    "plan.md",
+    "design.excalidraw.md",
+    "how_to.md",
+    "how_to.md~",
+    "target_models.md",
+    "overview.excalidraw.md",
+    "target_models.md~",
+    "squeezenet1.1-7.onnx",
+    "mnist-12.onnx",
+    "models.md",
+    "notes.md~",
+    "Excalidraw/overview.excalidraw.md",
+    "notes.md",
+    "models/squeezenet1_1.onnx",
+    "models/mnist.onnx",
+    "models",
+    "Excalidraw/Drawing 2024-12-20 12.27.25.excalidraw.md",
+    "overview.md",
+    "overview.md~",
+    "draft.md",
+    "test.md",
+    "Welcome.md",
+    "create a link.md"
+  ]
+}
