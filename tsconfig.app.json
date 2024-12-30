@@ -14,7 +14,26 @@
     "allowJs": true,
     "checkJs": true,
     "isolatedModules": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "plugins": [
+      {
+        "name": "typescript-svelte-plugin",
+        "assumeIsSvelteProject": true
+      }
+    ],
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": [
+        "ui/components/*"
+      ],
+      "@onnx/*": [
+        "onnx/*"
+      ]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.svelte"
+  ]
 }
