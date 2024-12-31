@@ -4,19 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "d44b8dd313e5d62a",
+        "id": "a06e7c0bda30cca4",
         "type": "tabs",
         "children": [
           {
-            "id": "4adeca72462db2c3",
+            "id": "a650b3df44570d7d",
             "type": "leaf",
             "state": {
               "type": "excalidraw",
               "state": {
-                "file": "design.excalidraw.md"
+                "file": "workflow.excalidraw.md"
               },
               "icon": "excalidraw-icon",
-              "title": "design.excalidraw"
+              "title": "workflow.excalidraw"
             }
           }
         ]
@@ -75,8 +75,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "956cd3e251765b4f",
@@ -160,12 +159,14 @@
       "obsidian-excalidraw-plugin:Create new drawing": false
     }
   },
-  "active": "4adeca72462db2c3",
+  "active": "a650b3df44570d7d",
   "lastOpenFiles": [
-    "design.excalidraw.svg",
-    "Pasted Image 20241231182231_897.png",
-    "design.excalidraw.md",
     "Pasted Image 20241231183925_077.png",
+    "Pasted Image 20241231182231_897.png",
+    "workflow.excalidraw.md",
+    "design.excalidraw.md",
+    "workflow.excalidraw.svg",
+    "design.excalidraw.svg",
     "plan.md~",
     "subgraph.md",
     "plan.md",
