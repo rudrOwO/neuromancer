@@ -13,23 +13,21 @@ I'll try to **reuse Threlte components** between these models.
 
 <br>
 
-# Features
-### Amount of Interactivity
-- Show result of each executed Node in the z axis of the 3D view.
-- Be able to change test samples from any stage and see the effects.
-
-### Run Types
-- Quick Run: For a quick and clean ~~overview~~ show-off of the entire model run.
-- Step-by-step Run: Like a debugger, examine each node parsed along with explanation panels.
-
-### Nodes to be rendered:
+# TODO:
+## Nodes to be rendered:
 - Input
-- IntermediateOutput
-- Conv
-- Add
-- Relu
-- Maxpool
-- Reshape?
+- Tensor
+- TensorGrid
+- Add?
+- Relu?
+- Maxpool?
+- Feed Forward Perceptron
 
-> [!NOTE]
-> Only IntermediateOutput Nodes need to be re-rendered?
+## Rendering Considerations
+- Make threlte input rendering reactive to 2d input panel
+- Use Three.js orbit controls?
+- Render every activation map (8 for the first layer, 16 for the second)
+- Make every activation map reactive
+- When clicked, show 2D flat view with commentary
+
+[!NOTE] Look at the outputs of the graph, not node parameters
