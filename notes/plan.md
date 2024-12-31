@@ -16,7 +16,7 @@ I'll try to **reuse Threlte components** between these models.
 # Features
 ### Amount of Interactivity
 - Show result of each executed Node in the z axis of the 3D view.
-- Be able to change test samples from any stage and be able to see the effects.
+- Be able to change test samples from any stage and see the effects.
 
 ### Run Types
 - Quick Run: For a quick and clean ~~overview~~ show-off of the entire model run.
