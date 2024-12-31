@@ -75,7 +75,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "956cd3e251765b4f",
@@ -161,10 +162,13 @@
   },
   "active": "4adeca72462db2c3",
   "lastOpenFiles": [
+    "design.excalidraw.svg",
+    "Pasted Image 20241231182231_897.png",
+    "design.excalidraw.md",
+    "Pasted Image 20241231183925_077.png",
     "plan.md~",
     "subgraph.md",
     "plan.md",
-    "design.excalidraw.md",
     "how_to.md",
     "how_to.md~",
     "target_models.md",
