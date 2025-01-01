@@ -1,27 +1,27 @@
 <script lang="ts">
   import Counter from "@components/Counter.svelte";
+  import ONNXRuntime from "../onnx/entrypoint.ts?worker";
+
+  $effect(() => {
+    console.log(import.meta.env.VITE_PUBLIC_URL);
+
+    const onnxRuntime = new ONNXRuntime();
+    // Listen for messages from the worker
+    onnxRuntime.onmessage = (event) => {
+      console.log("Received from worker:", event.data);
+    };
+
+    // Send a message to the worker
+    onnxRuntime.postMessage("Hello, Worker!");
+  });
 </script>
 
 <main>
-  <h1>Vite + Svelte</h1>
+  <h1>Neuromancer</h1>
 
   <div class="card">
     <Counter />
   </div>
 
-  <p>
-    Check out <a
-      href="https://github.com/sveltejs/kit#readme"
-      target="_blank"
-      rel="noreferrer">SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
+  <p>Hello</p>
 </main>
-
-<style>
-  .read-the-docs {
-    color: #888;
-  }
-</style>
