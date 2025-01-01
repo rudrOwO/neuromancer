@@ -18,10 +18,9 @@
 
 <main>
   <h1>Neuromancer</h1>
+  <h3>Testing hot reload</h3>
 
   <div class="card">
     <Counter />
   </div>
-
-  <p>Hello</p>
 </main>
