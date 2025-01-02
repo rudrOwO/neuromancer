@@ -1,6 +1,6 @@
 <script lang="ts">
   import Counter from "@components/Counter.svelte";
-  import ONNXRuntime from "../onnx/entrypoint.ts?worker";
+  import ONNXRuntime from "@onnx/entrypoint.ts?worker";
 
   $effect(() => {
     console.log(import.meta.env.VITE_PUBLIC_URL);
@@ -16,11 +16,9 @@
   });
 </script>
 
-<main>
+<main class="bg-slate-700 grid align-middle h-screen">
   <h1>Neuromancer</h1>
-  <h3>Testing hot reload</h3>
+  <h3 class="font-mono my-5">Testing hot reload!</h3>
 
-  <div class="card">
-    <Counter />
-  </div>
+  <Counter />
 </main>
