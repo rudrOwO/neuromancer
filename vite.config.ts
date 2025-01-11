@@ -3,6 +3,7 @@ import path from "path";
 import { defineConfig, Plugin } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { fileURLToPath } from "url";
 
 const wasmMimeTypePlugin: Plugin = {
   name: "wasm-mime-type-plugin",
@@ -31,8 +32,13 @@ const wasmMimeTypePlugin: Plugin = {
   },
 };
 
-
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [svelte(), tsconfigPaths(), wasmMimeTypePlugin],
+  resolve: {
+    alias: [
+      { find: '@onnx', replacement: fileURLToPath(new URL('./src/onnx', import.meta.url)) },
+      { find: '@components', replacement: fileURLToPath(new URL('./src/components', import.meta.url)) },
+    ],
+  },
 })
