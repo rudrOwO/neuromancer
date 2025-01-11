@@ -24,7 +24,7 @@
     "baseUrl": "src",
     "paths": {
       "@components/*": [
-        "ui/components/*"
+        "components/*"
       ],
       "@onnx/*": [
         "onnx/*"
