@@ -3,19 +3,18 @@
   import { modelURL } from "@onnx/mnist/constants"
   import { initializeModel } from "bridge"
 
-  let model: ArrayBuffer
+  let serializedModel: ArrayBuffer
 
   let isError = $state(false)
   let isLoading = $state(true)
   let isInitializing = $state(true)
-  let model: ArrayBuffer
 
   // Can't use async function inside $effect
   $effect(function fetchModel() {
     fetch(modelURL)
       .then((response) => response.arrayBuffer())
-      .then((_model) => {
-        model = _model
+      .then((_serializedModel) => {
+        serializedModel = _serializedModel
         isLoading = false
       })
       .catch((error) => {
@@ -26,13 +25,12 @@
 
   $effect(function initModel() {
     if (!isLoading) {
-      initializeModel(model)
+      initializeModel(serializedModel)
         .then((_) => {
           console.log("Model Initialzed")
           isInitializing = false
         })
-        .catch((error) => {
-          console.error("Error INITIALIZING model", error)
+        .catch((_) => {
           isError = true
         })
     }
