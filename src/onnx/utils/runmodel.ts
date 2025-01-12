@@ -1,9 +1,9 @@
 import { InferenceSession, Tensor } from "onnxruntime-web"
 
-export async function createModel(modelUrl: string): Promise<InferenceSession> {
-  return await InferenceSession.create(modelUrl, {
-    executionProviders: ["wasm"],
-  })
+export async function createModel(
+  model: ArrayBuffer,
+): Promise<InferenceSession> {
+  return await InferenceSession.create(model, { executionProviders: ["wasm"] })
 }
 
 export async function warmupModel(model: InferenceSession, dims: number[]) {
@@ -14,13 +14,12 @@ export async function warmupModel(model: InferenceSession, dims: number[]) {
   for (let i = 0; i < size; i++) {
     warmupTensor.data[i] = Math.random() * 2.0 - 1.0 // random value [-1.0, 1.0)
   }
-  try {
-    const feeds: Record<string, Tensor> = {}
-    feeds[model.inputNames[0]] = warmupTensor
-    await model.run(feeds)
-  } catch (e) {
-    console.error(e)
-  }
+
+  const feeds: Record<string, Tensor> = {}
+  feeds[model.inputNames[0]] = warmupTensor
+  // DEBUG  Remove this log
+  const result = await model.run(feeds)
+  console.log(result)
 }
 
 export async function runModel(
@@ -34,11 +33,14 @@ export async function runModel(
     const outputData = await model.run(feeds)
     const end = new Date()
     const inferenceTime = end.getTime() - start.getTime()
+    // TODO  Modify this to emit activation maps as well
     const output = outputData[model.outputNames[0]]
 
+    console.log(`Model run with time ${inferenceTime}`)
+
     return [output, inferenceTime]
-  } catch (e) {
-    console.error(e)
-    throw new Error()
+  } catch (error) {
+    console.error("Error while RUNNING model", error)
+    throw error
   }
 }
