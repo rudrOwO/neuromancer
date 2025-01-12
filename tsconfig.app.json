@@ -23,17 +23,10 @@
     ],
     "baseUrl": "src",
     "paths": {
-      "@components/*": [
-        "components/*"
-      ],
-      "@onnx/*": [
-        "onnx/*"
-      ]
+      "@ui/*": ["ui/*"],
+      "@components/*": ["ui/components/*"],
+      "@onnx/*": ["onnx/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.js",
-    "src/**/*.svelte"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
 }

@@ -3,7 +3,6 @@
 
 interface ImportMetaEnv {
   readonly VITE_PUBLIC_URL: string
-  readonly VITE_MODEL_NAME: string
 }
 
 interface ImportMeta {

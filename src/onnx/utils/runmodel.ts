@@ -1,9 +1,9 @@
 import { InferenceSession, Tensor } from "onnxruntime-web"
 
-export async function createModel(modelUrl: string): Promise<InferenceSession> {
-  return await InferenceSession.create(modelUrl, {
-    executionProviders: ["wasm"],
-  })
+export async function createModel(
+  model: ArrayBuffer,
+): Promise<InferenceSession> {
+  return await InferenceSession.create(model, { executionProviders: ["wasm"] })
 }
 
 export async function warmupModel(model: InferenceSession, dims: number[]) {
@@ -18,8 +18,9 @@ export async function warmupModel(model: InferenceSession, dims: number[]) {
     const feeds: Record<string, Tensor> = {}
     feeds[model.inputNames[0]] = warmupTensor
     await model.run(feeds)
-  } catch (e) {
-    console.error(e)
+  } catch (error) {
+    console.error("Error while model WARMUP", error)
+    throw error
   }
 }
 
@@ -37,8 +38,8 @@ export async function runModel(
     const output = outputData[model.outputNames[0]]
 
     return [output, inferenceTime]
-  } catch (e) {
-    console.error(e)
-    throw new Error()
+  } catch (error) {
+    console.error("Error while RUNNING model", error)
+    throw error
   }
 }
