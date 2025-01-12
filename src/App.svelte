@@ -1,6 +1,6 @@
 <script lang="ts">
   import DigitInputPanel from "@components/DigitInputPanel.svelte"
-  import ONNXRuntime from "@onnx/entrypoint.ts?worker"
+  import ONNXRuntime from "@onnx/dispatch.ts?worker"
 
   const error = $state(false)
 
