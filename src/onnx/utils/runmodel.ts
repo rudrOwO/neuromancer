@@ -1,7 +1,7 @@
 import { InferenceSession, Tensor } from "onnxruntime-web"
 
-export async function createModel(modelUrl: string): Promise<InferenceSession> {
-  return await InferenceSession.create(modelUrl, {
+export async function createModel(modelURL: string): Promise<InferenceSession> {
+  return await InferenceSession.create(modelURL, {
     executionProviders: ["wasm"],
   })
 }
@@ -14,31 +14,28 @@ export async function warmupModel(model: InferenceSession, dims: number[]) {
   for (let i = 0; i < size; i++) {
     warmupTensor.data[i] = Math.random() * 2.0 - 1.0 // random value [-1.0, 1.0)
   }
-  try {
-    const feeds: Record<string, Tensor> = {}
-    feeds[model.inputNames[0]] = warmupTensor
-    await model.run(feeds)
-  } catch (e) {
-    console.error(e)
-  }
+
+  const feeds: Record<string, Tensor> = {}
+  feeds[model.inputNames[0]] = warmupTensor
+  await model.run(feeds)
 }
 
 export async function runModel(
   model: InferenceSession,
   preprocessedData: Tensor,
-): Promise<[Tensor, number]> {
-  const start = new Date()
+) {
+  // const start = new Date()
   try {
     const feeds: Record<string, Tensor> = {}
     feeds[model.inputNames[0]] = preprocessedData
-    const outputData = await model.run(feeds)
-    const end = new Date()
-    const inferenceTime = end.getTime() - start.getTime()
-    const output = outputData[model.outputNames[0]]
+    const output = await model.run(feeds)
 
-    return [output, inferenceTime]
-  } catch (e) {
-    console.error(e)
-    throw new Error()
+    // const end = new Date()
+    // const inferenceTime = end.getTime() - start.getTime()
+    // console.log(`Model run with time ${inferenceTime}`)
+
+    return output
+  } catch (error) {
+    throw error
   }
 }
