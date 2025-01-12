@@ -1,12 +1,13 @@
 <script lang="ts">
   import DigitInputPanel from "@components/DigitInputPanel.svelte"
   import { modelURL } from "@onnx/mnist/constants"
-  import { initializeModel } from "./utils"
+  import { initializeModel } from "@ui/utils"
+
+  let model: ArrayBuffer
 
   let isError = $state(false)
   let isLoading = $state(true)
   let isInitializing = $state(true)
-  let model: ArrayBuffer
 
   // Can't use async function inside $effect
   $effect(function fetchModel() {
