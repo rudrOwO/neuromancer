@@ -1,7 +1,7 @@
 <script lang="ts">
   import DigitInputPanel from "@components/DigitInputPanel.svelte"
   import { modelURL } from "@onnx/mnist/constants"
-  import { initializeModel } from "@ui/utils"
+  import { initializeModel } from "bridge"
 
   let model: ArrayBuffer
 
@@ -31,7 +31,7 @@
           isInitializing = false
         })
         .catch((error) => {
-          console.error("Model Initialization failed", error)
+          console.error("Error INITIALIZING model", error)
           isError = true
         })
     }
