@@ -3,7 +3,7 @@ import { onnxRuntime } from "main"
 
 export type InitializationRequest = {
   action: "initialize"
-  serializedModel: ArrayBuffer
+  modelURL: string
 }
 
 export type RunRequest = {
@@ -22,7 +22,7 @@ export type RunResponse = {
 }
 
 export function initializeModel(
-  serializedModel: ArrayBuffer,
+  modelURL: string,
 ): Promise<InitializationResponse> {
   return new Promise((resolve, reject) => {
     const eventHandler = function (
@@ -39,9 +39,9 @@ export function initializeModel(
 
     const message: InitializationRequest = {
       action: "initialize",
-      serializedModel,
+      modelURL,
     }
-    onnxRuntime.postMessage(message, { transfer: [serializedModel] })
+    onnxRuntime.postMessage(message)
   })
 }
 
