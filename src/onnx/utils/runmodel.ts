@@ -17,30 +17,25 @@ export async function warmupModel(model: InferenceSession, dims: number[]) {
 
   const feeds: Record<string, Tensor> = {}
   feeds[model.inputNames[0]] = warmupTensor
-  // DEBUG  Remove this log
-  const result = await model.run(feeds)
-  console.log(result)
+  await model.run(feeds)
 }
 
 export async function runModel(
   model: InferenceSession,
   preprocessedData: Tensor,
-): Promise<[Tensor, number]> {
-  const start = new Date()
+) {
+  // const start = new Date()
   try {
     const feeds: Record<string, Tensor> = {}
     feeds[model.inputNames[0]] = preprocessedData
-    const outputData = await model.run(feeds)
-    const end = new Date()
-    const inferenceTime = end.getTime() - start.getTime()
-    // TODO  Modify this to emit activation maps as well
-    const output = outputData[model.outputNames[0]]
+    const output = await model.run(feeds)
 
-    console.log(`Model run with time ${inferenceTime}`)
+    // const end = new Date()
+    // const inferenceTime = end.getTime() - start.getTime()
+    // console.log(`Model run with time ${inferenceTime}`)
 
-    return [output, inferenceTime]
+    return output
   } catch (error) {
-    console.error("Error while RUNNING model", error)
     throw error
   }
 }

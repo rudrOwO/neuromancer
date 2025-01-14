@@ -1,24 +1,35 @@
-import type { Tensor } from "onnxruntime-web"
+import type { Tensor, InferenceSession } from "onnxruntime-web"
 import { onnxRuntime } from "main"
 
-export type Request = {
-  action: "initialize" | "run"
-  payload: ArrayBuffer
+export type InitializationRequest = {
+  action: "initialize"
+  serializedModel: ArrayBuffer
+}
+
+export type RunRequest = {
+  action: "run"
+  inputTensor: Tensor
 }
 
 export type InitializationResponse = {
   isSuccessful: boolean
 }
 
-export type ResultResponse = {}
+export type RunResponse = {
+  isSuccessful: boolean
+  layers: InferenceSession.OnnxValueMapType
+  predictions: Array<number>
+}
 
-export function initializeModel(model: ArrayBuffer): Promise<void> {
+export function initializeModel(
+  serializedModel: ArrayBuffer,
+): Promise<InitializationResponse> {
   return new Promise((resolve, reject) => {
     const eventHandler = function (
       event: MessageEvent<InitializationResponse>,
     ) {
       if (event.data.isSuccessful == true) {
-        resolve()
+        resolve(event.data)
       } else {
         reject()
       }
@@ -26,14 +37,30 @@ export function initializeModel(model: ArrayBuffer): Promise<void> {
     }
     onnxRuntime.addEventListener("message", eventHandler)
 
-    const message: Request = {
+    const message: InitializationRequest = {
       action: "initialize",
-      payload: model,
+      serializedModel,
     }
-    onnxRuntime.postMessage(message, { transfer: [model] })
+    onnxRuntime.postMessage(message, { transfer: [serializedModel] })
   })
 }
 
-export function runModel(inputTensor: Tensor): Promise<ResultResponse> {
-  return new Promise((resolve) => {})
+export function runModel(inputTensor: Tensor): Promise<RunResponse> {
+  return new Promise((resolve, reject) => {
+    const eventHandler = function (event: MessageEvent<RunResponse>) {
+      if (event.data.isSuccessful == true) {
+        resolve(event.data)
+      } else {
+        reject()
+      }
+      onnxRuntime.removeEventListener("message", eventHandler)
+    }
+    onnxRuntime.addEventListener("message", eventHandler)
+
+    const message: RunRequest = {
+      action: "run",
+      inputTensor,
+    }
+    onnxRuntime.postMessage(message, { transfer: [inputTensor] })
+  })
 }
