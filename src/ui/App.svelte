@@ -1,7 +1,7 @@
 <script lang="ts">
   import DigitInputPanel from "@components/DigitInputPanel.svelte"
   import { modelURL } from "@onnx/mnist/constants"
-  import { initializeModel } from "bridge"
+  import { initializeModel, runModel } from "bridge"
 
   let isError = $state(false)
   let isInitializing = $state(true)
@@ -9,6 +9,13 @@
   $effect(function () {
     if (!isInitializing) {
       console.log("Model Initialzed")
+
+      // const dims = [1, 1, 28, 28]
+      // const size = dims.reduce((a, b) => a * b)
+      //
+      // runModel(new Float32Array(size)).then((response) => {
+      //   console.log(response)
+      // })
     }
   })
 

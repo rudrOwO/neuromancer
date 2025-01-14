@@ -4,7 +4,7 @@ import type {
   InitializationResponse,
   RunResponse,
 } from "bridge"
-import type { InferenceSession } from "onnxruntime-web"
+import { Tensor, type InferenceSession } from "onnxruntime-web"
 import { createModel, runModel, warmupModel } from "@onnx/utils/runmodel"
 import { inputDimension } from "@onnx/mnist/constants"
 
@@ -25,20 +25,31 @@ onmessage = async (event: MessageEvent<InitializationRequest | RunRequest>) => {
   } else {
     let response: RunResponse
     try {
-      const result = await runModel(model, event.data.inputTensor)
+      const size = inputDimension.reduce((a, b) => a * b)
+      const inputTensor = new Tensor(
+        "float32",
+        new Float32Array(size),
+        inputDimension,
+      )
+      const result = await runModel(model, inputTensor)
       response = {
-        layers: result,
-        predictions: [0], // NOTE  Call Postprocess here
+        nodes: result,
         isSuccessful: true,
       }
     } catch (error) {
       console.error("Error while RUNNING model", error)
       response = {
-        layers: null!,
-        predictions: null!,
+        nodes: null!,
         isSuccessful: false,
       }
     }
-    postMessage(response)
+
+    // PERF  Transfering buffers instead of copying them over
+    const transfer = []
+    for (const tensor of Object.values(response.nodes)) {
+      //@ts-ignore
+      transfer.push(tensor.data.buffer)
+    }
+    postMessage(response, { transfer })
   }
 }

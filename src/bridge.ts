@@ -1,4 +1,4 @@
-import type { Tensor, InferenceSession } from "onnxruntime-web"
+import type { InferenceSession } from "onnxruntime-web"
 import { onnxRuntime } from "main"
 
 export type InitializationRequest = {
@@ -8,7 +8,7 @@ export type InitializationRequest = {
 
 export type RunRequest = {
   action: "run"
-  inputTensor: Tensor
+  inputArraybuffer: Float32Array
 }
 
 export type InitializationResponse = {
@@ -17,8 +17,7 @@ export type InitializationResponse = {
 
 export type RunResponse = {
   isSuccessful: boolean
-  layers: InferenceSession.OnnxValueMapType
-  predictions: Array<number>
+  nodes: InferenceSession.OnnxValueMapType
 }
 
 export function initializeModel(
@@ -45,7 +44,7 @@ export function initializeModel(
   })
 }
 
-export function runModel(inputTensor: Tensor): Promise<RunResponse> {
+export function runModel(inputArraybuffer: Float32Array): Promise<RunResponse> {
   return new Promise((resolve, reject) => {
     const eventHandler = function (event: MessageEvent<RunResponse>) {
       if (event.data.isSuccessful == true) {
@@ -59,8 +58,9 @@ export function runModel(inputTensor: Tensor): Promise<RunResponse> {
 
     const message: RunRequest = {
       action: "run",
-      inputTensor,
+      inputArraybuffer,
     }
-    onnxRuntime.postMessage(message, { transfer: [inputTensor] })
+
+    onnxRuntime.postMessage(message, { transfer: [inputArraybuffer.buffer] })
   })
 }
