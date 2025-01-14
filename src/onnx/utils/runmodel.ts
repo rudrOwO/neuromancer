@@ -1,9 +1,9 @@
 import { InferenceSession, Tensor } from "onnxruntime-web"
 
-export async function createModel(
-  model: ArrayBuffer,
-): Promise<InferenceSession> {
-  return await InferenceSession.create(model, { executionProviders: ["wasm"] })
+export async function createModel(modelURL: string): Promise<InferenceSession> {
+  return await InferenceSession.create(modelURL, {
+    executionProviders: ["wasm"],
+  })
 }
 
 export async function warmupModel(model: InferenceSession, dims: number[]) {

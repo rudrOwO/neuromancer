@@ -1,5 +1,9 @@
-import type { InitializationRequest, RunRequest } from "bridge"
-import type { InitializationResponse, RunResponse } from "bridge"
+import type {
+  InitializationRequest,
+  RunRequest,
+  InitializationResponse,
+  RunResponse,
+} from "bridge"
 import type { InferenceSession } from "onnxruntime-web"
 import { createModel, runModel, warmupModel } from "@onnx/utils/runmodel"
 import { inputDimension } from "@onnx/mnist/constants"
@@ -10,7 +14,7 @@ onmessage = async (event: MessageEvent<InitializationRequest | RunRequest>) => {
   if (event.data.action == "initialize") {
     let response: InitializationResponse
     try {
-      model = await createModel(event.data.serializedModel)
+      model = await createModel(event.data.modelURL)
       warmupModel(model, inputDimension) // No need to await this:
       response = { isSuccessful: true } // only a performance improvement for later runs
     } catch (error) {
