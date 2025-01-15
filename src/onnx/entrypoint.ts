@@ -3,10 +3,10 @@ import type {
   RunRequest,
   InitializationResponse,
   RunResponse,
-} from "bridge"
+} from "shared/bridge"
 import { Tensor, type InferenceSession } from "onnxruntime-web"
-import { createModel, runModel, warmupModel } from "@onnx/utils/runmodel"
-import { inputDimension } from "@onnx/mnist/constants"
+import { createModel, runModel, warmupModel } from "onnx/runmodel"
+import { inputDimension } from "shared/constants/mnist"
 
 let model: InferenceSession
 

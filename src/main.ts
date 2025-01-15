@@ -1,7 +1,7 @@
 import { mount } from "svelte"
-import "@ui/app.css"
-import App from "@ui/App.svelte"
-import ONNXRuntime from "@onnx/entrypoint.ts?worker"
+import "ui/app.css"
+import App from "ui/App.svelte"
+import ONNXRuntime from "onnx/entrypoint.ts?worker"
 
 export const onnxRuntime = new ONNXRuntime()
 
