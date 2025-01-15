@@ -1,7 +1,7 @@
 <script lang="ts">
   import DigitInputPanel from "@components/DigitInputPanel.svelte"
-  import { modelURL } from "@onnx/mnist/constants"
-  import { initializeModel, runModel } from "bridge"
+  import { modelURL } from "shared/constants/mnist"
+  import { initializeModel } from "shared/bridge"
 
   let isError = $state(false)
   let isInitializing = $state(true)
