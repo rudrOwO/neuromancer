@@ -5,3 +5,4 @@ export const ORDERED_OUTPUT_NODES = [
   "Pooling160_Output_0",
   "Plus214_Output_0",
 ]
+export const FINAL_NODE = "Plus214_Output_0"

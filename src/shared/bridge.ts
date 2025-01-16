@@ -10,13 +10,13 @@ export type InitializationResponse = {
   isSuccessful: boolean
 }
 
-export type RunRequest = {
+export type InferenceRequest = {
   action: "run"
   inputTensorData: Float32Array
   inputTensorDimension: number[]
 }
 
-export type RunResponse = {
+export type InferenceResponse = {
   isSuccessful: boolean
   outputNodes: {
     [key: string]: {
@@ -55,9 +55,9 @@ export function initializeModel(
 export function runModel(
   inputTensorData: Float32Array,
   inputTensorDimension: Array<number>,
-): Promise<RunResponse> {
+): Promise<InferenceResponse> {
   return new Promise((resolve, reject) => {
-    const eventHandler = function (event: MessageEvent<RunResponse>) {
+    const eventHandler = function (event: MessageEvent<InferenceResponse>) {
       if (event.data.isSuccessful == true) {
         resolve(event.data)
       } else {
@@ -67,7 +67,7 @@ export function runModel(
     }
     onnxRuntime.addEventListener("message", eventHandler)
 
-    const message: RunRequest = {
+    const message: InferenceRequest = {
       action: "run",
       inputTensorData,
       inputTensorDimension,
