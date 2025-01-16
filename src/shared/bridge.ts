@@ -1,27 +1,34 @@
-import type { InferenceSession } from "onnxruntime-web"
 import { onnxRuntime } from "main"
 
 export type InitializationRequest = {
   action: "initialize"
   modelURL: string
-}
-
-export type RunRequest = {
-  action: "run"
-  inputArraybuffer: Float32Array
+  inputTensorDimension: number[]
 }
 
 export type InitializationResponse = {
   isSuccessful: boolean
 }
 
+export type RunRequest = {
+  action: "run"
+  inputTensorData: Float32Array
+  inputTensorDimension: number[]
+}
+
 export type RunResponse = {
   isSuccessful: boolean
-  nodes: InferenceSession.OnnxValueMapType
+  outputNodes: {
+    [key: string]: {
+      tensorData: Float32Array
+      tensorDimension: readonly number[]
+    }
+  }
 }
 
 export function initializeModel(
   modelURL: string,
+  inputTensorDimension: number[],
 ): Promise<InitializationResponse> {
   return new Promise((resolve, reject) => {
     const eventHandler = function (
@@ -39,12 +46,16 @@ export function initializeModel(
     const message: InitializationRequest = {
       action: "initialize",
       modelURL,
+      inputTensorDimension,
     }
     onnxRuntime.postMessage(message)
   })
 }
 
-export function runModel(inputArraybuffer: Float32Array): Promise<RunResponse> {
+export function runModel(
+  inputTensorData: Float32Array,
+  inputTensorDimension: Array<number>,
+): Promise<RunResponse> {
   return new Promise((resolve, reject) => {
     const eventHandler = function (event: MessageEvent<RunResponse>) {
       if (event.data.isSuccessful == true) {
@@ -58,9 +69,10 @@ export function runModel(inputArraybuffer: Float32Array): Promise<RunResponse> {
 
     const message: RunRequest = {
       action: "run",
-      inputArraybuffer,
+      inputTensorData,
+      inputTensorDimension,
     }
 
-    onnxRuntime.postMessage(message, { transfer: [inputArraybuffer.buffer] })
+    onnxRuntime.postMessage(message, { transfer: [inputTensorData.buffer] })
   })
 }
