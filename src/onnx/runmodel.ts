@@ -24,14 +24,14 @@ export async function runModel(
   model: InferenceSession,
   preprocessedData: Tensor,
 ) {
-  // const start = new Date()
+  // const start = performance.now()
   try {
     const feeds: Record<string, Tensor> = {}
     feeds[model.inputNames[0]] = preprocessedData
     const output = await model.run(feeds)
 
-    // const end = new Date()
-    // const inferenceTime = end.getTime() - start.getTime()
+    // const end = performance.now()
+    // const inferenceTime = end - start
     // console.log(`Model run with time ${inferenceTime}`)
 
     return output

@@ -1,4 +1,4 @@
-export function softmax(arr: number[]): any {
+export function softmax(arr: number[]): number[] {
   const C = Math.max(...arr)
   const d = arr.map((y) => Math.exp(y - C)).reduce((a, b) => a + b)
   return arr.map((value, index) => {
@@ -7,7 +7,7 @@ export function softmax(arr: number[]): any {
 }
 
 /**
- * Find mindpoint of two points
+  Find mindpoint of two points
  */
 export function getMidpoint(p1: number[], p2: number[]): number[] {
   const [x1, y1] = p1
@@ -16,8 +16,8 @@ export function getMidpoint(p1: number[], p2: number[]): number[] {
 }
 
 /**
- * Gets the (x, y) coordinates of an UI event relative to its target,
- * e.g., canvas. Accounts for touch events as well as mouse events.
+  Gets the (x, y) coordinates of an UI event relative to its target,
+  e.g., canvas. Accounts for touch events as well as mouse events.
  */
 export function getCoordinates(e: any) {
   let { clientX, clientY } = e
@@ -32,7 +32,7 @@ export function getCoordinates(e: any) {
 }
 
 /**
- * Centers and crops canvas ImageData based on alpha channel.
+  Centers and crops canvas ImageData based on alpha channel.
  */
 export function centerCrop(imageData: ImageData): ImageData {
   const { data, width, height } = imageData

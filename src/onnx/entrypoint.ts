@@ -1,15 +1,17 @@
-import type {
-  InitializationRequest,
-  RunRequest,
-  InitializationResponse,
-  RunResponse,
-} from "shared/bridge"
-import { Tensor, type InferenceSession } from "onnxruntime-web"
 import { createModel, runModel, warmupModel } from "onnx/runmodel"
+import { Tensor, type InferenceSession } from "onnxruntime-web"
+import type {
+  InferenceRequest,
+  InferenceResponse,
+  InitializationRequest,
+  InitializationResponse,
+} from "shared/bridge"
 
 let model: InferenceSession
 
-onmessage = async (event: MessageEvent<InitializationRequest | RunRequest>) => {
+onmessage = async (
+  event: MessageEvent<InitializationRequest | InferenceRequest>,
+) => {
   if (event.data.action == "initialize") {
     let request = event.data
     let response: InitializationResponse = { isSuccessful: false }
@@ -24,11 +26,15 @@ onmessage = async (event: MessageEvent<InitializationRequest | RunRequest>) => {
     }
   } else {
     let request = event.data
-    let response: RunResponse = {
+    let response: InferenceResponse = {
       outputNodes: {},
       isSuccessful: false,
     }
-    const transfer = [] // PERF  Transfering buffers instead of copying them over
+    /*
+      Transfering buffers instead of an expresive serialized copy
+      https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects
+     */
+    const transfer = []
     try {
       const inputTensor = new Tensor(
         "float32",
