@@ -88,7 +88,13 @@
   }
 
   function deactivateDraw() {
-    isDrawing = false
+    /**
+      Doing this asynchronously to prevent race condition
+      with handleMouseMove()
+    */
+    setTimeout(() => {
+      isDrawing = false
+    }, 1000 / 60) // In a 60 FPS setting, this is the delay between two frames
   }
 
   function draw(e: any) {
@@ -130,7 +136,7 @@
       await run()
       isDrawing = true
     })
-    deactivateDraw()
+    isDrawing = false
   }
 </script>
 
