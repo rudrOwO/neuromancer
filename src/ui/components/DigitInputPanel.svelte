@@ -15,7 +15,7 @@
   let canvasCenterCrop: HTMLCanvasElement
 
   let strokes: any = []
-  let drawing = false
+  let isDrawing = false
 
   function preProcess(ctx: CanvasRenderingContext2D): Float32Array {
     // center crop
@@ -58,10 +58,6 @@
   }
 
   async function run() {
-    if (!drawing) {
-      return
-    }
-    drawing = false
     const ctx = canvas.getContext("2d")!
     const inputTensorData = preProcess(ctx)
     inferenceResponse = await runModel(inputTensorData, INPUT_TENSOR_DIMENSION)
@@ -80,22 +76,22 @@
     const ctxScaled = canvasScaled.getContext("2d")!
     ctxScaled.clearRect(0, 0, ctxScaled.canvas.width, ctxScaled.canvas.height)
     inferenceResponse = null
-    drawing = false
     strokes = []
   }
 
   function activateDraw(e: any) {
-    drawing = true
+    isDrawing = true
     strokes.push([])
     const points = strokes[strokes.length - 1]
     points.push(getCoordinates(e))
     draw(e)
   }
 
+  function deactivateDraw() {
+    isDrawing = false
+  }
+
   function draw(e: any) {
-    if (!drawing) {
-      return
-    }
     // disable scrolling behavior when drawing
     e.preventDefault()
     const ctx = canvas.getContext("2d")!
@@ -124,6 +120,18 @@
       ctx.stroke()
     }
   }
+
+  function handleMouseMove(e: any) {
+    if (!isDrawing) {
+      return
+    }
+    requestAnimationFrame(async function () {
+      draw(e)
+      await run()
+      isDrawing = true
+    })
+    deactivateDraw()
+  }
 </script>
 
 <button class="p-2 rounded-md bg-slate-300 m-2" onclick={clear}>CLear</button>
@@ -134,12 +142,12 @@
   width="300"
   height="300"
   onmousedown={activateDraw}
-  onmouseup={run}
-  onmouseleave={run}
-  onmousemove={draw}
+  onmouseup={deactivateDraw}
+  onmouseleave={deactivateDraw}
+  onmousemove={handleMouseMove}
   ontouchstart={activateDraw}
-  ontouchend={run}
-  ontouchmove={draw}
+  ontouchend={deactivateDraw}
+  ontouchmove={handleMouseMove}
 ></canvas>
 <canvas bind:this={canvasScaled} id="input-canvas-scaled" width="28" height="28"
 ></canvas>
