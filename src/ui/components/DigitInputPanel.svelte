@@ -16,6 +16,7 @@
 
   let strokes: any = []
   let isDrawing = false
+  let isThrottled = false
 
   function preProcess(ctx: CanvasRenderingContext2D): Float32Array {
     // center crop
@@ -79,7 +80,7 @@
     strokes = []
   }
 
-  function activateDraw(e: any) {
+  function startDraw(e: any) {
     isDrawing = true
     strokes.push([])
     const points = strokes[strokes.length - 1]
@@ -87,14 +88,8 @@
     draw(e)
   }
 
-  function deactivateDraw() {
-    /**
-      Doing this asynchronously to prevent race condition
-      with handleMouseMove()
-    */
-    setTimeout(() => {
-      isDrawing = false
-    }, 1000 / 60) // In a 60 FPS setting, this is the delay between two frames
+  function stopDraw() {
+    isDrawing = false
   }
 
   function draw(e: any) {
@@ -128,31 +123,31 @@
   }
 
   function handleMouseMove(e: any) {
-    if (!isDrawing) {
+    if (!isDrawing || isThrottled) {
       return
     }
     requestAnimationFrame(async function () {
       draw(e)
       await run()
-      isDrawing = true
+      isThrottled = false
     })
-    isDrawing = false
+    isThrottled = true
   }
 </script>
 
-<button class="p-2 rounded-md bg-slate-300 m-2" onclick={clear}>CLear</button>
+<button class="p-2 rounded-md bg-slate-300 m-2" onclick={clear}>Clear</button>
 <canvas
   bind:this={canvas}
   class="bg-slate-500"
   id="input-canvas"
   width="300"
   height="300"
-  onmousedown={activateDraw}
-  onmouseup={deactivateDraw}
-  onmouseleave={deactivateDraw}
+  onmousedown={startDraw}
+  onmouseup={stopDraw}
+  onmouseleave={stopDraw}
   onmousemove={handleMouseMove}
-  ontouchstart={activateDraw}
-  ontouchend={deactivateDraw}
+  ontouchstart={startDraw}
+  ontouchend={stopDraw}
   ontouchmove={handleMouseMove}
 ></canvas>
 <canvas bind:this={canvasScaled} id="input-canvas-scaled" width="28" height="28"
