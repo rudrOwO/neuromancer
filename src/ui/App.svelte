@@ -10,6 +10,10 @@
 
   let inferenceResponse = $state<InferenceResponse | null>(null)
 
+  // $effect(function log() {
+  //   console.log(inferenceResponse?.outputNodes["Pooling66_Output_0"].tensorData)
+  // })
+
   $effect(function ready() {
     if (!isInitializing) {
       console.log("Model Initialzed")
@@ -27,7 +31,9 @@
   })
 </script>
 
-<main class="bg-slate-700 grid place-content-center h-screen">
-  <DigitInputPanel bind:inferenceResponse />
-  <OutputPanel {inferenceResponse} />
+<main class="bg-background h-screen">
+  <div class="flex flex-col justify-evenly fixed top-1/2 -translate-y-1/2 ml-4">
+    <DigitInputPanel bind:inferenceResponse />
+    <OutputPanel {inferenceResponse} />
+  </div>
 </main>

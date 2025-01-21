@@ -2,6 +2,7 @@
   import { softmax } from "@utils/math"
   import type { InferenceResponse } from "shared/bridge"
   import { FINAL_NODE } from "shared/constants/mnist"
+  import PanelTitle from "@components/PanelTitle.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse | null
@@ -27,16 +28,21 @@
   })
 </script>
 
-<div>
-  {#if predictions == null}
-    {#each new Array(10) as _, index}
-      <span class="block">
-        {index}:
-      </span>
-    {/each}
-  {:else}
-    {#each predictions as p}
-      <span class="block">{p.render}</span>
-    {/each}
-  {/if}
+{#snippet prediction(render: string)}
+  <div class="py-1 text-xl text-secondary">{render}</div>
+{/snippet}
+
+<div class="bg-primary flex-col rounded-lg mt-6">
+  <PanelTitle title="Digit Classification"></PanelTitle>
+  <div class="p-2">
+    {#if predictions == null}
+      {#each new Array(10) as _, index}
+        {@render prediction(`${index}:`)}
+      {/each}
+    {:else}
+      {#each predictions as p}
+        {@render prediction(p.render)}
+      {/each}
+    {/if}
+  </div>
 </div>
