@@ -6,6 +6,7 @@ import type {
   InitializationRequest,
   InitializationResponse,
 } from "shared/bridge"
+import { normaliseForRender, softmax } from "onnx/postprocess"
 
 let model: InferenceSession
 
@@ -27,8 +28,9 @@ onmessage = async (
   } else {
     let request = event.data
     let response: InferenceResponse = {
-      outputNodes: {},
+      orderedActivationMaps: [],
       isSuccessful: false,
+      predictions: [],
     }
     /*
       Transfering buffers instead of an expresive serialized copy
@@ -43,14 +45,21 @@ onmessage = async (
       )
       const inferenceResult = await runModel(model, inputTensor)
       response.isSuccessful = true
+      response.predictions = softmax(
+        inferenceResult[request.finalNodeName].data as Float32Array,
+      )
 
-      for (const [nodeName, tensor] of Object.entries(inferenceResult)) {
-        response.outputNodes[nodeName] = {
-          tensorData: tensor.data as Float32Array,
+      // Loading activation maps
+      for (const nodeName of request.orderedOutputNodeNames) {
+        const tensor = inferenceResult[nodeName]
+
+        const activationMap = {
+          tensorData: normaliseForRender(tensor.data as Float32Array),
           tensorDimension: tensor.dims,
         }
 
-        transfer.push((tensor.data as Float32Array).buffer)
+        response.orderedActivationMaps.push(activationMap)
+        transfer.push(activationMap.tensorData.buffer)
       }
     } catch (error) {
       console.error("Error while RUNNING model", error)
