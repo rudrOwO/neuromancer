@@ -1,5 +1,6 @@
 {
   "name": "neuromancer",
+  "description": "Real-time 3D visualilzer for neural networks running on the ONNX runtime",
   "private": true,
   "version": "0.0.0",
   "type": "module",
