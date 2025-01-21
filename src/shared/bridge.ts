@@ -14,16 +14,17 @@ export type InferenceRequest = {
   action: "run"
   inputTensorData: Float32Array
   inputTensorDimension: number[]
+  orderedOutputNodeNames: string[]
+  finalNodeName: string
 }
 
 export type InferenceResponse = {
   isSuccessful: boolean
-  outputNodes: {
-    [key: string]: {
-      tensorData: Float32Array
-      tensorDimension: readonly number[]
-    }
-  }
+  orderedActivationMaps: {
+    tensorData: Float32Array
+    tensorDimension: readonly number[]
+  }[]
+  predictions: number[]
 }
 
 export function initializeModel(
@@ -55,6 +56,8 @@ export function initializeModel(
 export function runModel(
   inputTensorData: Float32Array,
   inputTensorDimension: Array<number>,
+  orderedOutputNodeNames: string[],
+  finalNodeName: string,
 ): Promise<InferenceResponse> {
   return new Promise((resolve, reject) => {
     const eventHandler = function (event: MessageEvent<InferenceResponse>) {
@@ -71,6 +74,8 @@ export function runModel(
       action: "run",
       inputTensorData,
       inputTensorDimension,
+      orderedOutputNodeNames,
+      finalNodeName,
     }
 
     onnxRuntime.postMessage(message, { transfer: [inputTensorData.buffer] })

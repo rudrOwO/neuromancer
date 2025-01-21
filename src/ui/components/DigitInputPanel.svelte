@@ -2,7 +2,11 @@
   import { centerCrop, getCoordinates, getMidpoint } from "@utils/math"
   import type { InferenceResponse } from "shared/bridge"
   import { runModel } from "shared/bridge"
-  import { INPUT_TENSOR_DIMENSION } from "shared/constants/mnist"
+  import {
+    FINAL_NODE,
+    INPUT_TENSOR_DIMENSION,
+    ORDERED_OUTPUT_NODES,
+  } from "shared/constants/mnist"
   import theme from "shared/constants/theme.js"
   import ClearButton from "./ClearButton.svelte"
   import PanelTitle from "@components/PanelTitle.svelte"
@@ -64,7 +68,12 @@
   async function run() {
     const ctx = canvas.getContext("2d")!
     const inputTensorData = preProcess(ctx)
-    inferenceResponse = await runModel(inputTensorData, INPUT_TENSOR_DIMENSION)
+    inferenceResponse = await runModel(
+      inputTensorData,
+      INPUT_TENSOR_DIMENSION,
+      ORDERED_OUTPUT_NODES,
+      FINAL_NODE,
+    )
   }
 
   function clear() {
