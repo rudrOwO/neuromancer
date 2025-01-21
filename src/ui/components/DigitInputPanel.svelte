@@ -3,6 +3,9 @@
   import type { InferenceResponse } from "shared/bridge"
   import { runModel } from "shared/bridge"
   import { INPUT_TENSOR_DIMENSION } from "shared/constants/mnist"
+  import theme from "shared/constants/theme.js"
+  import ClearButton from "./ClearButton.svelte"
+  import PanelTitle from "@components/PanelTitle.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse | null
@@ -98,7 +101,7 @@
     const ctx = canvas.getContext("2d")!
     ctx.lineWidth = 20
     ctx.lineJoin = ctx.lineCap = "round"
-    ctx.strokeStyle = "#393E46"
+    ctx.strokeStyle = theme.colors.secondary
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     let points = strokes[strokes.length - 1]
     points.push(getCoordinates(e))
@@ -135,22 +138,32 @@
   }
 </script>
 
-<button class="p-2 rounded-md bg-slate-300 m-2" onclick={clear}>Clear</button>
+<div
+  class="bg-primary flex flex-col rounded-lg opacity-85 hover:opacity-100 hover:scale-[1.02] transition duration-300"
+>
+  <PanelTitle title="Draw a digit (0-9)"></PanelTitle>
+  <canvas
+    bind:this={canvas}
+    class="cursor-crosshair"
+    id="input-canvas"
+    width="300"
+    height="300"
+    onmousedown={startDraw}
+    onmouseup={stopDraw}
+    onmouseleave={stopDraw}
+    onmousemove={handleMouseMove}
+    ontouchstart={startDraw}
+    ontouchend={stopDraw}
+    ontouchmove={handleMouseMove}
+  ></canvas>
+  <ClearButton onclick={clear} />
+</div>
 <canvas
-  bind:this={canvas}
-  class="bg-slate-500"
-  id="input-canvas"
-  width="300"
-  height="300"
-  onmousedown={startDraw}
-  onmouseup={stopDraw}
-  onmouseleave={stopDraw}
-  onmousemove={handleMouseMove}
-  ontouchstart={startDraw}
-  ontouchend={stopDraw}
-  ontouchmove={handleMouseMove}
-></canvas>
-<canvas bind:this={canvasScaled} id="input-canvas-scaled" width="28" height="28"
+  bind:this={canvasScaled}
+  id="input-canvas-scaled"
+  width="28"
+  height="28"
+  style="display: none"
 ></canvas>
 <canvas
   bind:this={canvasCenterCrop}
