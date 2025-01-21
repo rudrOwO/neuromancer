@@ -10,9 +10,7 @@
 
   let inferenceResponse = $state<InferenceResponse | null>(null)
 
-  // $effect(function log() {
-  //   console.log(inferenceResponse?.outputNodes["Pooling66_Output_0"].tensorData)
-  // })
+  // $inspect(inferenceResponse)
 
   $effect(function ready() {
     if (!isInitializing) {

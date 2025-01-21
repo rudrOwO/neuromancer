@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { softmax } from "@utils/math"
   import type { InferenceResponse } from "shared/bridge"
-  import { FINAL_NODE } from "shared/constants/mnist"
   import PanelTitle from "@components/PanelTitle.svelte"
 
   type Props = {
@@ -15,9 +13,7 @@
       return null
     }
 
-    return softmax(
-      Array.from(inferenceResponse.outputNodes[FINAL_NODE].tensorData),
-    )
+    return inferenceResponse.predictions
       .map((prediction, index) => ({
         prediction,
         render: `${index}: ${(prediction * 100).toFixed(2)}%`,
