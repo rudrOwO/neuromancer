@@ -21,21 +21,29 @@
   let canvasScaled: HTMLCanvasElement
   let canvasCenterCrop: HTMLCanvasElement
 
+  let ctx: CanvasRenderingContext2D
+  let ctxCenterCrop: CanvasRenderingContext2D
+  let ctxScaled: CanvasRenderingContext2D
+
   let strokes: any = []
   let isDrawing = false
   let isThrottled = false
 
-  function preProcess(ctx: CanvasRenderingContext2D): Float32Array {
+  $effect(() => {
+    ctx = canvas.getContext("2d", { willReadFrequently: true })!
+    ctxCenterCrop = canvasCenterCrop.getContext("2d")!
+    ctxScaled = canvasScaled.getContext("2d", { willReadFrequently: true })!
+  })
+
+  function preProcess(): Float32Array {
     // center crop
     const imageDataCenterCrop = centerCrop(
       ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height),
     )
-    const ctxCenterCrop = canvasCenterCrop.getContext("2d")!
     ctxCenterCrop.canvas.width = imageDataCenterCrop.width
     ctxCenterCrop.canvas.height = imageDataCenterCrop.height
     ctxCenterCrop.putImageData(imageDataCenterCrop, 0, 0)
     // scaled to 28 x 28
-    const ctxScaled = canvasScaled.getContext("2d")!
     ctxScaled.save()
     ctxScaled.scale(
       28 / ctxCenterCrop.canvas.width,
@@ -66,8 +74,7 @@
   }
 
   async function run() {
-    const ctx = canvas.getContext("2d")!
-    const inputTensorData = preProcess(ctx)
+    const inputTensorData = preProcess()
     inferenceResponse = await runModel(
       inputTensorData,
       INPUT_TENSOR_DIMENSION,
@@ -77,16 +84,13 @@
   }
 
   function clear() {
-    const ctx = canvas.getContext("2d")!
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    const ctxCenterCrop = canvasCenterCrop.getContext("2d")!
     ctxCenterCrop.clearRect(
       0,
       0,
       ctxCenterCrop.canvas.width,
       ctxCenterCrop.canvas.height,
     )
-    const ctxScaled = canvasScaled.getContext("2d")!
     ctxScaled.clearRect(0, 0, ctxScaled.canvas.width, ctxScaled.canvas.height)
     inferenceResponse = null
     strokes = []
@@ -107,7 +111,6 @@
   function draw(e: any) {
     // disable scrolling behavior when drawing
     e.preventDefault()
-    const ctx = canvas.getContext("2d")!
     ctx.lineWidth = 20
     ctx.lineJoin = ctx.lineCap = "round"
     ctx.strokeStyle = theme.colors.secondary
