@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { InferenceResponse } from "shared/bridge"
+  import type { InferenceResponse } from "bridge"
   import PanelTitle from "@components/PanelTitle.svelte"
 
   type Props = {

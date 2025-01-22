@@ -1,13 +1,13 @@
 <script lang="ts">
   import { centerCrop, getCoordinates, getMidpoint } from "@utils/math"
-  import type { InferenceResponse } from "shared/bridge"
-  import { runModel } from "shared/bridge"
+  import type { InferenceResponse } from "bridge"
+  import { runModel } from "bridge"
   import {
     FINAL_NODE,
     INPUT_TENSOR_DIMENSION,
     ORDERED_OUTPUT_NODES,
-  } from "shared/constants/mnist"
-  import theme from "shared/constants/theme.js"
+  } from "ui/constants/mnist"
+  import theme from "ui/constants/theme.js"
   import ClearButton from "./ClearButton.svelte"
   import PanelTitle from "@components/PanelTitle.svelte"
 
