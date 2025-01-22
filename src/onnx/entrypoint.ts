@@ -5,7 +5,7 @@ import type {
   InferenceResponse,
   InitializationRequest,
   InitializationResponse,
-} from "shared/bridge"
+} from "bridge"
 import { normaliseForRender, softmax } from "onnx/postprocess"
 
 let model: InferenceSession
