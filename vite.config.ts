@@ -40,4 +40,5 @@ export default defineConfig({
   worker: {
     plugins: () => [tsconfigPaths()],
   },
+  envDir: "./env/",
 })
