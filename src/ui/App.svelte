@@ -6,6 +6,7 @@
   import { INPUT_TENSOR_DIMENSION, MODEL_URL } from "ui/constants/mnist"
 
   let inferenceResponse = $state<InferenceResponse | null>(null)
+  let inputTensorData = $state<Float32Array | null>(null)
 </script>
 
 <main class="bg-background h-screen">
@@ -15,7 +16,7 @@
     <div
       class="flex flex-col justify-evenly fixed top-1/2 -translate-y-1/2 ml-4"
     >
-      <DigitInputPanel bind:inferenceResponse />
+      <DigitInputPanel bind:inferenceResponse bind:inputTensorData />
       <OutputPanel {inferenceResponse} />
     </div>
   {:catch error}
