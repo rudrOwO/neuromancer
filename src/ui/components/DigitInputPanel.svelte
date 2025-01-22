@@ -13,9 +13,13 @@
 
   type Props = {
     inferenceResponse: InferenceResponse | null
+    inputTensorData: Float32Array | null
   }
 
-  let { inferenceResponse = $bindable() }: Props = $props()
+  let {
+    inputTensorData = $bindable(),
+    inferenceResponse = $bindable(),
+  }: Props = $props()
 
   let canvas: HTMLCanvasElement
   let canvasScaled: HTMLCanvasElement
@@ -73,16 +77,6 @@
     return input
   }
 
-  async function run() {
-    const inputTensorData = preProcess()
-    inferenceResponse = await runModel(
-      inputTensorData,
-      INPUT_TENSOR_DIMENSION,
-      ORDERED_OUTPUT_NODES,
-      FINAL_NODE,
-    )
-  }
-
   function clear() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     ctxCenterCrop.clearRect(
@@ -92,6 +86,7 @@
       ctxCenterCrop.canvas.height,
     )
     ctxScaled.clearRect(0, 0, ctxScaled.canvas.width, ctxScaled.canvas.height)
+    inputTensorData = null
     inferenceResponse = null
     strokes = []
   }
@@ -143,7 +138,13 @@
     }
     requestAnimationFrame(async function () {
       draw(e)
-      await run()
+      inputTensorData = preProcess()
+      inferenceResponse = await runModel(
+        inputTensorData,
+        INPUT_TENSOR_DIMENSION,
+        ORDERED_OUTPUT_NODES,
+        FINAL_NODE,
+      )
       isThrottled = false
     })
     isThrottled = true
