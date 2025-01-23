@@ -8,7 +8,7 @@
 
   let { inferenceResponse }: Props = $props()
 
-  let predictions = $derived.by(function postProces() {
+  let predictions = $derived.by(() => {
     if (inferenceResponse == null) {
       return null
     }
