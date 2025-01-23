@@ -13,12 +13,12 @@
 
   type Props = {
     inferenceResponse: InferenceResponse | null
-    inputTensorData: Float32Array | null
+    renderTensorData: Float32Array | null
   }
 
   let {
-    inputTensorData = $bindable(),
     inferenceResponse = $bindable(),
+    renderTensorData = $bindable(),
   }: Props = $props()
 
   let canvas: HTMLCanvasElement
@@ -39,7 +39,10 @@
     ctxScaled = canvasScaled.getContext("2d", { willReadFrequently: true })!
   })
 
-  function preProcess(): Float32Array {
+  function preProcess(): {
+    activationTensorData: Float32Array
+    renderTensorData: Float32Array
+  } {
     // center crop
     const imageDataCenterCrop = centerCrop(
       ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height),
@@ -69,12 +72,15 @@
     ctxScaled.restore()
     // process image data for model input
     const { data } = imageDataScaled
-    const input = new Float32Array(784)
+    const activationTensorData = new Float32Array(784)
+    const renderTensorData = new Float32Array(784)
+
     for (let i = 0, len = data.length; i < len; i += 4) {
-      input[i / 4] = data[i + 3] / 255
+      activationTensorData[i / 4] = data[i + 3] / 255
+      renderTensorData[i / 4] = data[i + 3]
     }
 
-    return input
+    return { activationTensorData, renderTensorData }
   }
 
   function clear() {
@@ -86,7 +92,7 @@
       ctxCenterCrop.canvas.height,
     )
     ctxScaled.clearRect(0, 0, ctxScaled.canvas.width, ctxScaled.canvas.height)
-    inputTensorData = null
+    renderTensorData = null
     inferenceResponse = null
     strokes = []
   }
@@ -138,13 +144,16 @@
     }
     requestAnimationFrame(async function () {
       draw(e)
-      inputTensorData = preProcess()
+      const preProcessResult = preProcess()
+
       inferenceResponse = await runModel(
-        inputTensorData,
+        preProcessResult.activationTensorData,
         INPUT_TENSOR_DIMENSION,
         ORDERED_OUTPUT_NODES,
         FINAL_NODE,
       )
+      renderTensorData = preProcessResult.renderTensorData
+
       isThrottled = false
     })
     isThrottled = true
