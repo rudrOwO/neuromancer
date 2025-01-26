@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-text-color: #edebf5;
+  --color-background: #212121;
+  --color-secondary: #edebf5;
+  --color-accent: #484491;
+}
 
 span.ripple {
   position: absolute;

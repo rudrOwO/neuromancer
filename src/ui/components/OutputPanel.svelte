@@ -24,7 +24,7 @@
   })
 </script>
 
-<div class="bg-primary flex-col rounded-lg mt-6">
+<div class="bg-background flex-col rounded-lg mt-6">
   <PanelTitle title="Digit Classification"></PanelTitle>
   <div class="p-2">
     {#if predictions == null}
@@ -40,5 +40,5 @@
 </div>
 
 {#snippet prediction(render: string)}
-  <div class="py-1 text-xl text-secondary">{render}</div>
+  <div class="py-1 text-xl text-text-color">{render}</div>
 {/snippet}

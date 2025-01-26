@@ -6,7 +6,7 @@
 </script>
 
 <div
-  class="w-full text-center text-secondary text-2xl p-1 bg-accent rounded-t-lg shadow-xl"
+  class="w-full text-center text-text-color text-2xl p-1 bg-accent rounded-t-lg shadow-xl"
 >
   {title}
 </div>
