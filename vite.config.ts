@@ -3,6 +3,7 @@ import path from "path"
 import { defineConfig, Plugin } from "vite"
 import { svelte } from "@sveltejs/vite-plugin-svelte"
 import tsconfigPaths from "vite-tsconfig-paths"
+import tailwindcss from "@tailwindcss/vite"
 
 const wasmMimeTypePlugin: Plugin = {
   name: "wasm-mime-type-plugin",
@@ -36,7 +37,7 @@ const wasmMimeTypePlugin: Plugin = {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [svelte(), tsconfigPaths(), wasmMimeTypePlugin],
+  plugins: [svelte(), tsconfigPaths(), tailwindcss(), wasmMimeTypePlugin],
   worker: {
     plugins: () => [tsconfigPaths()],
   },

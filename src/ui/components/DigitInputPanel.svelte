@@ -7,7 +7,6 @@
     INPUT_TENSOR_DIMENSION,
     ORDERED_OUTPUT_NODES,
   } from "ui/constants/mnist"
-  import theme from "ui/constants/theme.js"
   import ClearButton from "./ClearButton.svelte"
   import PanelTitle from "@components/PanelTitle.svelte"
 
@@ -114,7 +113,7 @@
     e.preventDefault()
     ctx.lineWidth = 20
     ctx.lineJoin = ctx.lineCap = "round"
-    ctx.strokeStyle = theme.colors.secondary
+    ctx.strokeStyle = window.getComputedStyle(canvas).color
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     let points = strokes[strokes.length - 1]
     points.push(getCoordinates(e))
@@ -161,12 +160,12 @@
 </script>
 
 <div
-  class="bg-primary flex flex-col rounded-lg opacity-85 hover:opacity-100 hover:scale-[1.02] transition duration-300"
+  class="bg-background flex flex-col rounded-lg opacity-85 hover:opacity-100 hover:scale-[1.02] transition duration-300"
 >
   <PanelTitle title="Draw a digit (0-9)"></PanelTitle>
   <canvas
     bind:this={canvas}
-    class="cursor-crosshair"
+    class="cursor-crosshair text-text-color"
     id="input-canvas"
     width="300"
     height="300"

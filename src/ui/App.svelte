@@ -9,7 +9,7 @@
   let renderTensorData = $state<Float32Array | null>(null)
 </script>
 
-<main class="bg-background h-screen">
+<main class="bg-black h-screen">
   {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
     {@render placeholder("Initiliazing Model...")}
   {:then}
@@ -25,5 +25,5 @@
 </main>
 
 {#snippet placeholder(message: string)}
-  <p class="text-secondary text-4xl">{message}</p>
+  <p class="text-text-color text-4xl">{message}</p>
 {/snippet}
