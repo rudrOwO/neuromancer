@@ -25,5 +25,7 @@
 </main>
 
 {#snippet placeholder(message: string)}
-  <p class="text-text-color text-4xl">{message}</p>
+  <p class="fixed grid place-items-center inset-0 text-text-color text-4xl">
+    <span>{message}</span>
+  </p>
 {/snippet}
