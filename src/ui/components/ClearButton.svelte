@@ -38,7 +38,7 @@
 
 <button
   bind:this={btn}
-  class="flex justify-center items-center rounded-b-lg p-2 min-w-max overflow-hidden shadow relative bg-red-500 text-white hover:bg-opacity-90"
+  class="cursor-pointer flex justify-center items-center rounded-b-lg p-2 min-w-max overflow-hidden shadow relative bg-red-500 text-white hover:bg-opacity-90"
   {onclick}
 >
   <img class="h-10 mx-1" src="/clear-icon.svg" alt="Clear Button" />
