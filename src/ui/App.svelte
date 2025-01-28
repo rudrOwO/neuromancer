@@ -14,7 +14,7 @@
     {@render placeholder("Initiliazing Model...")}
   {:then}
     <div
-      class="flex flex-col justify-evenly fixed top-1/2 -translate-y-1/2 ml-4"
+      class="left-0 right-0 sm:left-4 sm:right-auto flex flex-col fixed h-screen justify-between sm:justify-center top-1/2 -translate-y-1/2"
     >
       <DigitInputPanel bind:inferenceResponse bind:renderTensorData />
       <OutputPanel {inferenceResponse} />
