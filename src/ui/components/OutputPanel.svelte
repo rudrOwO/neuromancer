@@ -1,6 +1,5 @@
 <script lang="ts">
   import type { InferenceResponse } from "bridge"
-  import PanelTitle from "@components/PanelTitle.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse | null
@@ -24,8 +23,13 @@
   })
 </script>
 
-<div class="bg-background flex-col rounded-lg mt-6">
-  <PanelTitle title="Digit Classification"></PanelTitle>
+<div class="bg-background flex-col sm:rounded-lg sm:mt-6">
+  <div
+    class="w-full text-center text-text-color text-2xl p-1 bg-accent rounded-t-lg shadow-xl"
+  >
+    Digit Classification
+  </div>
+
   <div class="p-2">
     {#if predictions == null}
       {#each new Array(10) as _, index}
