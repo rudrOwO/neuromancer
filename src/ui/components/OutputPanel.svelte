@@ -1,20 +1,30 @@
 <script lang="ts">
   import type { InferenceResponse } from "bridge"
-  import PanelTitle from "@components/PanelTitle.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse | null
-    isMobile: boolean
   }
 
-  const { inferenceResponse, isMobile }: Props = $props()
+  const { inferenceResponse }: Props = $props()
+
+  // let isMobile = $state(false)
+  //
+  // const updateScreenSize = () => {
+  //   isMobile = window.matchMedia("(max-width: 360px)").matches
+  // }
+  //
+  // $effect(() => {
+  //   updateScreenSize()
+  //   window.addEventListener("resize", updateScreenSize)
+  //   return () => window.removeEventListener("resize", updateScreenSize)
+  // })
 
   const predictions = $derived.by(() => {
     if (inferenceResponse == null) {
       return null
     }
 
-    const sortedList = inferenceResponse.predictions
+    return inferenceResponse.predictions
       .map((prediction, index) => ({
         prediction,
         render: `${index}: ${(prediction * 100).toFixed(2)}%`,
@@ -22,21 +32,13 @@
       .sort((a, b) => {
         return b.prediction - a.prediction
       })
-
-    if (isMobile) {
-      return sortedList.slice(0, 3)
-    } else {
-      return sortedList
-    }
   })
 </script>
 
-<div class="bg-background w-[300px] flex-col rounded-lg">
-  <PanelTitle title="Digit Classification" />
+<div class="bg-background w-[40px] h-screen mr-[10px] flex-col rounded-lg">
   <div class="p-2">
     {#if predictions == null}
-      {@const defaultSize = isMobile ? 3 : 10}
-      {#each new Array(defaultSize) as _, index}
+      {#each new Array(10) as _, index}
         {@render prediction(`${index}:`)}
       {/each}
     {:else}
