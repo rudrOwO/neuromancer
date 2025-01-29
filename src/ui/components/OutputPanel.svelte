@@ -7,18 +7,6 @@
 
   const { inferenceResponse }: Props = $props()
 
-  // let isMobile = $state(false)
-  //
-  // const updateScreenSize = () => {
-  //   isMobile = window.matchMedia("(max-width: 360px)").matches
-  // }
-  //
-  // $effect(() => {
-  //   updateScreenSize()
-  //   window.addEventListener("resize", updateScreenSize)
-  //   return () => window.removeEventListener("resize", updateScreenSize)
-  // })
-
   const predictions = $derived.by(() => {
     if (inferenceResponse == null) {
       return null
@@ -35,10 +23,13 @@
   })
 </script>
 
-<div class="bg-background w-[40px] h-screen mr-[10px] flex-col rounded-lg">
+<div
+  class="flex-col fixed bg-background w-[40px] sm:w-12 h-[95vh] self-center ml-2 rounded-lg"
+>
   <div class="p-2">
     {#if predictions == null}
       {#each new Array(10) as _, index}
+        <!-- TODO  Give 10% to every bar -->
         {@render prediction(`${index}:`)}
       {/each}
     {:else}
