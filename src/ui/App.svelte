@@ -20,8 +20,10 @@
   {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
     {@render placeholder("Initiliazing Model...")}
   {:then}
-    <div class="flex fixed left-2 top-2 rounded-lg overflow-hidden">
-      <OutputPanel {inferenceResponse} />
+    <OutputPanel {inferenceResponse} />
+    <div
+      class="flex fixed right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden"
+    >
       {#if isUIVisible}
         <DigitInputPanel
           bind:inferenceResponse
@@ -35,7 +37,7 @@
             iconSrc="/canvas-icon.svg"
             altText="Show Canvas"
             text="Show Canvas"
-            color="bg-accent"
+            color="bg-accent-0"
           />
         </div>
       {/if}
