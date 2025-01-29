@@ -23,9 +23,9 @@
   })
 </script>
 
-<div class="bg-background flex-col sm:rounded-lg sm:mt-6">
+<div class="bg-background w-[300px] flex-col sm:rounded-lg sm:mt-6">
   <div
-    class="w-full text-center text-text-color text-2xl p-1 bg-accent rounded-t-lg shadow-xl"
+    class="w-full text-center text-text-color text-2xl p-2 bg-accent rounded-lg shadow-xl"
   >
     Digit Classification
   </div>
