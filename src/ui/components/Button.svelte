@@ -1,9 +1,13 @@
 <script lang="ts">
   type Props = {
     onclick: () => void
+    iconSrc: string
+    altText: string
+    text: string
+    color: "bg-clear" | "bg-hidden" | "bg-accent"
   }
 
-  const { onclick }: Props = $props()
+  const { onclick, iconSrc, altText, color, text }: Props = $props()
   let btn: HTMLButtonElement | null = null
 
   function rippleEffect(event: any) {
@@ -12,7 +16,6 @@
     const circle = document.createElement("span")
     const diameter = Math.max(btn.clientWidth, btn.clientHeight)
     const radius = diameter / 2
-
     circle.style.width = circle.style.height = `${diameter}px`
     circle.style.left = `${event.clientX - (btn.offsetLeft + radius)}px`
     circle.style.top = `${event.clientY - (btn.offsetTop + radius)}px`
@@ -38,9 +41,10 @@
 
 <button
   bind:this={btn}
-  class="cursor-pointer flex justify-center items-center rounded-b-lg p-2 min-w-max overflow-hidden shadow relative bg-red-500 text-white hover:bg-opacity-90"
+  class={"cursor-pointer flex justify-center items-center rounded-lg p-2 min-w-max overflow-hidden shadow relative text-white " +
+    color}
   {onclick}
 >
-  <img class="h-10 mx-1" src="/clear-icon.svg" alt="Clear Button" />
-  <span class="text-2xl text-center mx-1">Clear</span>
+  <img class="h-8 mx-1" src={iconSrc} alt={altText} />
+  <span class="text-2xl text-center mx-1">{text}</span>
 </button>
