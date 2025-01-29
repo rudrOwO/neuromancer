@@ -8,6 +8,7 @@
     ORDERED_OUTPUT_NODES,
   } from "ui/constants/mnist"
   import Button from "@components/Button.svelte"
+  import PanelTitle from "./PanelTitle.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse | null
@@ -161,12 +162,7 @@
 <div
   class="bg-background w-[300px] flex flex-col opacity-85 hover:opacity-100 hover:scale-[1.02] transition duration-300"
 >
-  <div
-    class="w-full text-center text-text-color text-2xl p-2 bg-accent rounded-b-lg sm:rounded-t-lg shadow-xl"
-  >
-    Draw a digit (0-9)
-  </div>
-
+  <PanelTitle title="Draw a digit (0-9)" />
   <canvas
     bind:this={canvas}
     class="cursor-crosshair text-text-color"
@@ -189,6 +185,7 @@
     color="bg-clear"
   />
 </div>
+<!-- Hidden -->
 <canvas
   bind:this={canvasScaled}
   id="input-canvas-scaled"
