@@ -7,7 +7,7 @@
     INPUT_TENSOR_DIMENSION,
     ORDERED_OUTPUT_NODES,
   } from "ui/constants/mnist"
-  import ClearButton from "./ClearButton.svelte"
+  import Button from "@components/Button.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse | null
@@ -162,7 +162,7 @@
   class="bg-background w-[300px] flex flex-col opacity-85 hover:opacity-100 hover:scale-[1.02] transition duration-300"
 >
   <div
-    class="w-full text-center text-text-color text-2xl p-1 bg-accent sm:rounded-t-lg shadow-xl"
+    class="w-full text-center text-text-color text-2xl p-2 bg-accent rounded-b-lg sm:rounded-t-lg shadow-xl"
   >
     Draw a digit (0-9)
   </div>
@@ -181,7 +181,13 @@
     ontouchend={stopDraw}
     ontouchmove={handleMouseMove}
   ></canvas>
-  <ClearButton onclick={clear} />
+  <Button
+    onclick={clear}
+    iconSrc="/clear-icon.svg"
+    altText="Clear Button"
+    text="Clear"
+    color="bg-clear"
+  />
 </div>
 <canvas
   bind:this={canvasScaled}
