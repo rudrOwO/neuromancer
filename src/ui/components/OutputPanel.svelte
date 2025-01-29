@@ -6,14 +6,25 @@
     inferenceResponse: InferenceResponse | null
   }
 
-  let { inferenceResponse }: Props = $props()
+  const { inferenceResponse }: Props = $props()
+  let isMobile = $state(false)
 
-  let predictions = $derived.by(() => {
+  const updateScreenSize = () => {
+    isMobile = window.matchMedia("(max-width: 640px)").matches
+  }
+
+  $effect(() => {
+    updateScreenSize()
+    window.addEventListener("resize", updateScreenSize)
+    return () => window.removeEventListener("resize", updateScreenSize)
+  })
+
+  const predictions = $derived.by(() => {
     if (inferenceResponse == null) {
       return null
     }
 
-    return inferenceResponse.predictions
+    const sortedList = inferenceResponse.predictions
       .map((prediction, index) => ({
         prediction,
         render: `${index}: ${(prediction * 100).toFixed(2)}%`,
@@ -21,14 +32,21 @@
       .sort((a, b) => {
         return b.prediction - a.prediction
       })
+
+    if (isMobile) {
+      return sortedList.slice(0, 3)
+    } else {
+      return sortedList
+    }
   })
 </script>
 
-<div class="bg-background w-[300px] flex-col rounded-lg mt-4 sm:mt-6">
+<div class="bg-background w-[300px] flex-col rounded-lg">
   <PanelTitle title="Digit Classification" />
   <div class="p-2">
     {#if predictions == null}
-      {#each new Array(10) as _, index}
+      {@const defaultSize = isMobile ? 3 : 10}
+      {#each new Array(defaultSize) as _, index}
         {@render prediction(`${index}:`)}
       {/each}
     {:else}
