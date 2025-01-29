@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Button from "@components/Button.svelte"
   import DigitInputPanel from "@components/DigitInputPanel.svelte"
   import OutputPanel from "@components/OutputPanel.svelte"
   import type { InferenceResponse } from "bridge"
@@ -7,21 +8,45 @@
 
   let inferenceResponse = $state<InferenceResponse | null>(null)
   let renderTensorData = $state<Float32Array | null>(null)
+  let isUIVisible = $state(true)
+
+  const toggleUI = () => {
+    isUIVisible = !isUIVisible
+  }
 </script>
 
-<main class="bg-black h-screen">
+<main class="bg-black h-screen flex">
   {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
     {@render placeholder("Initiliazing Model...")}
   {:then}
     <div
-      class="left-0 right-0 sm:left-4 sm:right-auto flex flex-col fixed h-screen justify-center items-center top-1/2 -translate-y-1/2"
+      class="left-0 right-0 sm:right-auto flex flex-col fixed sm:relative h-screen justify-start items-center mt-6 mx-4 top-1/2 -translate-y-1/2"
     >
-      <DigitInputPanel bind:inferenceResponse bind:renderTensorData />
-      <OutputPanel {inferenceResponse} />
+      {#if isUIVisible}
+        <Button
+          onclick={toggleUI}
+          iconSrc="/hide-icon.svg"
+          altText="Hide UI"
+          text="Hide UI"
+          color="bg-hidden"
+        />
+        <DigitInputPanel bind:inferenceResponse bind:renderTensorData />
+        <OutputPanel {inferenceResponse} />
+      {:else}
+        <Button
+          onclick={toggleUI}
+          iconSrc="/pen-icon.svg"
+          altText="Draw a digit"
+          text="Draw a digit"
+          color="bg-accent"
+        />
+      {/if}
     </div>
   {:catch error}
     {@render placeholder(`Something went wrong: ${error.message}`)}
   {/await}
+  <!-- NOTE This is target for 3D rendering -->
+  <div class="w-full h-full bg-black"></div>
 </main>
 
 {#snippet placeholder(message: string)}
