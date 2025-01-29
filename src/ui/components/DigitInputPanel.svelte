@@ -8,16 +8,17 @@
     ORDERED_OUTPUT_NODES,
   } from "ui/constants/mnist"
   import Button from "@components/Button.svelte"
-  import PanelTitle from "./PanelTitle.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse | null
     renderTensorData: Float32Array | null
+    isUIVisible: boolean
   }
 
   let {
     inferenceResponse = $bindable(),
     renderTensorData = $bindable(),
+    isUIVisible = $bindable(),
   }: Props = $props()
 
   let canvas: HTMLCanvasElement
@@ -38,10 +39,10 @@
     ctxScaled = canvasScaled.getContext("2d", { willReadFrequently: true })!
   })
 
-  function preProcess(): {
+  const preProcess = (): {
     activationTensorData: Float32Array
     renderTensorData: Float32Array
-  } {
+  } => {
     // center crop
     const imageDataCenterCrop = centerCrop(
       ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height),
@@ -82,7 +83,7 @@
     return { activationTensorData, renderTensorData }
   }
 
-  function clear() {
+  const clear = () => {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     ctxCenterCrop.clearRect(
       0,
@@ -96,7 +97,11 @@
     strokes = []
   }
 
-  function startDraw(e: any) {
+  const toggleUI = () => {
+    isUIVisible = !isUIVisible
+  }
+
+  const startDraw = (e: any) => {
     isDrawing = true
     strokes.push([])
     const points = strokes[strokes.length - 1]
@@ -104,11 +109,11 @@
     draw(e)
   }
 
-  function stopDraw() {
+  const stopDraw = () => {
     isDrawing = false
   }
 
-  function draw(e: any) {
+  const draw = (e: any) => {
     // disable scrolling behavior when drawing
     // e.preventDefault()
     ctx.lineWidth = 20
@@ -137,7 +142,7 @@
     }
   }
 
-  function handleMouseMove(e: any) {
+  const handleMouseMove = (e: any) => {
     if (!isDrawing || isThrottled) {
       return
     }
@@ -160,12 +165,18 @@
 </script>
 
 <div
-  class="my-2 sm:my-4 bg-background w-[300px] flex flex-col opacity-85 hover:opacity-100 hover:scale-[1.02] transition duration-300"
+  class="bg-background w-[300px] max-h-min flex flex-col rounded-lg overflow-hidden transition duration-300"
 >
-  <PanelTitle title="Draw a digit (0-9)" />
+  <div
+    class="w-full text-center flex justify-center items-center text-text-color text-2xl p-3 bg-accent shadow-xl"
+  >
+    <img class="h-8 mx-2" src="/pen-icon.svg" alt="Pen Icon" />
+    Draw a digit (0-9)
+  </div>
+
   <canvas
     bind:this={canvas}
-    class="cursor-crosshair text-text-color"
+    class="cursor-crosshair text-text-color border-gray-400 hover:border-2"
     id="input-canvas"
     width="300"
     height="300"
@@ -177,13 +188,22 @@
     ontouchend={stopDraw}
     ontouchmove={handleMouseMove}
   ></canvas>
-  <Button
-    onclick={clear}
-    iconSrc="/clear-icon.svg"
-    altText="Clear Button"
-    text="Clear"
-    color="bg-clear"
-  />
+  <div class="flex">
+    <Button
+      onclick={toggleUI}
+      iconSrc="/hide-icon.svg"
+      altText="Hide"
+      text="Hide"
+      color="bg-hidden"
+    />
+    <Button
+      onclick={clear}
+      iconSrc="/clear-icon.svg"
+      altText="Clear Button"
+      text="Clear"
+      color="bg-clear"
+    />
+  </div>
 </div>
 <!-- Hidden -->
 <canvas
