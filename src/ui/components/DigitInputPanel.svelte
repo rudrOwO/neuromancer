@@ -165,10 +165,10 @@
 </script>
 
 <div
-  class="bg-background w-[300px] max-h-min flex flex-col rounded-lg overflow-hidden transition duration-300"
+  class="w-[300px] max-h-min flex flex-col rounded-lg overflow-hidden transition duration-300"
 >
   <div
-    class="w-full text-center flex justify-center items-center text-text-color text-2xl p-3 bg-accent shadow-xl"
+    class="w-full text-center flex justify-center items-center text-text-color text-2xl p-3 bg-accent-0 shadow-xl"
   >
     <img class="h-8 mx-2" src="/pen-icon.svg" alt="Pen Icon" />
     Draw a digit (0-9)
@@ -176,7 +176,7 @@
 
   <canvas
     bind:this={canvas}
-    class="cursor-crosshair text-text-color border-gray-400 hover:border-2"
+    class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2"
     id="input-canvas"
     width="300"
     height="300"
@@ -188,7 +188,7 @@
     ontouchend={stopDraw}
     ontouchmove={handleMouseMove}
   ></canvas>
-  <div class="flex">
+  <div class="flex relative">
     <Button
       onclick={toggleUI}
       iconSrc="/hide-icon.svg"

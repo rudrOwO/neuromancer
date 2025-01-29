@@ -4,20 +4,9 @@
   --color-text-color: #edebf5;
   --color-background: #212121;
   --color-hidden: #414141;
-  --color-clear: oklch(0.637 0.237 25.331);
-  --color-accent: #484491;
-}
-
-span.ripple {
-  position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  animation: ripple 600ms linear;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
+  --color-clear: #fb2c36;
+  --color-accent-0: #184e77;
+  --color-accent-1: #1e6091;
+  --color-accent-2: #1a759f;
+  --color-accent-3: #168aad;
 }
