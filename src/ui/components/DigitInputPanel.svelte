@@ -110,7 +110,7 @@
 
   function draw(e: any) {
     // disable scrolling behavior when drawing
-    e.preventDefault()
+    // e.preventDefault()
     ctx.lineWidth = 20
     ctx.lineJoin = ctx.lineCap = "round"
     ctx.strokeStyle = window.getComputedStyle(canvas).color
@@ -160,7 +160,7 @@
 </script>
 
 <div
-  class="bg-background w-[300px] flex flex-col opacity-85 hover:opacity-100 hover:scale-[1.02] transition duration-300"
+  class="my-2 sm:my-4 bg-background w-[300px] flex flex-col opacity-85 hover:opacity-100 hover:scale-[1.02] transition duration-300"
 >
   <PanelTitle title="Draw a digit (0-9)" />
   <canvas

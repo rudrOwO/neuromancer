@@ -41,7 +41,7 @@
 
 <button
   bind:this={btn}
-  class={"cursor-pointer flex justify-center items-center rounded-lg p-2 min-w-max overflow-hidden shadow relative text-white " +
+  class={"w-[300px] cursor-pointer flex justify-center items-center rounded-lg p-2 min-w-max overflow-hidden shadow relative text-text-color " +
     color}
   {onclick}
 >
