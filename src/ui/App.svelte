@@ -9,10 +9,21 @@
   let inferenceResponse = $state<InferenceResponse | null>(null)
   let renderTensorData = $state<Float32Array | null>(null)
   let isUIVisible = $state(true)
+  let isMobile = $state(false)
+
+  const updateScreenSize = () => {
+    isMobile = window.matchMedia("(max-width: 640px)").matches
+  }
 
   const toggleUI = () => {
     isUIVisible = !isUIVisible
   }
+
+  $effect(() => {
+    updateScreenSize()
+    window.addEventListener("resize", updateScreenSize)
+    return () => window.removeEventListener("resize", updateScreenSize)
+  })
 </script>
 
 <main class="bg-black h-screen flex">
@@ -20,18 +31,20 @@
     {@render placeholder("Initiliazing Model...")}
   {:then}
     <div
-      class="left-0 right-0 sm:right-auto flex flex-col fixed sm:relative h-screen justify-start items-center mt-6 mx-4 top-1/2 -translate-y-1/2"
+      class="left-0 right-0 sm:right-auto flex flex-col fixed sm:relative h-screen justify-start items-center py-2 mx-4 top-1/2 -translate-y-1/2"
     >
       {#if isUIVisible}
-        <Button
-          onclick={toggleUI}
-          iconSrc="/hide-icon.svg"
-          altText="Hide UI"
-          text="Hide UI"
-          color="bg-hidden"
-        />
+        {#if isMobile}
+          <Button
+            onclick={toggleUI}
+            iconSrc="/hide-icon.svg"
+            altText="Hide UI"
+            text="Hide UI"
+            color="bg-hidden"
+          />
+        {/if}
         <DigitInputPanel bind:inferenceResponse bind:renderTensorData />
-        <OutputPanel {inferenceResponse} />
+        <OutputPanel {inferenceResponse} {isMobile} />
       {:else}
         <Button
           onclick={toggleUI}

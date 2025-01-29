@@ -4,20 +4,10 @@
 
   type Props = {
     inferenceResponse: InferenceResponse | null
+    isMobile: boolean
   }
 
-  const { inferenceResponse }: Props = $props()
-  let isMobile = $state(false)
-
-  const updateScreenSize = () => {
-    isMobile = window.matchMedia("(max-width: 640px)").matches
-  }
-
-  $effect(() => {
-    updateScreenSize()
-    window.addEventListener("resize", updateScreenSize)
-    return () => window.removeEventListener("resize", updateScreenSize)
-  })
+  const { inferenceResponse, isMobile }: Props = $props()
 
   const predictions = $derived.by(() => {
     if (inferenceResponse == null) {
