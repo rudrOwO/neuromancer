@@ -4,17 +4,21 @@
     iconSrc: string
     altText: string
     text: string
-    color: "bg-clear" | "bg-hidden" | "bg-accent-0"
+    type: "clear" | "hide" | "default"
   }
 
-  const { onclick, iconSrc, altText, color, text }: Props = $props()
-  let btn: HTMLButtonElement | null = null
+  const color = {
+    ["hide"]: "bg-hidden",
+    ["clear"]: "bg-clear",
+    ["default"]: "bg-accent-0",
+  }
+
+  const { onclick, iconSrc, altText, text, type }: Props = $props()
 </script>
 
 <button
-  bind:this={btn}
   class={"w-[300px] active:scale-105 cursor-pointer flex justify-center items-center p-3 min-w-max max-h-fit overflow-hidden shadow text-text-color " +
-    color}
+    color[type]}
   {onclick}
 >
   <img class="h-8 mx-1" src={iconSrc} alt={altText} />
