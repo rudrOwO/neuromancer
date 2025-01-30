@@ -47,6 +47,7 @@
   {/await}
 </main>
 
+<!-- TODO  Add proper Loading screen and error screen -->
 {#snippet placeholder(message: string)}
   <p class="fixed grid place-items-center inset-0 text-text-color text-4xl">
     <span>{message}</span>
