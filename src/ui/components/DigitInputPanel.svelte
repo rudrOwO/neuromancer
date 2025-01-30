@@ -171,7 +171,7 @@
     class="w-full text-center flex justify-center items-center text-text-color text-2xl p-3 bg-accent-0 shadow-xl"
   >
     <img class="h-8 mx-2" src="/pen-icon.svg" alt="Pen Icon" />
-    Draw a digit (0-9)
+    Draw a Digit (0-9)
   </div>
 
   <canvas
@@ -194,14 +194,14 @@
       iconSrc="/hide-icon.svg"
       altText="Hide"
       text="Hide"
-      color="bg-hidden"
+      type="hide"
     />
     <Button
       onclick={clear}
       iconSrc="/clear-icon.svg"
       altText="Clear Button"
       text="Clear"
-      color="bg-clear"
+      type="clear"
     />
   </div>
 </div>

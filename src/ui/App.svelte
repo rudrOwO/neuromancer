@@ -37,7 +37,7 @@
             iconSrc="/canvas-icon.svg"
             altText="Show Canvas"
             text="Show Canvas"
-            color="bg-accent-0"
+            type="default"
           />
         </div>
       {/if}
