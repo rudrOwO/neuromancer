@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { InferenceResponse } from "bridge"
+  import PredictionBar from "@components/PredictionBar.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse | null
@@ -9,37 +10,32 @@
 
   const predictions = $derived.by(() => {
     if (inferenceResponse == null) {
-      return null
+      return new Array(
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+        "10",
+      )
     }
 
-    return inferenceResponse.predictions
-      .map((prediction, index) => ({
-        prediction,
-        render: `${index}: ${(prediction * 100).toFixed(2)}%`,
-      }))
-      .sort((a, b) => {
-        return b.prediction - a.prediction
-      })
+    return inferenceResponse.predictions.map((prediction) =>
+      (prediction * 100).toFixed(0),
+    )
   })
+
+  $inspect(predictions)
 </script>
 
 <div
-  class="flex-col fixed bg-background w-[40px] sm:w-12 h-[95vh] self-center ml-2 rounded-lg"
+  class="flex flex-col fixed bg-background w-9 sm:w-12 h-[95vh] self-center ml-2 rounded-lg overflow-hidden"
 >
-  <div class="p-2">
-    {#if predictions == null}
-      {#each new Array(10) as _, index}
-        <!-- TODO  Give 10% to every bar -->
-        {@render prediction(`${index}:`)}
-      {/each}
-    {:else}
-      {#each predictions as p}
-        {@render prediction(p.render)}
-      {/each}
-    {/if}
-  </div>
+  {#each predictions as p, index}
+    <PredictionBar label={index} flexValue={p} />
+  {/each}
 </div>
-
-{#snippet prediction(render: string)}
-  <div class="py-1 text-xl text-text-color">{render}</div>
-{/snippet}
