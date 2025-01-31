@@ -171,7 +171,7 @@
 </script>
 
 <div
-  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-10"
+  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-100"
   style:height={canvasHeight}
 >
   <div
@@ -225,7 +225,7 @@
 </div>
 
 <div
-  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden"
+  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-10"
 >
   <Button
     onclick={toggleUI}
@@ -235,9 +235,3 @@
     type="default"
   />
 </div>
-
-<style>
-  div {
-    transition: height 1s linear;
-  }
-</style>
