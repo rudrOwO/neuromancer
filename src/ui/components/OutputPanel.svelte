@@ -28,12 +28,10 @@
       (prediction * 100).toFixed(0),
     )
   })
-
-  $inspect(predictions)
 </script>
 
 <div
-  class="flex flex-col fixed bg-background w-9 sm:w-12 h-[95vh] self-center ml-2 rounded-lg overflow-hidden"
+  class="flex flex-col fixed bg-background w-9 sm:w-12 h-[95vh] self-center ml-2 rounded-lg overflow-hidden z-10"
 >
   {#each predictions as p, index}
     <PredictionBar label={index} flexValue={p} />
