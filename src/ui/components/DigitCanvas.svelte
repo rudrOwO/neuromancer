@@ -12,13 +12,11 @@
   type Props = {
     inferenceResponse: InferenceResponse | null
     renderTensorData: Float32Array | null
-    isUIVisible: boolean
   }
 
   let {
     inferenceResponse = $bindable(),
     renderTensorData = $bindable(),
-    isUIVisible = $bindable(),
   }: Props = $props()
 
   let canvas: HTMLCanvasElement
@@ -32,6 +30,7 @@
   let strokes: any = []
   let isDrawing = false
   let isThrottled = false
+  let isUIVisible = $state(true)
 
   $effect(() => {
     ctx = canvas.getContext("2d", { willReadFrequently: true })!
@@ -165,56 +164,64 @@
 </script>
 
 <div
-  class="w-[300px] max-h-min flex flex-col rounded-lg overflow-hidden transition duration-300"
+  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden"
 >
-  <div
-    class="w-full text-center flex justify-center items-center text-text-color text-2xl p-3 bg-accent-0 shadow-xl"
-  >
-    <img class="h-8 mx-2" src="/pen-icon.svg" alt="Pen Icon" />
-    Draw a Digit (0-9)
-  </div>
-
-  <canvas
-    bind:this={canvas}
-    class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2"
-    id="input-canvas"
-    width="300"
-    height="300"
-    onmousedown={startDraw}
-    onmouseup={stopDraw}
-    onmouseleave={stopDraw}
-    onmousemove={handleMouseMove}
-    ontouchstart={startDraw}
-    ontouchend={stopDraw}
-    ontouchmove={handleMouseMove}
-  ></canvas>
-  <div class="flex relative">
+  {#if isUIVisible}
+    <div
+      class="w-full text-center flex justify-center items-center text-text-color text-2xl p-3 bg-accent-0 shadow-xl"
+    >
+      <img class="h-8 mx-2" src="/pen-icon.svg" alt="Pen Icon" />
+      Draw a Digit (0-9)
+    </div>
+    <canvas
+      bind:this={canvas}
+      class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2"
+      id="input-canvas"
+      width="300"
+      height="300"
+      onmousedown={startDraw}
+      onmouseup={stopDraw}
+      onmouseleave={stopDraw}
+      onmousemove={handleMouseMove}
+      ontouchstart={startDraw}
+      ontouchend={stopDraw}
+      ontouchmove={handleMouseMove}
+    ></canvas>
+    <canvas
+      bind:this={canvasScaled}
+      id="input-canvas-scaled"
+      width="28"
+      height="28"
+      style="display: none"
+    ></canvas>
+    <canvas
+      bind:this={canvasCenterCrop}
+      id="input-canvas-centercrop"
+      style="display: none"
+    ></canvas>
+    <div class="flex">
+      <Button
+        onclick={toggleUI}
+        iconSrc="/hide-icon.svg"
+        altText="Hide"
+        text="Hide"
+        type="hide"
+      />
+      <Button
+        onclick={clear}
+        iconSrc="/clear-icon.svg"
+        altText="Clear Button"
+        text="Clear"
+        type="clear"
+      />
+    </div>
+  {:else}
     <Button
       onclick={toggleUI}
-      iconSrc="/hide-icon.svg"
-      altText="Hide"
-      text="Hide"
-      type="hide"
+      iconSrc="/canvas-icon.svg"
+      altText="Show Canvas"
+      text="Show Canvas"
+      type="default"
     />
-    <Button
-      onclick={clear}
-      iconSrc="/clear-icon.svg"
-      altText="Clear Button"
-      text="Clear"
-      type="clear"
-    />
-  </div>
+  {/if}
 </div>
-<!-- Hidden -->
-<canvas
-  bind:this={canvasScaled}
-  id="input-canvas-scaled"
-  width="28"
-  height="28"
-  style="display: none"
-></canvas>
-<canvas
-  bind:this={canvasCenterCrop}
-  id="input-canvas-centercrop"
-  style="display: none"
-></canvas>
