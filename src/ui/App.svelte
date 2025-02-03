@@ -19,12 +19,12 @@
     {:then { default: NeuralNetowork }}
       <OutputPanel {inferenceResponse} />
       <DigitCanvas bind:inferenceResponse bind:renderTensorData />
-      <NeuralNetowork />
+      <NeuralNetowork {inferenceResponse} />
     {:catch error}
       {@render placeholder(`Could not load 3D assets: ${error.message}`)}
     {/await}
   {:catch error}
-    {@render placeholder(`Could not load initialize model: ${error.message}`)}
+    {@render placeholder(`Could not initialize model: ${error.message}`)}
   {/await}
 </main>
 
