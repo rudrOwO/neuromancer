@@ -1,5 +1,5 @@
 import { mount } from "svelte"
-import "ui/app.css"
+import "ui/global.css"
 import App from "ui/App.svelte"
 import ONNXRuntime from "onnx/entrypoint.ts?worker"
 
