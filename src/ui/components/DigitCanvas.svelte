@@ -212,7 +212,6 @@
       iconSrc="/hide-icon.svg"
       altText="Hide"
       text="Hide"
-      type="hide"
     />
     <Button
       onclick={clear}
@@ -232,6 +231,5 @@
     iconSrc="/canvas-icon.svg"
     altText="Show Canvas"
     text="Show Canvas"
-    type="default"
   />
 </div>
