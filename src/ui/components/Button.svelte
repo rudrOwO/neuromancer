@@ -4,16 +4,15 @@
     iconSrc: string
     altText: string
     text: string
-    type: "clear" | "hide" | "default"
+    type?: "clear" | "default"
   }
 
   const color = {
-    ["hide"]: "bg-hidden",
     ["clear"]: "bg-clear",
     ["default"]: "bg-accent-0",
   }
 
-  const { onclick, iconSrc, altText, text, type }: Props = $props()
+  const { onclick, iconSrc, altText, text, type = "default" }: Props = $props()
 </script>
 
 <button

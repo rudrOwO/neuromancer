@@ -2,11 +2,8 @@
 
 @theme {
   --color-text-color: #edebf5;
-  --color-background: #212121;
-  --color-hidden: #414141;
+  --color-background: #212529;
   --color-clear: #fb2c36;
-  --color-accent-0: #184e77;
-  --color-accent-1: #1e6091;
-  --color-accent-2: #1a759f;
-  --color-accent-3: #168aad;
+  --color-accent-0: #343a40;
+  --color-accent-1: #495057;
 }
