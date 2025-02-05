@@ -7,14 +7,14 @@
   const color = [
     "bg-accent-0",
     "bg-accent-1",
-    "bg-accent-2",
     "bg-accent-0",
     "bg-accent-1",
-    "bg-accent-2",
     "bg-accent-0",
     "bg-accent-1",
-    "bg-accent-2",
     "bg-accent-0",
+    "bg-accent-1",
+    "bg-accent-0",
+    "bg-accent-1",
   ]
 
   const { label, flexValue }: Props = $props()
