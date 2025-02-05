@@ -8,13 +8,13 @@
     "bg-accent-0",
     "bg-accent-1",
     "bg-accent-2",
-    "bg-accent-3",
     "bg-accent-0",
     "bg-accent-1",
     "bg-accent-2",
-    "bg-accent-3",
     "bg-accent-0",
     "bg-accent-1",
+    "bg-accent-2",
+    "bg-accent-0",
   ]
 
   const { label, flexValue }: Props = $props()
