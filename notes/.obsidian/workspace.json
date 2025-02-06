@@ -4,19 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "a06e7c0bda30cca4",
+        "id": "b892f1c078b80faa",
         "type": "tabs",
         "children": [
           {
-            "id": "a650b3df44570d7d",
+            "id": "74e7f2812b004a91",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "workflow.excalidraw.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "workflow.excalidraw"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -38,7 +36,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -75,7 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
+    "width": 216.50260543823242,
     "collapsed": true
   },
   "right": {
@@ -157,14 +156,20 @@
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
-      "obsidian-excalidraw-plugin:Create new drawing": false
+      "obsidian-excalidraw-plugin:Create new drawing": false,
+      "obsidian-kanban:Create new board": false
     }
   },
-  "active": "a650b3df44570d7d",
+  "active": "74e7f2812b004a91",
   "lastOpenFiles": [
+    "TODO/TODO Kanban.md",
+    "TODO/Improve UX.md",
+    "workflow.excalidraw.md",
+    "TODO",
+    "TODO/Tensor2D.md",
+    "ActivationMap.md",
     "Pasted Image 20241231183925_077.png",
     "Pasted Image 20241231182231_897.png",
-    "workflow.excalidraw.md",
     "design.excalidraw.md",
     "workflow.excalidraw.svg",
     "design.excalidraw.svg",
@@ -187,7 +192,6 @@
     "models",
     "Excalidraw/Drawing 2024-12-20 12.27.25.excalidraw.md",
     "overview.md",
-    "overview.md~",
     "draft.md",
     "test.md",
     "Welcome.md",
