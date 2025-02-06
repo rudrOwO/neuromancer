@@ -1,0 +1,5 @@
+- [ ] Animate canvas toggle
+- [ ] UI Hints (Classification indicator, Interactivity message)
+- [ ] Add Ambient Lighting
+- [ ] Loading screen and error screen
+- [ ] Improve typography with responsive size

@@ -4,14 +4,17 @@
   import type { InferenceResponse } from "bridge"
 
   type Props = {
-    inferenceResponse: InferenceResponse | null
+    inputTensorDimension: number[]
+    inputTensorData: Float32Array
+    inferenceResponse: InferenceResponse
   }
 
-  const { inferenceResponse }: Props = $props()
+  const { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
+    $props()
 </script>
 
 <div class="w-full h-full cursor-grab active:cursor-grabbing">
   <Canvas>
-    <MNIST {inferenceResponse} />
+    <MNIST {inputTensorDimension} {inputTensorData} {inferenceResponse} />
   </Canvas>
 </div>

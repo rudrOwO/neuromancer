@@ -3,31 +3,16 @@
   import PredictionBar from "@components/PredictionBar.svelte"
 
   type Props = {
-    inferenceResponse: InferenceResponse | null
+    inferenceResponse: InferenceResponse
   }
 
   const { inferenceResponse }: Props = $props()
 
-  const predictions = $derived.by(() => {
-    if (inferenceResponse == null) {
-      return new Array(
-        "10",
-        "10",
-        "10",
-        "10",
-        "10",
-        "10",
-        "10",
-        "10",
-        "10",
-        "10",
-      )
-    }
-
-    return inferenceResponse.predictions.map((prediction) =>
+  const predictions = $derived(
+    inferenceResponse.predictions.map((prediction) =>
       (prediction * 100).toFixed(0),
-    )
-  })
+    ),
+  )
 </script>
 
 <div
