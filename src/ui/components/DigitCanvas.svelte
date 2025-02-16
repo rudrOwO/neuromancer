@@ -8,6 +8,7 @@
     ORDERED_ACTIVATION_MAPS,
     INPUT_TENSOR_DEFAULT_VALUE,
     ACTIVATION_MAPS_DEFAULT_VALUE,
+    DEFAULT_GRAY_VALUE,
   } from "ui/constants/mnist"
   import Button from "@components/Button.svelte"
 
@@ -18,7 +19,7 @@
 
   let {
     inferenceResponse = $bindable(),
-    renderTensorData = $bindable(),
+    inputTensorData = $bindable(),
   }: Props = $props()
 
   let isUIVisible = true
@@ -68,12 +69,29 @@
     ctxScaled.restore()
     // process image data for model input
     const { data } = imageDataScaled
-    const inputTensorData = new Float32Array(784)
-    const renderTensorData = new Float32Array(784)
+    const tensorLength = 28 * 28
+    const inputTensorData = new Float32Array(tensorLength)
 
     for (let i = 0, len = data.length; i < len; i += 4) {
       inputTensorData[i / 4] = data[i + 3] / 255
-      renderTensorData[i / 4] = data[i + 3]
+    }
+
+    const renderTensorData = new Float32Array(3 * tensorLength) // 3 * for RGB
+    renderTensorData.fill(DEFAULT_GRAY_VALUE)
+
+    for (let i = 0, j = 3 * tensorLength - 1; j > 0; i += 1, j -= 3) {
+      renderTensorData[j] = Math.min(
+        1.0,
+        renderTensorData[j] + inputTensorData[i],
+      )
+      renderTensorData[j - 1] = Math.min(
+        1.0,
+        renderTensorData[j - 1] + inputTensorData[i],
+      )
+      renderTensorData[j - 2] = Math.min(
+        1.0,
+        renderTensorData[j - 2] + inputTensorData[i],
+      )
     }
 
     return { inputTensorData, renderTensorData }
@@ -158,7 +176,7 @@
         ORDERED_ACTIVATION_MAPS,
         FINAL_NODE,
       )
-      renderTensorData = preProcessResult.renderTensorData
+      inputTensorData = preProcessResult.renderTensorData
 
       isThrottled = false
     })

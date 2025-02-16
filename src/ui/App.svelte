@@ -23,10 +23,14 @@
   {:then}
     {#await neuralNetworkImport}
       {@render placeholder("Loading 3D assets...")}
-    {:then { default: NeuralNetowork }}
+    {:then { default: NeuralNetwork }}
       <OutputPanel {inferenceResponse} />
-      <DigitCanvas bind:inferenceResponse bind:renderTensorData />
-      <NeuralNetowork {inferenceResponse} />
+      <DigitCanvas bind:inferenceResponse bind:inputTensorData />
+      <NeuralNetwork
+        inputTensorDimension={INPUT_TENSOR_DIMENSION}
+        {inputTensorData}
+        {inferenceResponse}
+      />
     {:catch error}
       {@render placeholder(`Could not load 3D assets: ${error.message}`)}
     {/await}
