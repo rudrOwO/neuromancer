@@ -15,6 +15,6 @@
 
 <div class="w-full h-full cursor-grab active:cursor-grabbing">
   <Canvas>
-    <MNIST {inferenceResponse} />
+    <MNIST {inputTensorDimension} {inputTensorData} {inferenceResponse} />
   </Canvas>
 </div>

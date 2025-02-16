@@ -1,20 +1,30 @@
 {
   "main": {
-    "id": "a1c7d7893aa6766a",
+    "id": "015241de8b579ddb",
     "type": "split",
     "children": [
       {
-        "id": "b892f1c078b80faa",
+        "id": "b527fd5f6e7f79e4",
         "type": "tabs",
         "children": [
           {
-            "id": "74e7f2812b004a91",
+            "id": "145b638299d1b1a7",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "kanban",
+              "state": {
+                "file": "TODO/TODO Kanban.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": [
+                    false,
+                    false,
+                    false
+                  ]
+                }
+              },
+              "icon": "lucide-trello",
+              "title": "TODO Kanban"
             }
           }
         ]
@@ -23,15 +33,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "fc923b53f8ccb794",
+    "id": "96a40e24fc49fdc3",
     "type": "split",
     "children": [
       {
-        "id": "571b59cf67c816b4",
+        "id": "38796b87132c0aeb",
         "type": "tabs",
         "children": [
           {
-            "id": "848024c1defa225b",
+            "id": "d260366a331dd0af",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -44,7 +54,7 @@
             }
           },
           {
-            "id": "53498d5db5a08c45",
+            "id": "3453111c1cd06076",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -61,7 +71,7 @@
             }
           },
           {
-            "id": "9cfb82d0a00d64a7",
+            "id": "fde486db23139264",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -74,23 +84,23 @@
       }
     ],
     "direction": "horizontal",
-    "width": 216.50260543823242,
-    "collapsed": true
+    "width": 300
   },
   "right": {
-    "id": "956cd3e251765b4f",
+    "id": "7f5914bf413ebb1c",
     "type": "split",
     "children": [
       {
-        "id": "444e2948d6d19ed6",
+        "id": "1d924157873ec9c9",
         "type": "tabs",
         "children": [
           {
-            "id": "710a4f6c27e9a54c",
+            "id": "2ada05192ed7b405",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "TODO/TODO Kanban.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,45 +110,51 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for TODO Kanban"
             }
           },
           {
-            "id": "f38b1f135e207560",
+            "id": "bc0874b3dfb5c93c",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "TODO/TODO Kanban.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links"
+              "title": "Outgoing links from TODO Kanban"
             }
           },
           {
-            "id": "69fda5e877ccf545",
+            "id": "3e172b8c5ec39bfd",
             "type": "leaf",
             "state": {
               "type": "tag",
               "state": {
                 "sortOrder": "frequency",
-                "useHierarchy": true
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-tags",
               "title": "Tags"
             }
           },
           {
-            "id": "835d8044679e9e36",
+            "id": "5b827fe7f133f158",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "create a link.md"
+                "file": "TODO/TODO Kanban.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of create a link"
+              "title": "Outline of TODO Kanban"
             }
           }
         ]
@@ -160,41 +176,9 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "74e7f2812b004a91",
+  "active": "145b638299d1b1a7",
   "lastOpenFiles": [
-    "TODO/TODO Kanban.md",
-    "TODO/Improve UX.md",
-    "workflow.excalidraw.md",
-    "TODO",
     "TODO/Tensor2D.md",
-    "ActivationMap.md",
-    "Pasted Image 20241231183925_077.png",
-    "Pasted Image 20241231182231_897.png",
-    "design.excalidraw.md",
-    "workflow.excalidraw.svg",
-    "design.excalidraw.svg",
-    "plan.md~",
-    "subgraph.md",
-    "plan.md",
-    "how_to.md",
-    "how_to.md~",
-    "target_models.md",
-    "overview.excalidraw.md",
-    "target_models.md~",
-    "squeezenet1.1-7.onnx",
-    "mnist-12.onnx",
-    "models.md",
-    "notes.md~",
-    "Excalidraw/overview.excalidraw.md",
-    "notes.md",
-    "models/squeezenet1_1.onnx",
-    "models/mnist.onnx",
-    "models",
-    "Excalidraw/Drawing 2024-12-20 12.27.25.excalidraw.md",
-    "overview.md",
-    "draft.md",
-    "test.md",
-    "Welcome.md",
-    "create a link.md"
+    "TODO/TODO Kanban.md"
   ]
 }
