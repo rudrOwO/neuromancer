@@ -20,10 +20,7 @@ export type InferenceRequest = {
 
 export type InferenceResponse = {
   isSuccessful: boolean
-  orderedActivationMaps: {
-    tensorData: Float32Array
-    tensorDimension: readonly number[]
-  }[]
+  orderedActivationMaps: Float32Array[]
   predictions: number[]
 }
 
