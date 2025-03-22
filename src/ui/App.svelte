@@ -3,11 +3,18 @@
   import OutputPanel from "@components/OutputPanel.svelte"
   import type { InferenceResponse } from "bridge"
   import { initializeModel } from "bridge"
-  import { INPUT_TENSOR_DIMENSION, MODEL_URL } from "ui/constants/mnist"
+  import {
+    INPUT_TENSOR_DIMENSION,
+    MODEL_URL,
+    ACTIVATION_MAPS_DEFAULT_VALUE,
+    INPUT_TENSOR_DEFAULT_VALUE,
+  } from "ui/constants/mnist"
   const neuralNetworkImport = import("@3d/NeuralNetwork.svelte")
 
-  let inferenceResponse = $state<InferenceResponse | null>(null)
-  let renderTensorData = $state<Float32Array | null>(null)
+  let inferenceResponse = $state<InferenceResponse>(
+    ACTIVATION_MAPS_DEFAULT_VALUE,
+  )
+  let inputTensorData = $state<Float32Array>(INPUT_TENSOR_DEFAULT_VALUE)
 </script>
 
 <main class="bg-black h-screen flex">

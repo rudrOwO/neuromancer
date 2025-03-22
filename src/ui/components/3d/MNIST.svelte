@@ -4,14 +4,18 @@
   import type { InferenceResponse } from "bridge"
 
   type Props = {
-    inferenceResponse: InferenceResponse | null
+    inputTensorDimension: number[]
+    inputTensorData: Float32Array
+    inferenceResponse: InferenceResponse
   }
 
   const { inferenceResponse }: Props = $props()
 </script>
 
-<T.PerspectiveCamera makeDefault position={[0, 100, 200]} fov={60}>
-  <OrbitControls enableDamping />
+<T.PerspectiveCamera makeDefault position={[0, 0, 400]} fov={60}>
+  <OrbitControls enableDamping>
+    <Gizmo placement="top-right" size={150} />
+  </OrbitControls>
 </T.PerspectiveCamera>
 
 <Grid

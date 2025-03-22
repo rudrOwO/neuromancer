@@ -53,13 +53,9 @@ onmessage = async (
       for (const nodeName of request.orderedOutputNodeNames) {
         const tensor = inferenceResult[nodeName]
 
-        const activationMap = {
-          tensorData: normaliseForRender(tensor.data as Float32Array),
-          tensorDimension: tensor.dims,
-        }
-
+        const activationMap = normaliseForRender(tensor.data as Float32Array)
         response.orderedActivationMaps.push(activationMap)
-        transfer.push(activationMap.tensorData.buffer)
+        transfer.push(activationMap.buffer)
       }
     } catch (error) {
       console.error("Error while RUNNING model", error)
