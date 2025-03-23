@@ -7,7 +7,7 @@ export function softmax(tensorData: Float32Array): number[] {
   })
 }
 
-// Rescaling (min-max normalization) in range [0 - 255] for 3D rendering
+// Rescaling (min-max normalization) in range [0 - 1] for 3D rendering
 export function normaliseForRender(tensorData: Float32Array): Float32Array {
   let min = Number.MAX_VALUE
   let max = -1
@@ -23,9 +23,8 @@ export function normaliseForRender(tensorData: Float32Array): Float32Array {
     }
   }
 
-  const scale = 255 / (max - min)
   for (let i = 0; i < tensorData.length; i++) {
-    normalizedTensorData[i] = (tensorData[i] - min) * scale
+    normalizedTensorData[i] = (tensorData[i] - min) / (max - min)
   }
 
   return normalizedTensorData
