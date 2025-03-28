@@ -72,25 +72,25 @@
     const tensorLength = 28 * 28
     const inputTensorData = new Float32Array(tensorLength)
 
-    for (let i = 0, len = data.length; i < len; i += 4) {
+    for (let i = 0, j = 0, len = data.length; i < len; i += 4, j += 3) {
       inputTensorData[i / 4] = data[i + 3] / 255
     }
 
     const renderTensorData = new Float32Array(3 * tensorLength) // 3 * for RGB
     renderTensorData.fill(DEFAULT_GRAY_VALUE)
 
-    for (let i = 0, j = 3 * tensorLength - 1; j > 0; i += 1, j -= 3) {
+    for (let i = 0, j = 0; i < tensorLength; i += 1, j += 3) {
       renderTensorData[j] = Math.min(
         1.0,
         renderTensorData[j] + inputTensorData[i],
       )
-      renderTensorData[j - 1] = Math.min(
+      renderTensorData[j + 1] = Math.min(
         1.0,
-        renderTensorData[j - 1] + inputTensorData[i],
+        renderTensorData[j + 1] + inputTensorData[i],
       )
-      renderTensorData[j - 2] = Math.min(
+      renderTensorData[j + 2] = Math.min(
         1.0,
-        renderTensorData[j - 2] + inputTensorData[i],
+        renderTensorData[j + 2] + inputTensorData[i],
       )
     }
 

@@ -84,7 +84,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "7f5914bf413ebb1c",
@@ -178,7 +179,8 @@
   },
   "active": "145b638299d1b1a7",
   "lastOpenFiles": [
-    "TODO/Tensor2D.md",
-    "TODO/TODO Kanban.md"
+    "Tensor2D.md",
+    "TODO/TODO Kanban.md",
+    "TODO/Tensor2D.md"
   ]
 }

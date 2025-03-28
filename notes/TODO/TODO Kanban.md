@@ -16,12 +16,12 @@ kanban-plugin: board
 
 ## DOING
 
-- [ ] [[Tensor2D]]
 - [ ] ActivationMap
 
 
 ## DONE ✨
 
+- [ ] Tensor2D
 
 
 
