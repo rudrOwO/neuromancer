@@ -19,7 +19,7 @@
     i += 3, vertexIndex += 1
   ) {
     vertices[i] = position.x + (vertexIndex % columns)
-    vertices[i + 1] = position.y + Math.floor(vertexIndex / columns)
+    vertices[i + 1] = position.y + rows - Math.floor(vertexIndex / columns)
     vertices[i + 2] = position.z
   }
 </script>
