@@ -24,7 +24,7 @@
 
 <Align>
   <Tensor2D
-    position={{ x: 0, y: 0, z: 0 }}
+    position={[0, 0, 0]}
     rows={inputTensorDimension[2]}
     columns={inputTensorDimension[3]}
     tensorData={inputTensorData}
