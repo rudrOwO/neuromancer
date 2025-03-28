@@ -2,7 +2,7 @@
   import { T } from "@threlte/core"
 
   type Props = {
-    position: { x: number; y: number; z: number }
+    position: [number, number, number]
     rows: number
     columns: number
     tensorData: Float32Array
@@ -18,13 +18,13 @@
     i < bufferGeometryLength;
     i += 3, vertexIndex += 1
   ) {
-    vertices[i] = position.x + (vertexIndex % columns)
-    vertices[i + 1] = position.y + rows - Math.floor(vertexIndex / columns)
-    vertices[i + 2] = position.z
+    vertices[i] = vertexIndex % columns
+    vertices[i + 1] = rows - Math.floor(vertexIndex / columns)
+    vertices[i + 2] = 0
   }
 </script>
 
-<T.Points>
+<T.Points {position}>
   <T.BufferGeometry>
     <T.BufferAttribute
       args={[vertices, 3]}
