@@ -1,3 +1,4 @@
+import { DEFAULT_GRAY_VALUE } from "@constants/global"
 import type { InferenceResponse } from "bridge"
 
 export const MODEL_URL = `${import.meta.env.VITE_PUBLIC_URL}/mnist-12.onnx`

@@ -8,8 +8,8 @@
     ORDERED_ACTIVATION_MAPS,
     INPUT_TENSOR_DEFAULT_VALUE,
     ACTIVATION_MAPS_DEFAULT_VALUE,
-    DEFAULT_GRAY_VALUE,
-  } from "ui/constants/mnist"
+  } from "@constants/mnist"
+  import { DEFAULT_GRAY_VALUE } from "@constants/global"
   import Button from "@components/Button.svelte"
 
   type Props = {
