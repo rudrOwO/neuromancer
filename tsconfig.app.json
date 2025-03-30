@@ -25,7 +25,8 @@
     "paths": {
       "@components/*": ["ui/components/*"],
       "@3d/*": ["ui/components/3d/*"],
-      "@utils/*": ["ui/utils/*"]
+      "@utils/*": ["ui/utils/*"],
+      "@constants/*": ["ui/constants/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
