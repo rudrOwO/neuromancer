@@ -8,7 +8,7 @@
     MODEL_URL,
     ACTIVATION_MAPS_DEFAULT_VALUE,
     INPUT_TENSOR_DEFAULT_VALUE,
-  } from "ui/constants/mnist"
+  } from "@constants/mnist"
   const neuralNetworkImport = import("@3d/NeuralNetwork.svelte")
 
   let inferenceResponse = $state<InferenceResponse>(
