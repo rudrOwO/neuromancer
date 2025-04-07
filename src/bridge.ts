@@ -18,9 +18,15 @@ export type InferenceRequest = {
   finalNodeName: string
 }
 
+export type OutputNode = {
+  name: string
+  dimension: readonly number[]
+  activationMaps: Float32Array[]
+}
+
 export type InferenceResponse = {
   isSuccessful: boolean
-  orderedActivationMaps: Float32Array[]
+  orderedOutputNodes: OutputNode[]
   predictions: number[]
 }
 
