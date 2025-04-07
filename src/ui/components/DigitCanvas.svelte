@@ -5,7 +5,7 @@
   import {
     FINAL_NODE,
     INPUT_TENSOR_DIMENSION,
-    ORDERED_ACTIVATION_MAPS,
+    ORDERED_NODE_NAMES,
     INPUT_TENSOR_DEFAULT_VALUE,
     ACTIVATION_MAPS_DEFAULT_VALUE,
   } from "@constants/mnist"
@@ -80,18 +80,10 @@
     renderTensorData.fill(DEFAULT_GRAY_VALUE)
 
     for (let i = 0, j = 0; i < tensorLength; i += 1, j += 3) {
-      renderTensorData[j] = Math.min(
-        1.0,
-        renderTensorData[j] + inputTensorData[i],
-      )
-      renderTensorData[j + 1] = Math.min(
-        1.0,
-        renderTensorData[j + 1] + inputTensorData[i],
-      )
-      renderTensorData[j + 2] = Math.min(
-        1.0,
-        renderTensorData[j + 2] + inputTensorData[i],
-      )
+      const brightness = Math.min(1.0, renderTensorData[j] + inputTensorData[i])
+      renderTensorData[j] = brightness
+      renderTensorData[j + 1] = brightness
+      renderTensorData[j + 2] = brightness
     }
 
     return { inputTensorData, renderTensorData }
@@ -173,7 +165,7 @@
       inferenceResponse = await runModel(
         preProcessResult.inputTensorData,
         INPUT_TENSOR_DIMENSION,
-        ORDERED_ACTIVATION_MAPS,
+        ORDERED_NODE_NAMES,
         FINAL_NODE,
       )
       inputTensorData = preProcessResult.renderTensorData
