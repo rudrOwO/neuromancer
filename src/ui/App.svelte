@@ -17,7 +17,7 @@
   let inputTensorData = $state<Float32Array>(INPUT_TENSOR_DEFAULT_VALUE)
 </script>
 
-<main class="bg-black h-screen flex">
+<main class="bg-black h-svh flex">
   {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
     {@render placeholder("Initiliazing Model...")}
   {:then}
