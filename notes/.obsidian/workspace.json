@@ -4,27 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "b527fd5f6e7f79e4",
+        "id": "67e9b3da745d1da2",
         "type": "tabs",
         "children": [
           {
-            "id": "145b638299d1b1a7",
+            "id": "f29ec7157db4d5ed",
             "type": "leaf",
             "state": {
-              "type": "kanban",
-              "state": {
-                "file": "TODO/TODO Kanban.md",
-                "kanbanViewState": {
-                  "kanban-plugin": "board",
-                  "list-collapse": [
-                    false,
-                    false,
-                    false
-                  ]
-                }
-              },
-              "icon": "lucide-trello",
-              "title": "TODO Kanban"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ]
@@ -84,8 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 292.5026054382324
   },
   "right": {
     "id": "7f5914bf413ebb1c",
@@ -177,10 +166,12 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "145b638299d1b1a7",
+  "active": "f29ec7157db4d5ed",
   "lastOpenFiles": [
-    "Tensor2D.md",
+    "ActivationMap.md",
+    "TODO/Improve UX.md",
     "TODO/TODO Kanban.md",
+    "Tensor2D.md",
     "TODO/Tensor2D.md"
   ]
 }
