@@ -220,17 +220,17 @@
   ></canvas>
   <div class="flex">
     <Button
-      onclick={toggleUI}
-      iconSrc="/hide-icon.svg"
-      altText="Hide"
-      text="Hide"
-    />
-    <Button
       onclick={clear}
       iconSrc="/clear-icon.svg"
       altText="Clear Button"
       text="Clear"
       type="clear"
+    />
+    <Button
+      onclick={toggleUI}
+      iconSrc="/hide-icon.svg"
+      altText="Hide"
+      text="Hide"
     />
   </div>
 </div>
