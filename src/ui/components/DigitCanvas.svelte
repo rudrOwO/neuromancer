@@ -127,7 +127,7 @@
 
   const draw = (e: any) => {
     // disable scrolling behavior when drawing
-    // e.preventDefault()
+    e.preventDefault()
     ctx.lineWidth = 20
     ctx.lineJoin = ctx.lineCap = "round"
     ctx.strokeStyle = window.getComputedStyle(canvas).color
