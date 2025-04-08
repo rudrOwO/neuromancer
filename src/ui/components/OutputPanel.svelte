@@ -16,7 +16,7 @@
 </script>
 
 <div
-  class="flex flex-col fixed bg-background w-9 sm:w-12 h-[95vh] self-center ml-2 rounded-lg overflow-hidden z-100"
+  class="flex flex-col fixed bg-background w-9 sm:w-12 h-[95%] self-center ml-2 rounded-lg overflow-hidden z-100"
 >
   {#each predictions as p, index}
     <PredictionBar label={index} flexValue={p} />
