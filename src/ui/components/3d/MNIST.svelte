@@ -3,6 +3,7 @@
   import { Align, Gizmo, OrbitControls } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
   import Tensor2D from "@3d/Tensor2D.svelte"
+  import { AMBIENT_LIGHT_INTENSITY } from "@constants/global"
 
   type Props = {
     inputTensorDimension: number[]
@@ -20,7 +21,7 @@
   </OrbitControls>
 </T.PerspectiveCamera>
 
-<T.AmbientLight color="#fff" intensity={1} />
+<T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
 
 <Align>
   <Tensor2D
