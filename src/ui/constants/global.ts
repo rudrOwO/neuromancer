@@ -1,1 +1,2 @@
-export const DEFAULT_GRAY_VALUE = 0.07
+export const DEFAULT_GRAY_VALUE = 0.05
+export const AMBIENT_LIGHT_INTENSITY = 0.4
