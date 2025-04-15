@@ -1,3 +1,3 @@
 export const DEFAULT_GRAY_VALUE = 0.05
 export const AMBIENT_LIGHT_INTENSITY = 0.4
-export const TENSOR_ZOOM_CONSTANT = 0.33
+export const TENSOR_ZOOM_CONSTANT = 0.3
