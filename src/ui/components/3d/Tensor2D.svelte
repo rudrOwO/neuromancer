@@ -1,15 +1,16 @@
 <script lang="ts">
+  import { TENSOR_ZOOM_CONSTANT } from "@constants/global"
   import { T } from "@threlte/core"
 
   type Props = {
     position: [number, number, number]
+    pointSize: number
     rows: number
     columns: number
     tensorData: Float32Array
   }
 
-  const { position, rows, columns, tensorData }: Props = $props()
-  const pointSize = 3
+  const { pointSize, position, rows, columns, tensorData }: Props = $props()
   const bufferGeometryLength = 3 * rows * columns
   const vertices = new Float32Array(bufferGeometryLength)
 
@@ -18,9 +19,13 @@
     i < bufferGeometryLength;
     i += 3, vertexIndex += 1
   ) {
-    vertices[i] = vertexIndex % columns
-    vertices[i + 1] = rows - Math.floor(vertexIndex / columns)
-    vertices[i + 2] = 0
+    /* x axis */ vertices[i] =
+      (vertexIndex % columns) * TENSOR_ZOOM_CONSTANT * pointSize
+    /* y axis */ vertices[i + 1] =
+      (rows - Math.floor(vertexIndex / columns)) *
+      TENSOR_ZOOM_CONSTANT *
+      pointSize
+    /* z axis */ vertices[i + 2] = 0
   }
 </script>
 
