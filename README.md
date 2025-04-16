@@ -2,7 +2,7 @@
 
 # Neuromancer
 
-Neural Network Visualilzer
+3d Convolutional Neural Network Visualilzer
 
 </div>
 
@@ -22,7 +22,7 @@ Neural Network Visualilzer
 
 <br>
 
-> [!NOTE] 
+> [!NOTE]
 > This is a work in progress, more model visualizations are coming soon (e.g squeezeNet, alexNet)
 
 ### Inspired by
