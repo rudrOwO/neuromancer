@@ -16,17 +16,15 @@
     $props()
 </script>
 
-<T.PerspectiveCamera makeDefault position={[0, 0, 400]} fov={25}>
-  <OrbitControls enableDamping>
-    <Gizmo placement="top-right" size={150} />
-  </OrbitControls>
+<T.PerspectiveCamera makeDefault position={[300, 200, 300]} fov={25}>
+  <OrbitControls enableDamping></OrbitControls>
 </T.PerspectiveCamera>
 
 <T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
 
 <Align x={0} y={0} z={false}>
   <Tensor2D
-    position={[0, 0, 0]}
+    position={[0, 0, 100]}
     pointSize={6}
     rows={inputTensorDimension[2]}
     columns={inputTensorDimension[3]}
@@ -35,7 +33,7 @@
 </Align>
 
 <ActivationMap
-  z={-100}
+  z={0}
   {...inferenceResponse.orderedOutputNodes[0]}
   rowLength={4}
   pointSize={8}
@@ -43,9 +41,9 @@
 />
 
 <ActivationMap
-  z={-200}
+  z={-100}
   {...inferenceResponse.orderedOutputNodes[1]}
   rowLength={4}
   pointSize={12}
-  gap={50}
+  gap={40}
 />
