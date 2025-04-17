@@ -15,10 +15,15 @@
   )
 </script>
 
-<div
-  class="flex flex-col fixed bg-background w-9 sm:w-12 h-[95%] self-center ml-2 rounded-lg overflow-hidden z-100"
->
-  {#each predictions as p, index}
-    <PredictionBar label={index} flexValue={p} />
-  {/each}
+<div class="flex flex-col left-2 sm:left-4 fixed z-100 h-[95%] self-center">
+  <div class="text-white text-2xl bg-background rounded-lg overflow-hidden p-2">
+    Predictions
+  </div>
+  <div
+    class="flex flex-col bg-background w-9 mt-2 sm:w-12 h-full rounded-lg overflow-hidden"
+  >
+    {#each predictions as p, index}
+      <PredictionBar label={index} flexValue={p} />
+    {/each}
+  </div>
 </div>
