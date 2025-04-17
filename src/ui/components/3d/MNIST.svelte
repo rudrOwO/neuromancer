@@ -16,7 +16,7 @@
     $props()
 </script>
 
-<T.PerspectiveCamera makeDefault position={[300, 200, 300]} fov={25}>
+<T.PerspectiveCamera makeDefault position={[325, 225, 325]} fov={25}>
   <OrbitControls enableDamping></OrbitControls>
 </T.PerspectiveCamera>
 
