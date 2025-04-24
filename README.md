@@ -4,6 +4,8 @@
 
 3d Convolutional Neural Network Visualilzer
 
+![Preview video](/notes/neuromancer_peek.gif)
+
 </div>
 
 ## Tech Used
