@@ -24,6 +24,8 @@
 
   let isUIVisible = true
 
+  let showCanvas: HTMLDivElement
+  let containerDiv: HTMLDivElement
   let canvas: HTMLCanvasElement
   let canvasScaled: HTMLCanvasElement
   let canvasCenterCrop: HTMLCanvasElement
@@ -34,7 +36,6 @@
   let strokes: any = []
   let isDrawing = false
   let isThrottled = false
-  let canvasHeight = $state("min-content")
 
   const preProcess = (): {
     inputTensorData: Float32Array
@@ -105,9 +106,17 @@
 
   const toggleUI = () => {
     if (isUIVisible) {
-      canvasHeight = "0px"
+      containerDiv.classList.remove("slide-up-active")
+      containerDiv.classList.add("slide-down-active")
+
+      showCanvas.classList.remove("slide-down-active")
+      showCanvas.classList.add("slide-up-active")
     } else {
-      canvasHeight = "min-content"
+      containerDiv.classList.remove("slide-down-active")
+      containerDiv.classList.add("slide-up-active")
+
+      showCanvas.classList.remove("slide-up-active")
+      showCanvas.classList.add("slide-down-active")
     }
 
     isUIVisible = !isUIVisible
@@ -184,7 +193,7 @@
 
 <div
   class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-100"
-  style:height={canvasHeight}
+  bind:this={containerDiv}
 >
   <div
     class="w-full text-center flex justify-center items-center text-text-color text-2xl p-3 bg-accent-0 shadow-xl"
@@ -237,6 +246,7 @@
 
 <div
   class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-10"
+  bind:this={showCanvas}
 >
   <Button
     onclick={toggleUI}
@@ -245,3 +255,36 @@
     text="Show Canvas"
   />
 </div>
+
+<style>
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+  }
+
+  :global(.slide-up-active) {
+    animation: slideUp 0.2s ease-out forwards;
+  }
+
+  :global(.slide-down-active) {
+    animation: slideDown 0.2s ease-out forwards;
+  }
+</style>
