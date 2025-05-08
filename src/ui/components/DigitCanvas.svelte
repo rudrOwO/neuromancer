@@ -11,15 +11,18 @@
   } from "@constants/mnist"
   import { DEFAULT_GRAY_VALUE } from "@constants/global"
   import Button from "@components/Button.svelte"
+  import Hint from "./Hint.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse
     inputTensorData: Float32Array
+    showHint: boolean
   }
 
   let {
     inferenceResponse = $bindable(),
     inputTensorData = $bindable(),
+    showHint = $bindable()
   }: Props = $props()
 
   let isUIVisible = true
@@ -37,10 +40,11 @@
   let isDrawing = false
   let isThrottled = false
 
-  const preProcess = (): {
+
+  function preProcess(): {
     inputTensorData: Float32Array
     renderTensorData: Float32Array
-  } => {
+  } {
     // center crop
     const imageDataCenterCrop = centerCrop(
       ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height),
@@ -90,7 +94,7 @@
     return { inputTensorData, renderTensorData }
   }
 
-  const clear = () => {
+  function clear() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     ctxCenterCrop.clearRect(
       0,
@@ -104,7 +108,7 @@
     strokes = []
   }
 
-  const toggleUI = () => {
+  function toggleUI() {
     if (isUIVisible) {
       containerDiv.classList.remove("slide-up-active")
       containerDiv.classList.add("slide-down-active")
@@ -122,7 +126,7 @@
     isUIVisible = !isUIVisible
   }
 
-  const startDraw = (e: any) => {
+  function startDraw(e: any) {
     isDrawing = true
     strokes.push([])
     const points = strokes[strokes.length - 1]
@@ -130,11 +134,11 @@
     draw(e)
   }
 
-  const stopDraw = () => {
+  function stopDraw() {
     isDrawing = false
   }
 
-  const draw = (e: any) => {
+  function draw(e: any) {
     // disable scrolling behavior when drawing
     // e.preventDefault()
     ctx.lineWidth = 20
@@ -163,7 +167,7 @@
     }
   }
 
-  const handleMouseMove = (e: any) => {
+  function handleMouseMove(e: any) {
     if (!isDrawing || isThrottled) {
       return
     }
@@ -184,6 +188,10 @@
     isThrottled = true
   }
 
+  function handleMouseDown() {
+    showHint = false
+  }
+
   $effect(() => {
     ctx = canvas.getContext("2d", { willReadFrequently: true })!
     ctxCenterCrop = canvasCenterCrop.getContext("2d")!
@@ -192,18 +200,19 @@
 </script>
 
 <div
-  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-100"
+  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 z-100"
   bind:this={containerDiv}
+  role="none"
+  onmousedown={handleMouseDown}
 >
-  <div
-    class="w-full text-center flex justify-center items-center text-text-color text-2xl p-3 bg-accent-0 shadow-xl"
-  >
-    <img class="h-8 mx-2" src="/pen-icon.svg" alt="Pen Icon" />
-    Draw a Digit (0-9)
-  </div>
+  {#if showHint}
+    <Hint iconSrc="/pen-icon.svg" message="Draw a digit (0 - 9)" />
+  {:else}
+    <img class="h-8 w-full mb-2" src="/pen-icon.svg" alt="Pen Icon" />
+  {/if}
   <canvas
     bind:this={canvas}
-    class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2"
+    class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2 rounded-lg overflow-hidden"
     id="input-canvas"
     width="300"
     height="300"
@@ -227,7 +236,7 @@
     id="input-canvas-centercrop"
     style="display: none"
   ></canvas>
-  <div class="flex">
+  <div class="flex rounded-lg mt-2 overflow-hidden">
     <Button
       onclick={clear}
       iconSrc="/clear-icon.svg"
