@@ -1,11 +1,13 @@
-export function checkFirstVisit() {
+function checkFirstVisit() {
   if (typeof localStorage !== "undefined") {
     const hasVisited = localStorage.getItem("hasVisited")
     if (!hasVisited) {
       localStorage.setItem("hasVisited", "true")
-      return true // It's the first visit
+      return true
     }
-    return false // Not the first visit
+    return false
   }
   return false // Fallback if localStorage is not available
 }
+
+export const isFirstVisit = checkFirstVisit()

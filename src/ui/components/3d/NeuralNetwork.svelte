@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { isFirstVisit } from "@utils/firstvisit"
   import { Canvas } from "@threlte/core"
   import MNIST from "@3d/MNIST.svelte"
   import type { InferenceResponse } from "bridge"
+  import Hint from "@components/Hint.svelte"
 
   type Props = {
     inputTensorDimension: number[]
@@ -9,11 +11,26 @@
     inferenceResponse: InferenceResponse
   }
 
+  let showHint = $state(isFirstVisit)
+
+  function handleMouseDown() {
+    showHint = false
+  }
+
   const { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
     $props()
 </script>
 
-<div class="w-full h-full cursor-grab active:cursor-grabbing">
+<div
+  class="w-full h-full cursor-grab active:cursor-grabbing"
+  role="none"
+  onmousedown={handleMouseDown}
+>
+  <div class="fixed flex w-dvw text-white justify-center items-center top-10">
+    {#if showHint}
+      <Hint iconSrc="/mouse-icon.svg" message="Drag and scroll" />
+    {/if}
+  </div>
   <Canvas>
     <MNIST {inputTensorDimension} {inputTensorData} {inferenceResponse} />
   </Canvas>
