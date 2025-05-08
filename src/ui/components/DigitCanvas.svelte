@@ -37,10 +37,11 @@
   let isDrawing = false
   let isThrottled = false
 
-  const preProcess = (): {
+
+  function preProcess(): {
     inputTensorData: Float32Array
     renderTensorData: Float32Array
-  } => {
+  } {
     // center crop
     const imageDataCenterCrop = centerCrop(
       ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height),
@@ -90,7 +91,7 @@
     return { inputTensorData, renderTensorData }
   }
 
-  const clear = () => {
+  function clear() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     ctxCenterCrop.clearRect(
       0,
@@ -104,7 +105,7 @@
     strokes = []
   }
 
-  const toggleUI = () => {
+  function toggleUI() {
     if (isUIVisible) {
       containerDiv.classList.remove("slide-up-active")
       containerDiv.classList.add("slide-down-active")
@@ -122,7 +123,7 @@
     isUIVisible = !isUIVisible
   }
 
-  const startDraw = (e: any) => {
+  function startDraw(e: any) {
     isDrawing = true
     strokes.push([])
     const points = strokes[strokes.length - 1]
@@ -130,11 +131,11 @@
     draw(e)
   }
 
-  const stopDraw = () => {
+  function stopDraw() {
     isDrawing = false
   }
 
-  const draw = (e: any) => {
+  function draw(e: any) {
     // disable scrolling behavior when drawing
     // e.preventDefault()
     ctx.lineWidth = 20
@@ -163,7 +164,7 @@
     }
   }
 
-  const handleMouseMove = (e: any) => {
+  function handleMouseMove(e: any) {
     if (!isDrawing || isThrottled) {
       return
     }
