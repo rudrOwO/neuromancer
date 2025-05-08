@@ -1,7 +1,10 @@
 <script lang="ts">
+  import clsx from "clsx"
+
   type Props = {
     label: number
     flexValue: string
+    glow: boolean
   }
 
   const color = [
@@ -17,12 +20,15 @@
     "bg-accent-1",
   ]
 
-  const { label, flexValue }: Props = $props()
+  const { label, flexValue, glow }: Props = $props()
 </script>
 
 <div
-  class={"py-1 grid place-items-center font-bold text-xl text-text-color " +
-    color[label]}
+  class={clsx(
+    "py-1 grid place-items-center font-bold text-xl text-text-color ",
+    color[label],
+    glow && "animate-pulse",
+  )}
   style={`flex: ${flexValue};`}
 >
   <span>
