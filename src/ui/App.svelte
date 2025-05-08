@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { isFirstVisit } from "@utils/firstvisit"
   import DigitCanvas from "@components/DigitCanvas.svelte"
   import OutputPanel from "@components/OutputPanel.svelte"
   import type { InferenceResponse } from "bridge"
@@ -11,6 +12,7 @@
   } from "@constants/mnist"
   const neuralNetworkImport = import("@3d/NeuralNetwork.svelte")
 
+  let showHint = $state(isFirstVisit)
   let inferenceResponse = $state<InferenceResponse>(
     ACTIVATION_MAPS_DEFAULT_VALUE,
   )
@@ -24,8 +26,8 @@
     {#await neuralNetworkImport}
       {@render placeholder("Loading 3D assets...")}
     {:then { default: NeuralNetwork }}
-      <OutputPanel {inferenceResponse} />
-      <DigitCanvas bind:inferenceResponse bind:inputTensorData />
+      <OutputPanel {inferenceResponse} {showHint} />
+      <DigitCanvas bind:inferenceResponse bind:inputTensorData bind:showHint />
       <NeuralNetwork
         inputTensorDimension={INPUT_TENSOR_DIMENSION}
         {inputTensorData}
