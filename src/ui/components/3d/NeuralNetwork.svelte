@@ -26,9 +26,11 @@
   role="none"
   onmousedown={handleMouseDown}
 >
-  <div class="fixed flex w-dvw text-white justify-center items-center top-10">
+  <div
+    class="fixed flex w-dvw text-text-color justify-center items-center top-16"
+  >
     {#if showHint}
-      <Hint iconSrc="/mouse-icon.svg" message="Drag and scroll" />
+      <Hint iconSrc="/mouse-icon.svg" message="Drag and zoom" />
     {/if}
   </div>
   <Canvas>
