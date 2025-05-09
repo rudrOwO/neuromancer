@@ -22,7 +22,7 @@
   let {
     inferenceResponse = $bindable(),
     inputTensorData = $bindable(),
-    showHint = $bindable()
+    showHint = $bindable(),
   }: Props = $props()
 
   let isUIVisible = true
@@ -39,7 +39,6 @@
   let strokes: any = []
   let isDrawing = false
   let isThrottled = false
-
 
   function preProcess(): {
     inputTensorData: Float32Array
