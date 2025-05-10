@@ -19,7 +19,6 @@ export type InferenceRequest = {
 }
 
 export type OutputNode = {
-  name: string
   dimension: readonly number[]
   activationMaps: Float32Array[]
 }
