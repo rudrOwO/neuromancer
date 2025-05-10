@@ -21,11 +21,9 @@
 ## Available Models
 
 1. [ convolutional neural network for identifying handwritten digits (MNIST dataset) ](https://github.com/onnx/models/tree/main/validated/vision/classification/mnist)
+2. [ AlexNet (planned) ](https://github.com/onnx/models/tree/main/validated/vision/classification/alexnet)
 
 <br>
-
-> [!NOTE]
-> This is a work in progress, more model visualizations are coming soon (e.g squeezeNet, alexNet)
 
 ### Inspired by
 

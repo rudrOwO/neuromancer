@@ -26,7 +26,6 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
       }
 
       orderedOutputNodes.push({
-        name: ORDERED_NODE_NAMES[i],
         dimension: tensorDimension,
         activationMaps,
       })

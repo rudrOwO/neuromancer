@@ -55,7 +55,6 @@ onmessage = async (
         const tensor = inferenceResult[nodeName]
 
         const node: OutputNode = {
-          name: nodeName,
           dimension: tensor.dims,
           activationMaps: postProcess(tensor.data as Float32Array, tensor.dims),
         }

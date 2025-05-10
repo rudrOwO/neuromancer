@@ -1,6 +1,6 @@
 <script lang="ts">
   import { T } from "@threlte/core"
-  import { Align, Gizmo, OrbitControls } from "@threlte/extras"
+  import { Align, OrbitControls } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
   import Tensor2D from "@3d/Tensor2D.svelte"
   import ActivationMap from "./ActivationMap.svelte"
@@ -22,6 +22,7 @@
 
 <T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
 
+<!-- TODO  Extract into Input component -->
 <Align x={0} y={0} z={false}>
   <Tensor2D
     position={[0, 0, 100]}
@@ -34,6 +35,7 @@
 
 <ActivationMap
   z={0}
+  name="Convolution Layer #1"
   {...inferenceResponse.orderedOutputNodes[0]}
   rowLength={4}
   pointSize={8}
@@ -42,6 +44,7 @@
 
 <ActivationMap
   z={-100}
+  name="Convolution Layer #2"
   {...inferenceResponse.orderedOutputNodes[1]}
   rowLength={4}
   pointSize={12}
