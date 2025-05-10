@@ -14,6 +14,8 @@
   const bufferGeometryLength = 3 * rows * columns
   const vertices = new Float32Array(bufferGeometryLength)
 
+  // Enumerating vertices
+  // 3 consecutive values define one vertex (x, y, z)
   for (
     let i = 0, vertexIndex = 0;
     i < bufferGeometryLength;
@@ -22,9 +24,7 @@
     /* x axis */ vertices[i] =
       (vertexIndex % columns) * TENSOR_ZOOM_CONSTANT * pointSize
     /* y axis */ vertices[i + 1] =
-      (rows - Math.floor(vertexIndex / columns)) *
-      TENSOR_ZOOM_CONSTANT *
-      pointSize
+      -Math.floor(vertexIndex / columns) * TENSOR_ZOOM_CONSTANT * pointSize
     /* z axis */ vertices[i + 2] = 0
   }
 </script>
