@@ -2,6 +2,9 @@ import { mount } from "svelte"
 import "ui/global.css"
 import App from "ui/App.svelte"
 import ONNXRuntime from "onnx/entrypoint.ts?worker"
+import { inject } from "@vercel/analytics"
+
+inject()
 
 export const onnxRuntime = new ONNXRuntime()
 
