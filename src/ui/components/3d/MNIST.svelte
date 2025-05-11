@@ -1,11 +1,10 @@
 <script lang="ts">
   import { T } from "@threlte/core"
-  import { Align, OrbitControls } from "@threlte/extras"
+  import { OrbitControls } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
-  import Tensor2D from "@3d/Tensor2D.svelte"
-  import ActivationMap from "./ActivationMap.svelte"
+  import ActivationMap from "@3d/ActivationMap.svelte"
   import { AMBIENT_LIGHT_INTENSITY } from "@constants/global"
-  import Input from "./Input.svelte"
+  import Input from "@3d/Input.svelte"
 
   type Props = {
     inputTensorDimension: number[]
@@ -23,22 +22,22 @@
 
 <T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
 
-<Input {inputTensorDimension} {inputTensorData} pointSize={6} z={100} />
+<Input {inputTensorDimension} {inputTensorData} pointSize={6} z={120} />
 
 <ActivationMap
   z={0}
   name="Convolution Layer #1"
   {...inferenceResponse.orderedOutputNodes[0]}
-  rowLength={4}
+  numberOfColumns={4}
   pointSize={8}
   gap={50}
 />
 
 <ActivationMap
-  z={-100}
+  z={-120}
   name="Convolution Layer #2"
   {...inferenceResponse.orderedOutputNodes[1]}
-  rowLength={4}
+  numberOfColumns={4}
   pointSize={12}
   gap={40}
 />
