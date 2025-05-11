@@ -5,6 +5,7 @@
   import Tensor2D from "@3d/Tensor2D.svelte"
   import ActivationMap from "./ActivationMap.svelte"
   import { AMBIENT_LIGHT_INTENSITY } from "@constants/global"
+  import Input from "./Input.svelte"
 
   type Props = {
     inputTensorDimension: number[]
@@ -22,16 +23,7 @@
 
 <T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
 
-<!-- TODO  Extract into Input component -->
-<Align x={0} y={0} z={false}>
-  <Tensor2D
-    position={[0, 0, 100]}
-    pointSize={6}
-    rows={inputTensorDimension[2]}
-    columns={inputTensorDimension[3]}
-    tensorData={inputTensorData}
-  />
-</Align>
+<Input {inputTensorDimension} {inputTensorData} pointSize={6} z={100} />
 
 <ActivationMap
   z={0}
