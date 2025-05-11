@@ -29,7 +29,7 @@
     color[label],
     highlight && "highlight-box",
   )}
-  style={`flex: ${flexValue};`}
+  style:flex={flexValue}
 >
   {label}
 </div>
