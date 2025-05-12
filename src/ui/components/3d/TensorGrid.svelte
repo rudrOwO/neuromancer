@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { OutputNode } from "bridge"
   import Tensor2D from "@3d/Tensor2D.svelte"
-  import { Text, Align, interactivity, useCursor } from "@threlte/extras"
+  import { Text, Align, useCursor } from "@threlte/extras"
   import { TENSOR_FONT_SIZE, TENSOR_ZOOM_CONSTANT } from "@constants/global"
   import { T } from "@threlte/core"
 
@@ -11,8 +11,6 @@
     numberOfColumns: number
     gap: number
     pointSize: number
-    interactionMutexKey: number
-    interactionMutexLock: number
   }
 
   let {
@@ -23,8 +21,6 @@
     dimension,
     activationMaps,
     z,
-    interactionMutexKey,
-    interactionMutexLock = $bindable(),
   }: Props = $props()
 
   const numberOfRows = activationMaps.length / numberOfColumns
@@ -42,25 +38,19 @@
   const activationMapHeight = gap * (numberOfRows - 1) + tensorHeight
 
   let textColor = $state("gray")
-  let fontSize = $state(TENSOR_FONT_SIZE)
 
-  interactivity()
   const { onPointerEnter, onPointerLeave } = useCursor()
-  function handleClick(e: any) {
-    console.log(`${name} clicked`)
-    e.stopPropagation()
-  }
 
-  function handlePointerEnter() {
+  function handleClick() {}
+
+  function handlePointerOver() {
     onPointerEnter()
     textColor = "white"
-    fontSize = fontSize + 1
   }
 
-  function handlePointerLeave() {
+  function handlePointerOut() {
     onPointerLeave()
     textColor = "gray"
-    fontSize = fontSize - 1
   }
 </script>
 
@@ -69,7 +59,7 @@
     position={[midPoint, 3, z]}
     text={name}
     color={textColor}
-    {fontSize}
+    fontSize={TENSOR_FONT_SIZE}
     anchorX="center"
     anchorY="bottom"
   />
@@ -89,8 +79,8 @@
   <T.Mesh
     position={[activationMapWidth / 2, -activationMapHeight / 2, z - 2]}
     onclick={handleClick}
-    onpointerenter={handlePointerEnter}
-    onpointerleave={handlePointerLeave}
+    onpointerover={handlePointerOver}
+    onpointerout={handlePointerOut}
   >
     <T.PlaneGeometry args={[activationMapWidth, activationMapHeight]} />
     <T.MeshBasicMaterial
