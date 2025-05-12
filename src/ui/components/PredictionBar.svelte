@@ -25,7 +25,7 @@
 
 <div
   class={clsx(
-    "py-1 grid place-items-center font-bold text-xl text-text-color",
+    "py-1 grid place-items-center font-bold text-base sm:text-xl text-text-color",
     color[label],
     highlight && "highlight-box",
   )}

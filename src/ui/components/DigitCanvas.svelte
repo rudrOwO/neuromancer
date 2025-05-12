@@ -199,7 +199,7 @@
 </script>
 
 <div
-  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 z-100"
+  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5dvh] sm:right-6 z-100"
   bind:this={containerDiv}
   role="none"
   onmousedown={handleMouseDown}
@@ -211,7 +211,7 @@
   {/if}
   <canvas
     bind:this={canvas}
-    class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2 rounded-lg overflow-hidden"
+    class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2 rounded-lg overflow-hidden mb-2"
     id="input-canvas"
     width="300"
     height="300"
@@ -235,7 +235,7 @@
     id="input-canvas-centercrop"
     style="display: none"
   ></canvas>
-  <div class="flex rounded-lg mt-2 overflow-hidden">
+  <div class="flex rounded-lg overflow-hidden">
     <Button
       onclick={clear}
       iconSrc="/clear-icon.svg"
@@ -253,7 +253,7 @@
 </div>
 
 <div
-  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-10"
+  class="flex flex-col fixed w-[300px] max-h-min right-2 bottom-[2.5dvh] sm:right-6 rounded-lg overflow-hidden z-10"
   bind:this={showCanvas}
 >
   <Button
