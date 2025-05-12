@@ -211,7 +211,7 @@
   {/if}
   <canvas
     bind:this={canvas}
-    class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2 rounded-lg overflow-hidden"
+    class="cursor-crosshair bg-background text-text-color border-gray-400 hover:border-2 rounded-lg overflow-hidden mb-2"
     id="input-canvas"
     width="300"
     height="300"
@@ -235,7 +235,7 @@
     id="input-canvas-centercrop"
     style="display: none"
   ></canvas>
-  <div class="flex rounded-lg mt-2 overflow-hidden">
+  <div class="flex rounded-lg overflow-hidden">
     <Button
       onclick={clear}
       iconSrc="/clear-icon.svg"

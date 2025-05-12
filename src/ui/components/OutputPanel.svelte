@@ -38,7 +38,7 @@
   })
 </script>
 
-<div class="flex flex-col left-2 sm:left-4 fixed z-100 h-[95%] self-center p-1">
+<div class="flex flex-col left-2 sm:left-4 fixed z-100 h-[95vh] self-center">
   {#if showHint}
     <Hint iconSrc="brain-icon.svg" message="Predictions" />
   {:else}
