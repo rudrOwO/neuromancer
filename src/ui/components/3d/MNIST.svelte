@@ -2,15 +2,16 @@
   import { T } from "@threlte/core"
   import { OrbitControls } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
-  import ActivationMap from "@3d/ActivationMap.svelte"
+  import TensorGrid from "@3d/TensorGrid.svelte"
   import { AMBIENT_LIGHT_INTENSITY } from "@constants/global"
-  import Input from "@3d/Input.svelte"
 
   type Props = {
     inputTensorDimension: number[]
     inputTensorData: Float32Array
     inferenceResponse: InferenceResponse
   }
+
+  let interactionMutexLock = $state(0)
 
   const { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
     $props()
@@ -22,22 +23,36 @@
 
 <T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
 
-<Input {inputTensorDimension} {inputTensorData} pointSize={6} z={120} />
+<TensorGrid
+  z={120}
+  name="Input"
+  dimension={inputTensorDimension}
+  activationMaps={[inputTensorData]}
+  numberOfColumns={1}
+  pointSize={6}
+  gap={0}
+  bind:interactionMutexLock
+  interactionMutexKey={0b1}
+/>
 
-<ActivationMap
+<TensorGrid
   z={0}
   name="Convolution Layer #1"
   {...inferenceResponse.orderedOutputNodes[0]}
   numberOfColumns={4}
   pointSize={8}
   gap={50}
+  bind:interactionMutexLock
+  interactionMutexKey={0b10}
 />
 
-<ActivationMap
+<TensorGrid
   z={-120}
   name="Convolution Layer #2"
   {...inferenceResponse.orderedOutputNodes[1]}
   numberOfColumns={4}
   pointSize={12}
   gap={40}
+  bind:interactionMutexLock
+  interactionMutexKey={0b100}
 />

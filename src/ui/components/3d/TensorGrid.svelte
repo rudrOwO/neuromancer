@@ -11,9 +11,11 @@
     numberOfColumns: number
     gap: number
     pointSize: number
+    interactionMutexKey: number
+    interactionMutexLock: number
   }
 
-  const {
+  let {
     name,
     pointSize,
     numberOfColumns,
@@ -21,6 +23,8 @@
     dimension,
     activationMaps,
     z,
+    interactionMutexKey,
+    interactionMutexLock = $bindable(),
   }: Props = $props()
 
   const numberOfRows = activationMaps.length / numberOfColumns
