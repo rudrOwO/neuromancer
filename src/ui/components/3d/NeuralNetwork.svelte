@@ -12,16 +12,32 @@
   }
 
   let showHint = $state(isFirstVisit)
+  let isPointerDown = $state(false)
+  let isPointerDragging = $state(false)
 
-  function handleMouseDown() {
+  function handlePointerDown() {
+    isPointerDown = true
     showHint = false
+  }
+
+  function handlePointerMove() {
+    if (isPointerDown) {
+      isPointerDragging = true
+    }
   }
 
   const { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
     $props()
 </script>
 
-<div class="w-full h-full" role="none" onmousedown={handleMouseDown}>
+<div
+  class="w-full h-full"
+  role="none"
+  onmousedown={handlePointerDown}
+  ontouchstart={handlePointerDown}
+  onmousemove={handlePointerMove}
+  ontouchmove={handlePointerMove}
+>
   <div
     class="fixed flex w-dvw text-text-color justify-center items-center top-16"
   >
@@ -30,6 +46,12 @@
     {/if}
   </div>
   <Canvas>
-    <MNIST {inputTensorDimension} {inputTensorData} {inferenceResponse} />
+    <MNIST
+      {inputTensorDimension}
+      {inputTensorData}
+      {inferenceResponse}
+      bind:isPointerDragging
+      bind:isPointerDown
+    />
   </Canvas>
 </div>
