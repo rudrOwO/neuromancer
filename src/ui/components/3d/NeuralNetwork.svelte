@@ -21,16 +21,12 @@
     $props()
 </script>
 
-<div
-  class="w-full h-full cursor-grab active:cursor-grabbing"
-  role="none"
-  onmousedown={handleMouseDown}
->
+<div class="w-full h-full" role="none" onmousedown={handleMouseDown}>
   <div
     class="fixed flex w-dvw text-text-color justify-center items-center top-16"
   >
     {#if showHint}
-      <Hint iconSrc="/mouse-icon.svg" message="Drag and zoom" />
+      <Hint iconSrc="/mouse-icon.svg" message="Drag, zoom, click" />
     {/if}
   </div>
   <Canvas>
