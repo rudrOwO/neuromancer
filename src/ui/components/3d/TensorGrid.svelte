@@ -11,6 +11,8 @@
     numberOfColumns: number
     gap: number
     pointSize: number
+    isPointerDown: boolean
+    isPointerDragging: boolean
   }
 
   let {
@@ -21,6 +23,8 @@
     dimension,
     activationMaps,
     z,
+    isPointerDragging = $bindable(),
+    isPointerDown = $bindable(),
   }: Props = $props()
 
   const numberOfRows = activationMaps.length / numberOfColumns
@@ -41,7 +45,15 @@
 
   const { onPointerEnter, onPointerLeave } = useCursor()
 
-  function handleClick() {}
+  function handlePointerRelease() {
+    if (!isPointerDragging) {
+      // TODO  Toggle modal here
+      alert(`Modal Triggered for ${name}`)
+    }
+
+    isPointerDown = false
+    isPointerDragging = false
+  }
 
   function handlePointerOver() {
     onPointerEnter()
@@ -78,7 +90,7 @@
   {/each}
   <T.Mesh
     position={[activationMapWidth / 2, -activationMapHeight / 2, z - 2]}
-    onclick={handleClick}
+    onpointerup={handlePointerRelease}
     onpointerover={handlePointerOver}
     onpointerout={handlePointerOut}
   >
@@ -89,7 +101,7 @@
           color: 0x000000,
           side: 2,
           transparent: true,
-          opacity: 0.5,
+          opacity: 0.6,
         },
       ]}
     />
