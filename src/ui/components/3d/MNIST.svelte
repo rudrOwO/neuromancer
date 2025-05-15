@@ -1,11 +1,9 @@
 <script lang="ts">
   import { T } from "@threlte/core"
-  import { Align, OrbitControls } from "@threlte/extras"
+  import { OrbitControls, interactivity } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
-  import Tensor2D from "@3d/Tensor2D.svelte"
-  import ActivationMap from "./ActivationMap.svelte"
+  import TensorGrid from "@3d/TensorGrid.svelte"
   import { AMBIENT_LIGHT_INTENSITY } from "@constants/global"
-  import Input from "./Input.svelte"
 
   type Props = {
     inputTensorDimension: number[]
@@ -15,6 +13,13 @@
 
   const { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
     $props()
+
+  interactivity({
+    filter: (hits, _) => {
+      // Only return the first hit from the raycaster
+      return hits.slice(0, 1)
+    },
+  })
 </script>
 
 <T.PerspectiveCamera makeDefault position={[375, 275, 375]} fov={25}>
@@ -23,22 +28,30 @@
 
 <T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
 
-<Input {inputTensorDimension} {inputTensorData} pointSize={6} z={100} />
+<TensorGrid
+  z={110}
+  name="Input"
+  dimension={inputTensorDimension}
+  activationMaps={[inputTensorData]}
+  numberOfColumns={1}
+  pointSize={6}
+  gap={0}
+/>
 
-<ActivationMap
+<TensorGrid
   z={0}
   name="Convolution Layer #1"
   {...inferenceResponse.orderedOutputNodes[0]}
-  rowLength={4}
+  numberOfColumns={4}
   pointSize={8}
   gap={50}
 />
 
-<ActivationMap
-  z={-100}
+<TensorGrid
+  z={-110}
   name="Convolution Layer #2"
   {...inferenceResponse.orderedOutputNodes[1]}
-  rowLength={4}
+  numberOfColumns={4}
   pointSize={12}
   gap={40}
 />
