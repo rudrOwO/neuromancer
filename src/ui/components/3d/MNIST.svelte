@@ -9,17 +9,10 @@
     inputTensorDimension: number[]
     inputTensorData: Float32Array
     inferenceResponse: InferenceResponse
-    isPointerDown: boolean
-    isPointerDragging: boolean
   }
 
-let {
-    inputTensorDimension,
-    inputTensorData,
-    inferenceResponse,
-    isPointerDragging = $bindable(),
-    isPointerDown = $bindable(),
-  }: Props = $props()
+  let { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
+    $props()
 
   interactivity({
     filter: (hits, _) => {
@@ -43,8 +36,6 @@ let {
   numberOfColumns={1}
   pointSize={6}
   gap={0}
-  bind:isPointerDragging
-  bind:isPointerDown
 />
 
 <TensorGrid
@@ -54,8 +45,6 @@ let {
   numberOfColumns={4}
   pointSize={8}
   gap={50}
-  bind:isPointerDragging
-  bind:isPointerDown
 />
 
 <TensorGrid
@@ -65,6 +54,4 @@ let {
   numberOfColumns={4}
   pointSize={12}
   gap={40}
-  bind:isPointerDragging
-  bind:isPointerDown
 />
