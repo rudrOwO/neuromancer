@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { InferenceResponse } from "bridge"
   import PredictionBar from "@components/PredictionBar.svelte"
-  import Hint from "./Hint.svelte"
+  import Hint from "@components/Hint.svelte"
 
   type Props = {
     inferenceResponse: InferenceResponse
