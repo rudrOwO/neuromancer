@@ -1,11 +1,8 @@
 <script lang="ts">
   import { TENSOR_ZOOM_CONSTANT } from "@constants/global"
   import { T } from "@threlte/core"
-  import { useCursor } from "@threlte/extras"
-  import {
-    handlePointerRelease,
-    isDraggingFinished,
-  } from "@utils/handlemouse.svelte"
+  import { Float, useCursor } from "@threlte/extras"
+  import { isDraggingFinished } from "@utils/handlemouse.svelte"
 
   type Props = {
     position: [number, number, number]
@@ -16,9 +13,12 @@
   }
 
   let { pointSize, position, rows, columns, tensorData }: Props = $props()
-
   const bufferGeometryLength = 3 * rows * columns
   const vertices = new Float32Array(bufferGeometryLength)
+  let hightlighted = $state(false)
+  let highlightedTensorData = $derived(
+    tensorData.map((t) => Math.min(1, t + 0.05)),
+  )
 
   // Enumerating vertices
   // 3 consecutive values define one vertex (x, y, z)
@@ -45,10 +45,12 @@
 
   function handlePointerOver() {
     onPointerEnter()
+    hightlighted = true
   }
 
   function handlePointerOut() {
     onPointerLeave()
+    hightlighted = false
   }
 </script>
 
@@ -65,21 +67,35 @@
           }
         }}
       />
-      <T.BufferAttribute
-        args={[tensorData, 3]}
-        attach={({ parent, ref }) => {
-          //@ts-ignore
-          parent.setAttribute("color", ref)
-          return () => {
-            // cleanup function called when ref changes or the component unmounts
-          }
-        }}
-      />
+      {#if hightlighted}
+        <T.BufferAttribute
+          args={[highlightedTensorData, 3]}
+          attach={({ parent, ref }) => {
+            //@ts-ignore
+            parent.setAttribute("color", ref)
+            return () => {
+              // cleanup function called when ref changes or the component unmounts
+            }
+          }}
+        />
+      {:else}
+        <T.BufferAttribute
+          args={[tensorData, 3]}
+          attach={({ parent, ref }) => {
+            //@ts-ignore
+            parent.setAttribute("color", ref)
+            return () => {
+              // cleanup function called when ref changes or the component unmounts
+            }
+          }}
+        />
+      {/if}
     </T.BufferGeometry>
     <T.PointsMaterial size={pointSize} vertexColors={true} />
   </T.Points>
+
   <T.Mesh
-    position={[rows, -columns, -1]}
+    position={[rows, -columns, -2]}
     onclick={handleClick}
     onpointerover={handlePointerOver}
     onpointerout={handlePointerOut}
@@ -96,7 +112,7 @@
           color: 0x000000,
           side: 2,
           transparent: true,
-          opacity: 0.7,
+          opacity: 0.6,
         },
       ]}
     />
