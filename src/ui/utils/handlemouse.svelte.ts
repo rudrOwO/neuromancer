@@ -3,7 +3,7 @@ import { isFirstVisit } from "@utils/firstvisit"
 let showHint = $state(isFirstVisit)
 let isPointerDragging = $state(false)
 let timeoutId: any
-const tinyDragDuration = 100
+const delay = 100
 
 // why thsese trivial functions?
 // https://svelte.dev/docs/svelte/$state#Passing-state-across-modules
@@ -17,12 +17,12 @@ export function isDraggingFinished() {
 
 export function handlePointerDown() {
   showHint = false
-  // why use timeout?
-  // to still register tiny drags as clicks
-  timeoutId = setTimeout(() => (isPointerDragging = true), tinyDragDuration)
+  // using delay to prevent race condition with click handler
+  timeoutId = setTimeout(() => (isPointerDragging = true), delay)
 }
 
 export function handlePointerRelease() {
   clearTimeout(timeoutId)
-  setTimeout(() => (isPointerDragging = false), tinyDragDuration)
+  // using delay to allow the click handler to finish executing with correct state (isPointerDragging)
+  setTimeout(() => (isPointerDragging = false), delay)
 }
