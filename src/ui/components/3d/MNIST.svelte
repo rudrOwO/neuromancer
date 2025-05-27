@@ -52,6 +52,6 @@
   name="Convolution Layer #2"
   {...inferenceResponse.orderedOutputNodes[1]}
   numberOfColumns={4}
-  pointSize={12}
+  pointSize={14}
   gap={40}
 />
