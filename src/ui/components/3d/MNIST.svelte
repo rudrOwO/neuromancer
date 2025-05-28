@@ -2,7 +2,7 @@
   import { T } from "@threlte/core"
   import { OrbitControls, interactivity } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
-  import TensorGrid from "@3d/TensorGrid.svelte"
+  import TensorGrid from "./TensorGrid.svelte"
   import { AMBIENT_LIGHT_INTENSITY } from "@constants/global"
 
   type Props = {

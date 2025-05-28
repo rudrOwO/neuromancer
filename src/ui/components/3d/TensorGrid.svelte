@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { OutputNode } from "bridge"
-  import Tensor2D from "@3d/Tensor2D.svelte"
+  import Tensor2D from "./Tensor2D.svelte"
   import { Text, Align } from "@threlte/extras"
   import {
     TENSOR_FONT_SIZE,
