@@ -1,10 +1,11 @@
 <script lang="ts">
   import { TENSOR_ZOOM_CONSTANT } from "@constants/global"
   import { T } from "@threlte/core"
-  import { Float, useCursor } from "@threlte/extras"
+  import { useCursor } from "@threlte/extras"
   import { isDraggingFinished } from "@utils/handlemouse.svelte"
 
   type Props = {
+    layerName: string
     position: [number, number, number]
     pointSize: number
     rows: number
@@ -12,14 +13,10 @@
     tensorData: Float32Array
   }
 
-  let { pointSize, position, rows, columns, tensorData }: Props = $props()
+  let { layerName, pointSize, position, rows, columns, tensorData }: Props =
+    $props()
   const bufferGeometryLength = 3 * rows * columns
   const vertices = new Float32Array(bufferGeometryLength)
-  let hightlighted = $state(false)
-  let highlightedTensorData = $derived(
-    tensorData.map((t) => Math.min(1, t + 0.05)),
-  )
-
   // Enumerating vertices
   // 3 consecutive values define one vertex (x, y, z)
   for (
@@ -34,12 +31,17 @@
     /* z axis */ vertices[i + 2] = 0
   }
 
+  let hightlighted = $state(false)
+  let highlightedTensorData = $derived(
+    tensorData.map((t) => Math.min(1, t + 0.05)),
+  )
+
   const { onPointerEnter, onPointerLeave } = useCursor()
 
   function handleClick() {
     if (isDraggingFinished()) {
-      // TODO  Toggle modal here
-      alert(`Modal Triggered for`)
+      // TODO  Conditionally toggle modal here using layerName
+      alert(`Modal Triggered for ${layerName}`)
     }
   }
 
