@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { TENSOR_ZOOM_CONSTANT } from "@constants/global"
+  import {
+    TENSOR_HIGHLIGHT_MAGNITUDE,
+    TENSOR_ZOOM_CONSTANT,
+  } from "@constants/global"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
-  import { isDraggingFinished } from "@utils/handlemouse.svelte"
+  import { isDraggingFinished } from "@shared/handlemouse.svelte"
 
   type Props = {
     layerName: string
@@ -33,7 +36,7 @@
 
   let hightlighted = $state(false)
   let highlightedTensorData = $derived(
-    tensorData.map((t) => Math.min(1, t + 0.05)),
+    tensorData.map((t) => Math.min(1, t + TENSOR_HIGHLIGHT_MAGNITUDE)),
   )
 
   const { onPointerEnter, onPointerLeave } = useCursor()
