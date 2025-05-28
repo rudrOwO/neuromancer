@@ -30,7 +30,7 @@
 
 <TensorGrid
   z={110}
-  name="Input"
+  layerName="Input"
   dimension={inputTensorDimension}
   activationMaps={[inputTensorData]}
   numberOfColumns={1}
@@ -40,7 +40,7 @@
 
 <TensorGrid
   z={0}
-  name="Convolution Layer #1"
+  layerName="Convolution Layer #1"
   {...inferenceResponse.orderedOutputNodes[0]}
   numberOfColumns={4}
   pointSize={8}
@@ -49,7 +49,7 @@
 
 <TensorGrid
   z={-110}
-  name="Convolution Layer #2"
+  layerName="Convolution Layer #2"
   {...inferenceResponse.orderedOutputNodes[1]}
   numberOfColumns={4}
   pointSize={14}

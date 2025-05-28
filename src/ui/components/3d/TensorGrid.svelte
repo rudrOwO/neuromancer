@@ -9,7 +9,7 @@
   } from "@constants/global"
 
   type Props = OutputNode & {
-    name: string
+    layerName: string
     z: number
     numberOfColumns: number
     gap: number
@@ -17,7 +17,7 @@
   }
 
   let {
-    name,
+    layerName,
     pointSize,
     numberOfColumns,
     gap,
@@ -38,7 +38,7 @@
 <Align x={0} y={0} z={false}>
   <Text
     position={[midPoint, 3, z]}
-    text={name}
+    text={layerName}
     color={TEXT_COLOR}
     fontSize={TENSOR_FONT_SIZE}
     anchorX="center"
@@ -46,6 +46,7 @@
   />
   {#each activationMaps as map, i}
     <Tensor2D
+      {layerName}
       position={[
         gap * (i % numberOfColumns),
         -gap * Math.floor(i / numberOfColumns),
