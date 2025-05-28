@@ -10,7 +10,7 @@
     ACTIVATION_MAPS_DEFAULT_VALUE,
     INPUT_TENSOR_DEFAULT_VALUE,
   } from "@constants/mnist"
-  const neuralNetworkImport = import("@3d/NeuralNetwork.svelte")
+  const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)
   let inferenceResponse = $state<InferenceResponse>(
