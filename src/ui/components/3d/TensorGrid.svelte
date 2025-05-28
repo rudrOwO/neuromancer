@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { OutputNode } from "bridge"
-  import Tensor2D from "@3d/Tensor2D.svelte"
+  import Tensor2D from "./Tensor2D.svelte"
   import { Text, Align } from "@threlte/extras"
   import {
     TENSOR_FONT_SIZE,
     TENSOR_ZOOM_CONSTANT,
-    TEXT_COLOR,
-  } from "@constants/global"
+    TENSOR_TEXT_COLOR,
+  } from "@constants/graphics"
 
   type Props = OutputNode & {
     layerName: string
@@ -39,7 +39,7 @@
   <Text
     position={[midPoint, 3, z]}
     text={layerName}
-    color={TEXT_COLOR}
+    color={TENSOR_TEXT_COLOR}
     fontSize={TENSOR_FONT_SIZE}
     anchorX="center"
     anchorY="bottom"

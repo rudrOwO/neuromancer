@@ -2,8 +2,14 @@
   import { T } from "@threlte/core"
   import { OrbitControls, interactivity } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
-  import TensorGrid from "@3d/TensorGrid.svelte"
-  import { AMBIENT_LIGHT_INTENSITY } from "@constants/global"
+  import TensorGrid from "./TensorGrid.svelte"
+  import {
+    AMBIENT_LIGHT_COLOR,
+    AMBIENT_LIGHT_INTENSITY,
+    CAMERA_FOV,
+    DEFAULT_CAMERA_POSITION,
+    DISTANCE_BETWEEN_TENSORS,
+  } from "@constants/graphics"
 
   type Props = {
     inputTensorDimension: number[]
@@ -22,14 +28,21 @@
   })
 </script>
 
-<T.PerspectiveCamera makeDefault position={[375, 275, 375]} fov={25}>
+<T.PerspectiveCamera
+  makeDefault
+  position={DEFAULT_CAMERA_POSITION}
+  fov={CAMERA_FOV}
+>
   <OrbitControls enableDamping></OrbitControls>
 </T.PerspectiveCamera>
 
-<T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
+<T.AmbientLight
+  color={AMBIENT_LIGHT_COLOR}
+  intensity={AMBIENT_LIGHT_INTENSITY}
+/>
 
 <TensorGrid
-  z={110}
+  z={2 * DISTANCE_BETWEEN_TENSORS}
   layerName="Input"
   dimension={inputTensorDimension}
   activationMaps={[inputTensorData]}
@@ -39,19 +52,37 @@
 />
 
 <TensorGrid
-  z={0}
+  z={DISTANCE_BETWEEN_TENSORS}
   layerName="Convolution Layer #1"
   {...inferenceResponse.orderedOutputNodes[0]}
+  numberOfColumns={4}
+  pointSize={6}
+  gap={60}
+/>
+
+<TensorGrid
+  z={0}
+  layerName="Max Pool #1"
+  {...inferenceResponse.orderedOutputNodes[1]}
   numberOfColumns={4}
   pointSize={8}
   gap={50}
 />
 
 <TensorGrid
-  z={-110}
+  z={-DISTANCE_BETWEEN_TENSORS}
   layerName="Convolution Layer #2"
-  {...inferenceResponse.orderedOutputNodes[1]}
+  {...inferenceResponse.orderedOutputNodes[2]}
   numberOfColumns={4}
-  pointSize={14}
+  pointSize={8}
+  gap={40}
+/>
+
+<TensorGrid
+  z={-2 * DISTANCE_BETWEEN_TENSORS}
+  layerName="Max Pool #2"
+  {...inferenceResponse.orderedOutputNodes[3]}
+  numberOfColumns={4}
+  pointSize={12}
   gap={40}
 />
