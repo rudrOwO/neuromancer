@@ -6,7 +6,7 @@
     TENSOR_FONT_SIZE,
     TENSOR_ZOOM_CONSTANT,
     TEXT_COLOR,
-  } from "@constants/global"
+  } from "@constants/graphics"
 
   type Props = OutputNode & {
     layerName: string

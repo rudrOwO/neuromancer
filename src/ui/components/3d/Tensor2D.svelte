@@ -2,7 +2,7 @@
   import {
     TENSOR_HIGHLIGHT_MAGNITUDE,
     TENSOR_ZOOM_CONSTANT,
-  } from "@constants/global"
+  } from "@constants/graphics"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
   import { isDraggingFinished } from "@shared/handlemouse.svelte"
