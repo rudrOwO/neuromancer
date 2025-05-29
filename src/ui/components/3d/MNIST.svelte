@@ -22,14 +22,14 @@
   })
 </script>
 
-<T.PerspectiveCamera makeDefault position={[375, 275, 375]} fov={25}>
+<T.PerspectiveCamera makeDefault position={[300, 300, 650]} fov={25}>
   <OrbitControls enableDamping></OrbitControls>
 </T.PerspectiveCamera>
 
 <T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
 
 <TensorGrid
-  z={110}
+  z={2 * 150}
   layerName="Input"
   dimension={inputTensorDimension}
   activationMaps={[inputTensorData]}
@@ -39,19 +39,37 @@
 />
 
 <TensorGrid
-  z={0}
+  z={150}
   layerName="Convolution Layer #1"
   {...inferenceResponse.orderedOutputNodes[0]}
+  numberOfColumns={4}
+  pointSize={6}
+  gap={60}
+/>
+
+<TensorGrid
+  z={0}
+  layerName="Max Pool #1"
+  {...inferenceResponse.orderedOutputNodes[1]}
   numberOfColumns={4}
   pointSize={8}
   gap={50}
 />
 
 <TensorGrid
-  z={-110}
+  z={-150}
   layerName="Convolution Layer #2"
-  {...inferenceResponse.orderedOutputNodes[1]}
+  {...inferenceResponse.orderedOutputNodes[2]}
   numberOfColumns={4}
-  pointSize={14}
+  pointSize={8}
+  gap={40}
+/>
+
+<TensorGrid
+  z={-2 * 150}
+  layerName="Max Pool #2"
+  {...inferenceResponse.orderedOutputNodes[3]}
+  numberOfColumns={4}
+  pointSize={12}
   gap={40}
 />
