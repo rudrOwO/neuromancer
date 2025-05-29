@@ -1,12 +1,19 @@
-import { DEFAULT_GRAY_VALUE } from "@constants/global"
+import { DEFAULT_GRAY_VALUE } from "@constants/graphics"
 import type { InferenceResponse, OutputNode } from "bridge"
 
 export const MODEL_URL = `${import.meta.env.VITE_PUBLIC_URL}/mnist-12.onnx`
 export const INPUT_TENSOR_DIMENSION = [1, 1, 28, 28]
-export const ORDERED_NODE_NAMES = ["Pooling66_Output_0", "Pooling160_Output_0"]
+export const ORDERED_NODE_NAMES = [
+  "ReLU32_Output_0",
+  "Pooling66_Output_0",
+  "ReLU114_Output_0",
+  "Pooling160_Output_0",
+]
 export const FINAL_NODE = "Plus214_Output_0"
 const ORDERED_NODE_DIMENSIONS = [
+  [1, 8, 28, 28],
   [1, 8, 14, 14],
+  [1, 16, 14, 14],
   [1, 16, 4, 4],
 ]
 export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {

@@ -1,13 +1,13 @@
 <script lang="ts">
   import { Canvas } from "@threlte/core"
-  import MNIST from "@3d/MNIST.svelte"
+  import MNIST from "@components/3d/MNIST.svelte"
   import type { InferenceResponse } from "bridge"
   import Hint from "@components/Hint.svelte"
   import {
     isShowHint,
     handlePointerDown,
     handlePointerRelease,
-  } from "@utils/handlemouse.svelte"
+  } from "@shared/handlemouse.svelte"
 
   type Props = {
     inputTensorDimension: number[]
