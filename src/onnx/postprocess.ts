@@ -1,4 +1,4 @@
-import { DEFAULT_GRAY_VALUE } from "@constants/global"
+import { DEFAULT_GRAY_VALUE } from "@constants/graphics"
 
 export function softmax(tensorData: Float32Array): number[] {
   const arr = Array.from(tensorData)

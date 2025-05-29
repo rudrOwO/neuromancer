@@ -24,7 +24,7 @@
     "baseUrl": "src",
     "paths": {
       "@components/*": ["ui/components/*"],
-      "@3d/*": ["ui/components/3d/*"],
+      "@shared/*": ["ui/shared/*"],
       "@utils/*": ["ui/utils/*"],
       "@constants/*": ["ui/constants/*"]
     }

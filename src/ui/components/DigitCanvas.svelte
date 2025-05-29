@@ -9,8 +9,8 @@
     INPUT_TENSOR_DEFAULT_VALUE,
     ACTIVATION_MAPS_DEFAULT_VALUE,
   } from "@constants/mnist"
-  import { DEFAULT_GRAY_VALUE } from "@constants/global"
-  import Button from "@components/Button.svelte"
+  import { DEFAULT_GRAY_VALUE } from "@constants/graphics"
+  import Button from "./Button.svelte"
   import Hint from "./Hint.svelte"
 
   type Props = {
