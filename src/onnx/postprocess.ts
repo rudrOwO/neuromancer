@@ -1,4 +1,4 @@
-import { DEFAULT_GRAY_VALUE } from "@constants/graphics"
+import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
 
 export function softmax(tensorData: Float32Array): number[] {
   const arr = Array.from(tensorData)
@@ -27,7 +27,7 @@ export function postProcess(
 
     let min = Number.MAX_VALUE
     let max = -1
-    activationMap.fill(DEFAULT_GRAY_VALUE)
+    activationMap.fill(TENSOR_DEFAULT_GRAY_VALUE)
 
     for (const t of subTensor) {
       if (t < min) {
