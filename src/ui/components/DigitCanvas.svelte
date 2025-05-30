@@ -9,7 +9,7 @@
     INPUT_TENSOR_DEFAULT_VALUE,
     ACTIVATION_MAPS_DEFAULT_VALUE,
   } from "@constants/mnist"
-  import { DEFAULT_GRAY_VALUE } from "@constants/graphics"
+  import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
   import Button from "./Button.svelte"
   import Hint from "./Hint.svelte"
 
@@ -81,7 +81,7 @@
     }
 
     const renderTensorData = new Float32Array(3 * tensorLength) // 3 * for RGB
-    renderTensorData.fill(DEFAULT_GRAY_VALUE)
+    renderTensorData.fill(TENSOR_DEFAULT_GRAY_VALUE)
 
     for (let i = 0, j = 0; i < tensorLength; i += 1, j += 3) {
       const brightness = Math.min(1.0, renderTensorData[j] + inputTensorData[i])

@@ -5,7 +5,7 @@
   import {
     TENSOR_FONT_SIZE,
     TENSOR_ZOOM_CONSTANT,
-    TEXT_COLOR,
+    TENSOR_TEXT_COLOR,
   } from "@constants/graphics"
 
   type Props = OutputNode & {
@@ -39,7 +39,7 @@
   <Text
     position={[midPoint, 3, z]}
     text={layerName}
-    color={TEXT_COLOR}
+    color={TENSOR_TEXT_COLOR}
     fontSize={TENSOR_FONT_SIZE}
     anchorX="center"
     anchorY="bottom"
