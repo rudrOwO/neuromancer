@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isFirstVisit } from "@utils/firstvisit"
   import DigitCanvas from "@components/DigitCanvas.svelte"
-  import OutputPanel from "@components/OutputPanel.svelte"
+  import OutputPanel from "@components/output/OutputPanel.svelte"
   import type { InferenceResponse } from "bridge"
   import { initializeModel } from "bridge"
   import {
@@ -10,6 +10,8 @@
     ACTIVATION_MAPS_DEFAULT_VALUE,
     INPUT_TENSOR_DEFAULT_VALUE,
   } from "@constants/mnist"
+
+  // lazy import to parallelize network requests
   const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)

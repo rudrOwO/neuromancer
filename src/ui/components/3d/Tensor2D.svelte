@@ -5,7 +5,7 @@
   } from "@constants/graphics"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
-  import { isDraggingFinished } from "@shared/handlemouse.svelte"
+  import { isDraggingFinished } from "@sharedstate/handlemouse.svelte"
 
   type Props = {
     layerName: string

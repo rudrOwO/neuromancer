@@ -7,7 +7,7 @@
     isShowHint,
     handlePointerDown,
     handlePointerRelease,
-  } from "@shared/handlemouse.svelte"
+  } from "@sharedstate/handlemouse.svelte"
 
   type Props = {
     inputTensorDimension: number[]
