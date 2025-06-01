@@ -5,7 +5,8 @@
   } from "@constants/graphics"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
-  import { isDraggingFinished } from "@sharedstate/handlemouse.svelte"
+  import { pointerDraggingState } from "@sharedstate/dragging.svelte"
+  import { showModal } from "@sharedstate/infographics.svelte"
 
   type Props = {
     layerName: string
@@ -42,9 +43,8 @@
   const { onPointerEnter, onPointerLeave } = useCursor()
 
   function handleClick() {
-    if (isDraggingFinished()) {
-      // TODO  Conditionally toggle modal here using layerName
-      alert(`Modal Triggered for ${layerName}`)
+    if (!pointerDraggingState.isDragging) {
+      showModal()
     }
   }
 
