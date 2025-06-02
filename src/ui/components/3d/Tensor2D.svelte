@@ -43,19 +43,23 @@
   const { onPointerEnter, onPointerLeave } = useCursor()
 
   function handleClick() {
-    if (!pointerDraggingState.isDragging) {
+    if (!pointerDraggingState.isDragging && layerName != "Input") {
       showModal()
     }
   }
 
   function handlePointerOver() {
-    onPointerEnter()
-    hightlighted = true
+    if (layerName != "Input") {
+      onPointerEnter()
+      hightlighted = true
+    }
   }
 
   function handlePointerOut() {
-    onPointerLeave()
-    hightlighted = false
+    if (layerName != "Input") {
+      onPointerLeave()
+      hightlighted = false
+    }
   }
 </script>
 
