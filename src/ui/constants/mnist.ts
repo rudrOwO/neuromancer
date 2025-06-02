@@ -16,6 +16,7 @@ const ORDERED_NODE_DIMENSIONS = [
   [1, 16, 14, 14],
   [1, 16, 4, 4],
 ]
+
 export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
   isSuccessful: false,
   orderedOutputNodes: (() => {
@@ -42,6 +43,7 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
   })(),
   predictions: Array(10).fill(0.1), // Probability of 1 distributed equally among 10 possibilities
 }
+
 export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
   const newTensor = new Float32Array(
     3 * INPUT_TENSOR_DIMENSION.reduce((a, b) => a * b),
@@ -49,3 +51,69 @@ export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
   newTensor.fill(TENSOR_DEFAULT_GRAY_VALUE)
   return newTensor
 })()
+
+export type LayerName =
+  | ""
+  | "Input"
+  | "Convolution Layer #1"
+  | "Max Pool #1"
+  | "Convolution Layer #2"
+  | "Max Pool #2"
+
+type Kernel = {
+  stride: number
+  dimension: number
+  tick: number
+}
+
+type KernelEntry = {
+  masked: Kernel
+  unmasked: Pick<Kernel, "stride" | "dimension"> // tick musk be the same for both masked and unmasked tensor
+}
+
+export const KERNEL_INFO: Partial<Record<LayerName, KernelEntry>> = {
+  "Convolution Layer #1": {
+    masked: {
+      stride: 1,
+      dimension: 5,
+      tick: 10,
+    },
+    unmasked: {
+      stride: 1,
+      dimension: 5,
+    },
+  },
+  "Max Pool #1": {
+    masked: {
+      stride: 2,
+      dimension: 2,
+      tick: 30,
+    },
+    unmasked: {
+      stride: 1,
+      dimension: 1,
+    },
+  },
+  "Convolution Layer #2": {
+    masked: {
+      stride: 1,
+      dimension: 5,
+      tick: 50,
+    },
+    unmasked: {
+      stride: 1,
+      dimension: 5,
+    },
+  },
+  "Max Pool #2": {
+    masked: {
+      stride: 3,
+      dimension: 3,
+      tick: 200,
+    },
+    unmasked: {
+      stride: 1,
+      dimension: 1,
+    },
+  },
+}

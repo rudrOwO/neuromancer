@@ -6,21 +6,41 @@
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
   import { pointerDraggingState } from "@sharedstate/dragging.svelte"
-  import { showModal } from "@sharedstate/infographics.svelte"
+  import {
+    infographicsModal,
+    showModal,
+    tensorState,
+  } from "@sharedstate/infographics.svelte"
+  import { getTensorDependencies } from "@utils/tensordeps"
+  import { KERNEL_INFO, type LayerName } from "@constants/mnist"
+  import type { OutputNode } from "bridge"
 
   type Props = {
-    layerName: string
+    layerName: LayerName
     position: [number, number, number]
     pointSize: number
     rows: number
     columns: number
     tensorData: Float32Array
+    tensorIndex: number
+    previousOutputNode: OutputNode | null
   }
 
-  let { layerName, pointSize, position, rows, columns, tensorData }: Props =
-    $props()
+  let {
+    layerName,
+    pointSize,
+    position,
+    rows,
+    columns,
+    tensorData,
+    tensorIndex,
+    previousOutputNode,
+  }: Props = $props()
+  let hightlighted = $state(false)
+
   const bufferGeometryLength = 3 * rows * columns
   const vertices = new Float32Array(bufferGeometryLength)
+
   // Enumerating vertices
   // 3 consecutive values define one vertex (x, y, z)
   for (
@@ -35,27 +55,90 @@
     /* z axis */ vertices[i + 2] = 0
   }
 
-  let hightlighted = $state(false)
-  let highlightedTensorData = $derived(
-    tensorData.map((t) => Math.min(1, t + TENSOR_HIGHLIGHT_MAGNITUDE)),
-  )
+  type TensorColor = {
+    normal: Float32Array<ArrayBuffer>
+    highlighted: Float32Array<ArrayBuffer>
+  }
+
+  let tensorcolor: TensorColor = $derived.by(() => {
+    let tensorColorArray = new Float32Array(3 * tensorData.length)
+    let hightlightedTensorColorArray = new Float32Array(3 * tensorData.length)
+
+    for (let i = 0, j = 0; i < tensorData.length; i += 1, j += 3) {
+      const brightness = tensorData[i]
+
+      tensorColorArray[j] = brightness
+      tensorColorArray[j + 1] = brightness
+      tensorColorArray[j + 2] = brightness
+
+      hightlightedTensorColorArray[j] = Math.min(
+        1,
+        brightness + TENSOR_HIGHLIGHT_MAGNITUDE,
+      )
+      hightlightedTensorColorArray[j + 1] = Math.min(
+        1,
+        brightness + TENSOR_HIGHLIGHT_MAGNITUDE,
+      )
+      hightlightedTensorColorArray[j + 2] = Math.min(
+        1,
+        brightness + TENSOR_HIGHLIGHT_MAGNITUDE,
+      )
+    }
+
+    return {
+      normal: tensorColorArray,
+      highlighted: hightlightedTensorColorArray,
+    }
+  })
 
   const { onPointerEnter, onPointerLeave } = useCursor()
 
   function handleClick() {
-    if (!pointerDraggingState.isDragging) {
+    if (!pointerDraggingState.isDragging && layerName != "Input") {
+      const tensorDependencies = getTensorDependencies(
+        layerName,
+        tensorIndex,
+        previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+      )
+
+      const pointSizeToGrayBoxScale = 1 / 22
+
+      tensorState.unmaskedTensors = tensorDependencies.map((dep) => ({
+        tensorData: dep,
+        rows: previousOutputNode!.dimension[2],
+        columns: previousOutputNode!.dimension[3],
+        cellSize: pointSize * pointSizeToGrayBoxScale,
+        kernelStride: KERNEL_INFO[layerName]!.masked.stride,
+        kernelDimension: KERNEL_INFO[layerName]!.masked.dimension,
+        kernelTick: KERNEL_INFO[layerName]!.masked.tick,
+      }))
+
+      tensorState.maskedTensor = {
+        tensorData,
+        rows,
+        columns,
+        cellSize: pointSize * pointSizeToGrayBoxScale,
+        kernelStride: KERNEL_INFO[layerName]!.unmasked.stride,
+        kernelDimension: KERNEL_INFO[layerName]!.unmasked.dimension,
+      }
+
+      infographicsModal.layerName = layerName
       showModal()
     }
   }
 
   function handlePointerOver() {
-    onPointerEnter()
-    hightlighted = true
+    if (layerName != "Input") {
+      onPointerEnter()
+      hightlighted = true
+    }
   }
 
   function handlePointerOut() {
-    onPointerLeave()
-    hightlighted = false
+    if (layerName != "Input") {
+      onPointerLeave()
+      hightlighted = false
+    }
   }
 </script>
 
@@ -74,7 +157,7 @@
       />
       {#if hightlighted}
         <T.BufferAttribute
-          args={[highlightedTensorData, 3]}
+          args={[tensorcolor.highlighted, 3]}
           attach={({ parent, ref }) => {
             //@ts-ignore
             parent.setAttribute("color", ref)
@@ -85,7 +168,7 @@
         />
       {:else}
         <T.BufferAttribute
-          args={[tensorData, 3]}
+          args={[tensorcolor.normal, 3]}
           attach={({ parent, ref }) => {
             //@ts-ignore
             parent.setAttribute("color", ref)
@@ -99,8 +182,10 @@
     <T.PointsMaterial size={pointSize} vertexColors={true} />
   </T.Points>
 
+  <!-- usually z = -1 would suffice ro render a back mesh. -->
+  <!-- But for some reason, it does not render correctly on small screens. -->
   <T.Mesh
-    position={[rows, -columns, -2]}
+    position={[rows, -columns, -3]}
     onclick={handleClick}
     onpointerover={handlePointerOver}
     onpointerout={handlePointerOut}
@@ -117,7 +202,7 @@
           color: 0x000000,
           side: 2,
           transparent: true,
-          opacity: 0.6,
+          opacity: 0.7,
         },
       ]}
     />
