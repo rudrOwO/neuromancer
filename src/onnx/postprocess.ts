@@ -18,7 +18,7 @@ export function postProcess(
   const activationMaps: Float32Array[] = []
 
   for (let i = 0; i < numberOfTensors; i += 1) {
-    const activationMap = new Float32Array(3 * activationMapLength)
+    const activationMap = new Float32Array(activationMapLength)
 
     const subTensor = tensorData.subarray(
       i * activationMapLength,
@@ -41,14 +41,12 @@ export function postProcess(
 
     const range = max - min
 
-    for (let i = 0, j = 0; i < subTensor.length; i += 1, j += 3) {
+    for (let i = 0; i < subTensor.length; i += 1) {
       const brightness = Math.min(
         1.0,
-        activationMap[j] + (subTensor[i] - min) / range,
+        activationMap[i] + (subTensor[i] - min) / range,
       )
-      activationMap[j] = brightness
-      activationMap[j + 1] = brightness
-      activationMap[j + 2] = brightness
+      activationMap[i] = brightness
     }
 
     activationMaps.push(activationMap)
