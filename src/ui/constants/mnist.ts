@@ -1,4 +1,4 @@
-import { DEFAULT_GRAY_VALUE } from "@constants/graphics"
+import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
 import type { InferenceResponse, OutputNode } from "bridge"
 
 export const MODEL_URL = `${import.meta.env.VITE_PUBLIC_URL}/mnist-12.onnx`
@@ -29,7 +29,7 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
 
       for (let i = 0; i < numberOfTensors; i += 1) {
         activationMaps[i] = new Float32Array(3 * activationMapLength)
-        activationMaps[i].fill(DEFAULT_GRAY_VALUE)
+        activationMaps[i].fill(TENSOR_DEFAULT_GRAY_VALUE)
       }
 
       orderedOutputNodes.push({
@@ -46,6 +46,6 @@ export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
   const newTensor = new Float32Array(
     3 * INPUT_TENSOR_DIMENSION.reduce((a, b) => a * b),
   )
-  newTensor.fill(DEFAULT_GRAY_VALUE)
+  newTensor.fill(TENSOR_DEFAULT_GRAY_VALUE)
   return newTensor
 })()
