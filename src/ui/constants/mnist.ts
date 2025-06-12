@@ -49,3 +49,9 @@ export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
   newTensor.fill(TENSOR_DEFAULT_GRAY_VALUE)
   return newTensor
 })()
+export type LayerName =
+  | "Input"
+  | "Convolution Layer #1"
+  | "Max Pool #1"
+  | "Convolution Layer #2"
+  | "Max Pool #2"

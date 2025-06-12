@@ -7,23 +7,26 @@
     TENSOR_ZOOM_CONSTANT,
     TENSOR_TEXT_COLOR,
   } from "@constants/graphics"
+  import type { LayerName } from "@constants/mnist"
 
   type Props = OutputNode & {
-    layerName: string
+    layerName: LayerName
     z: number
     numberOfColumns: number
     gap: number
     pointSize: number
+    previousOutputNode: OutputNode | null
   }
 
   let {
     layerName,
+    z,
     pointSize,
     numberOfColumns,
     gap,
     dimension,
     activationMaps,
-    z,
+    previousOutputNode,
   }: Props = $props()
 
   const tensorWidth = dimension[2] * TENSOR_ZOOM_CONSTANT * pointSize
@@ -56,6 +59,8 @@
       rows={dimension[2]}
       columns={dimension[3]}
       tensorData={map}
+      tensorIndex={i}
+      {previousOutputNode}
     />
   {/each}
 </Align>
