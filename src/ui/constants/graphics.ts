@@ -2,7 +2,7 @@ export const AMBIENT_LIGHT_INTENSITY = 0.4
 export const AMBIENT_LIGHT_COLOR = "#fff"
 export const CAMERA_FOV = 25
 export const DEFAULT_CAMERA_POSITION: [x: number, y: number, z: number] = [
-  300, 300, 650,
+  300, 300, 800,
 ]
 
 export const TENSOR_DEFAULT_GRAY_VALUE = 0.05

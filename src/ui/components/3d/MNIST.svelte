@@ -49,6 +49,7 @@
   numberOfColumns={1}
   pointSize={6}
   gap={0}
+  previousOutputNode={null}
 />
 
 <TensorGrid
@@ -58,6 +59,10 @@
   numberOfColumns={4}
   pointSize={6}
   gap={60}
+  previousOutputNode={{
+    activationMaps: [inputTensorData],
+    dimension: inputTensorDimension,
+  }}
 />
 
 <TensorGrid
@@ -67,6 +72,7 @@
   numberOfColumns={4}
   pointSize={8}
   gap={50}
+  previousOutputNode={inferenceResponse.orderedOutputNodes[0]}
 />
 
 <TensorGrid
@@ -76,6 +82,7 @@
   numberOfColumns={4}
   pointSize={8}
   gap={40}
+  previousOutputNode={inferenceResponse.orderedOutputNodes[1]}
 />
 
 <TensorGrid
@@ -85,4 +92,5 @@
   numberOfColumns={4}
   pointSize={12}
   gap={40}
+  previousOutputNode={inferenceResponse.orderedOutputNodes[2]}
 />
