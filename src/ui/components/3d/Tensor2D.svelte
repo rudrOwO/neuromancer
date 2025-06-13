@@ -6,19 +6,32 @@
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
   import { pointerDraggingState } from "@sharedstate/dragging.svelte"
-  import { showModal } from "@sharedstate/infographics.svelte"
+  import { showModal, tensorState } from "@sharedstate/infographics.svelte"
+  import { getTensorDependencies } from "@utils/tensordeps"
+  import type { LayerName } from "@constants/mnist"
+  import type { OutputNode } from "bridge"
 
   type Props = {
-    layerName: string
+    layerName: LayerName
     position: [number, number, number]
     pointSize: number
     rows: number
     columns: number
     tensorData: Float32Array
+    tensorIndex: number
+    previousOutputNode: OutputNode | null
   }
 
-  let { layerName, pointSize, position, rows, columns, tensorData }: Props =
-    $props()
+  let {
+    layerName,
+    pointSize,
+    position,
+    rows,
+    columns,
+    tensorData,
+    tensorIndex,
+    previousOutputNode,
+  }: Props = $props()
   let hightlighted = $state(false)
 
   const bufferGeometryLength = 3 * rows * columns
@@ -38,7 +51,12 @@
     /* z axis */ vertices[i + 2] = 0
   }
 
-  let tensorcolor = $derived.by(() => {
+  type TensorColor = {
+    normal: Float32Array<ArrayBuffer>
+    highlighted: Float32Array<ArrayBuffer>
+  }
+
+  let tensorcolor: TensorColor = $derived.by(() => {
     let tensorColorArray = new Float32Array(3 * tensorData.length)
     let hightlightedTensorColorArray = new Float32Array(3 * tensorData.length)
 
@@ -69,12 +87,23 @@
     }
   })
 
-  // tensorData.map((t) => Math.min(1, t + TENSOR_HIGHLIGHT_MAGNITUDE)),
-
   const { onPointerEnter, onPointerLeave } = useCursor()
 
   function handleClick() {
     if (!pointerDraggingState.isDragging && layerName != "Input") {
+      const tensorDependencies = getTensorDependencies(
+        layerName,
+        tensorIndex,
+        previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+      )
+
+      tensorState.unmaskedTensors = tensorDependencies.map((dep) => ({
+        tensorData: dep,
+        rows: previousOutputNode!.dimension[2],
+        columns: previousOutputNode!.dimension[3],
+        size: pointSize / 15, // 👀 Look a magic number!
+      }))
+
       showModal()
     }
   }
