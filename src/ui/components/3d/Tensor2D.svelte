@@ -108,9 +108,9 @@
         rows: previousOutputNode!.dimension[2],
         columns: previousOutputNode!.dimension[3],
         cellSize: pointSize * pointSizeToGrayBoxScale,
-        kernelStride: KERNEL_INFO[layerName]!.stride,
-        kernelDimension: KERNEL_INFO[layerName]!.dimension,
-        kernelTick: KERNEL_INFO[layerName]!.tick,
+        kernelStride: KERNEL_INFO[layerName]!.masked.stride,
+        kernelDimension: KERNEL_INFO[layerName]!.masked.dimension,
+        kernelTick: KERNEL_INFO[layerName]!.masked.tick,
         masked: false,
       }))
 
@@ -119,9 +119,9 @@
         rows,
         columns,
         cellSize: pointSize * pointSizeToGrayBoxScale,
-        kernelStride: 1,
-        kernelDimension: 1,
-        kernelTick: KERNEL_INFO[layerName]!.tick,
+        kernelStride: KERNEL_INFO[layerName]!.unmasked.stride,
+        kernelDimension: KERNEL_INFO[layerName]!.unmasked.dimension,
+        kernelTick: KERNEL_INFO[layerName]!.masked.tick, // Yes, it's masked, not a bug
         masked: true,
       }
 

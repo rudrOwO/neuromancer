@@ -51,11 +51,25 @@
               kernelStride={tensor.kernelStride}
               kernelDimension={tensor.kernelDimension}
               kernelTick={tensor.kernelTick}
+              masked={tensor.masked}
             ></Tensor>
           {/each}
         </div>
 
-        <span class="text-white">Masked tensor</span>
+        <span class="text-white">
+          {#if tensorState.maskedTensor != null}
+            <Tensor
+              tensorData={tensorState.maskedTensor.tensorData}
+              rows={tensorState.maskedTensor.rows}
+              columns={tensorState.maskedTensor.columns}
+              cellSize={tensorState.maskedTensor.cellSize}
+              kernelStride={tensorState.maskedTensor.kernelStride}
+              kernelDimension={tensorState.maskedTensor.kernelDimension}
+              kernelTick={tensorState.maskedTensor.kernelTick}
+              masked={tensorState.maskedTensor.masked}
+            ></Tensor>
+          {/if}
+        </span>
       </div>
     {/if}
   </div>

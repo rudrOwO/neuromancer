@@ -1,8 +1,11 @@
 // why is this an object?
+
+import type { LayerName } from "@constants/mnist"
+
 // https://svelte.dev/docs/svelte/$state#Passing-state-across-modules
 type InfoGraphicsModal = {
   element: HTMLDialogElement | null
-  layerName: string
+  layerName: LayerName
   isOpen: boolean
 }
 
