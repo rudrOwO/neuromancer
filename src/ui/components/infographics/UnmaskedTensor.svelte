@@ -9,6 +9,7 @@
     grayBoxSize,
     kernelStride,
     kernelDimension,
+    kernelTick,
   }: Tensor = $props()
   const rowBuffers = $derived.by(() => {
     const rowBuffers: Float32Array[] = new Array(rows)
@@ -42,5 +43,6 @@
     tensorCellSize={grayBoxSize}
     tensorRows={rows}
     tensorColumns={columns}
+    tick={kernelTick}
   />
 </div>
