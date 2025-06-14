@@ -2,9 +2,8 @@
   import {
     infographicsModal,
     closeModal,
-    tensorState,
   } from "@sharedstate/infographics.svelte"
-  import Tensor from "./Tensor.svelte"
+  import Infographics from "./Infographics.svelte"
 
   function preventClickEventPropagation(e: MouseEvent) {
     e.stopPropagation()
@@ -38,39 +37,8 @@
     <span class="text-white text-xl font-bold my-4"
       >{infographicsModal.layerName}</span
     >
-
     {#if infographicsModal.isOpen}
-      <div class="flex flex-row gap-10">
-        <div class="flex flex-col gap-4">
-          {#each tensorState.unmaskedTensors as tensor}
-            <Tensor
-              tensorData={tensor.tensorData}
-              rows={tensor.rows}
-              columns={tensor.columns}
-              cellSize={tensor.cellSize}
-              kernelStride={tensor.kernelStride}
-              kernelDimension={tensor.kernelDimension}
-              kernelTick={tensor.kernelTick}
-              masked={tensor.masked}
-            ></Tensor>
-          {/each}
-        </div>
-
-        <span class="text-white">
-          {#if tensorState.maskedTensor != null}
-            <Tensor
-              tensorData={tensorState.maskedTensor.tensorData}
-              rows={tensorState.maskedTensor.rows}
-              columns={tensorState.maskedTensor.columns}
-              cellSize={tensorState.maskedTensor.cellSize}
-              kernelStride={tensorState.maskedTensor.kernelStride}
-              kernelDimension={tensorState.maskedTensor.kernelDimension}
-              kernelTick={tensorState.maskedTensor.kernelTick}
-              masked={tensorState.maskedTensor.masked}
-            ></Tensor>
-          {/if}
-        </span>
-      </div>
+      <Infographics />
     {/if}
   </div>
 </dialog>
