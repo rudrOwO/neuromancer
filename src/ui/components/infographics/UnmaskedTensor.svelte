@@ -1,12 +1,15 @@
 <script lang="ts">
-  type Props = {
-    tensorData: Float32Array
-    rows: number
-    columns: number
-    size: number
-  }
+  import type { Tensor } from "@sharedstate/infographics.svelte"
+  import Kernel from "./Kernel.svelte"
 
-  const { tensorData, rows, columns, size }: Props = $props()
+  const {
+    tensorData,
+    rows,
+    columns,
+    grayBoxSize,
+    kernelStride,
+    kernelDimension,
+  }: Tensor = $props()
   const rowBuffers = $derived.by(() => {
     const rowBuffers: Float32Array[] = new Array(rows)
     for (let i = 0; i < rows; i++) {
@@ -21,16 +24,23 @@
   }
 </script>
 
-<div>
+<div class="relative">
   {#each rowBuffers as rowBuffer}
     <div class="flex flex-row">
-      {#each rowBuffer as brightness}
+      {#each rowBuffer as grayValue}
         <div
-          style={`background-color: ${brightnessToGrayscale(brightness)};
-                  width:${size}rem; 
-                  height:${size}rem`}
+          style={`background-color: ${brightnessToGrayscale(grayValue)};
+                  width:${grayBoxSize}rem; 
+                  height:${grayBoxSize}rem`}
         ></div>
       {/each}
     </div>
   {/each}
+  <Kernel
+    stride={kernelStride}
+    dimension={kernelDimension}
+    tensorCellSize={grayBoxSize}
+    tensorRows={rows}
+    tensorColumns={columns}
+  />
 </div>
