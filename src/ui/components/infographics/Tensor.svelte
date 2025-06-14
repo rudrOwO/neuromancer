@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Tensor } from "@sharedstate/infographics.svelte"
   import Kernel from "./Kernel.svelte"
+  import Cell from "./Cell.svelte"
 
   const {
     tensorData,
@@ -10,7 +11,9 @@
     kernelStride,
     kernelDimension,
     kernelTick,
+    masked,
   }: Tensor = $props()
+
   const rowBuffers = $derived.by(() => {
     const rowBuffers: Float32Array[] = new Array(rows)
     for (let i = 0; i < rows; i++) {
@@ -18,11 +21,6 @@
     }
     return rowBuffers
   })
-
-  function brightnessToGrayscale(brightness: number) {
-    const gray = Math.round(brightness * 255)
-    return `rgb(${gray}, ${gray}, ${gray})`
-  }
 
   let lastTime = performance.now()
   let animationId: number
@@ -64,13 +62,13 @@
   {#each rowBuffers as rowBuffer}
     <div class="flex flex-row">
       {#each rowBuffer as grayValue}
-        <div
-          style={`background-color: ${brightnessToGrayscale(grayValue)};
-                  width:${cellSize}rem; 
-                  height:${cellSize}rem`}
-        ></div>
+        <Cell {grayValue} {cellSize} {masked} />
       {/each}
     </div>
   {/each}
-  <Kernel width={kernelDimension * cellSize} height={kernelDimension * cellSize}  {transformStyle} />
+  <Kernel
+    width={kernelDimension * cellSize}
+    height={kernelDimension * cellSize}
+    {transformStyle}
+  />
 </div>

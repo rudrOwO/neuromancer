@@ -111,6 +111,7 @@
         kernelStride: KERNEL_INFO[layerName]!.stride,
         kernelDimension: KERNEL_INFO[layerName]!.dimension,
         kernelTick: KERNEL_INFO[layerName]!.tick,
+        masked: false,
       }))
 
       tensorState.maskedTensor = {
@@ -121,6 +122,7 @@
         kernelStride: 1,
         kernelDimension: 1,
         kernelTick: KERNEL_INFO[layerName]!.tick,
+        masked: true,
       }
 
       infographicsModal.layerName = layerName

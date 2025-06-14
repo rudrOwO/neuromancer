@@ -20,6 +20,7 @@ export type Tensor = {
   kernelStride: number
   kernelDimension: number
   kernelTick: number
+  masked: boolean
 }
 
 type TensorState = { unmaskedTensors: Tensor[]; maskedTensor: Tensor | null }
