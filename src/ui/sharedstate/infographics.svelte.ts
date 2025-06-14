@@ -12,20 +12,11 @@ export let infographicsModal: InfoGraphicsModal = $state({
   isOpen: false,
 })
 
-export type Kernel = {
-  stride: number
-  dimension: number
-  tensorCellSize: number
-  tensorRows: number
-  tensorColumns: number
-  tick: number
-}
-
 export type Tensor = {
   tensorData: Float32Array
   rows: number
   columns: number
-  grayBoxSize: number
+  cellSize: number
   kernelStride: number
   kernelDimension: number
   kernelTick: number

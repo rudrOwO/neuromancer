@@ -47,7 +47,7 @@
               tensorData={tensor.tensorData}
               rows={tensor.rows}
               columns={tensor.columns}
-              grayBoxSize={tensor.grayBoxSize}
+              cellSize={tensor.cellSize}
               kernelStride={tensor.kernelStride}
               kernelDimension={tensor.kernelDimension}
               kernelTick={tensor.kernelTick}
