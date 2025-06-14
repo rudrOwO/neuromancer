@@ -23,10 +23,20 @@ export type Tensor = {
   kernelStride: number
   kernelDimension: number
   kernelTick: number
-  masked: boolean
 }
 
-type TensorState = { unmaskedTensors: Tensor[]; maskedTensor: Tensor | null }
+type TensorState = {
+  unmaskedTensors: Tensor[]
+  maskedTensor: Pick<
+    Tensor,
+    | "tensorData"
+    | "rows"
+    | "columns"
+    | "cellSize"
+    | "kernelStride"
+    | "kernelDimension"
+  > | null
+}
 
 export let tensorState: TensorState = $state({
   unmaskedTensors: [],

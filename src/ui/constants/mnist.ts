@@ -76,7 +76,7 @@ export const KERNEL_INFO: Partial<Record<LayerName, KernelEntry>> = {
     masked: {
       stride: 1,
       dimension: 5,
-      tick: 40,
+      tick: 10,
     },
     unmasked: {
       stride: 1,
@@ -87,7 +87,7 @@ export const KERNEL_INFO: Partial<Record<LayerName, KernelEntry>> = {
     masked: {
       stride: 2,
       dimension: 2,
-      tick: 100,
+      tick: 30,
     },
     unmasked: {
       stride: 1,
@@ -98,7 +98,7 @@ export const KERNEL_INFO: Partial<Record<LayerName, KernelEntry>> = {
     masked: {
       stride: 1,
       dimension: 5,
-      tick: 200,
+      tick: 50,
     },
     unmasked: {
       stride: 1,
@@ -109,7 +109,7 @@ export const KERNEL_INFO: Partial<Record<LayerName, KernelEntry>> = {
     masked: {
       stride: 3,
       dimension: 3,
-      tick: 400,
+      tick: 200,
     },
     unmasked: {
       stride: 1,

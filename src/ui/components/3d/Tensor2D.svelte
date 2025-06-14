@@ -111,7 +111,6 @@
         kernelStride: KERNEL_INFO[layerName]!.masked.stride,
         kernelDimension: KERNEL_INFO[layerName]!.masked.dimension,
         kernelTick: KERNEL_INFO[layerName]!.masked.tick,
-        masked: false,
       }))
 
       tensorState.maskedTensor = {
@@ -121,8 +120,6 @@
         cellSize: pointSize * pointSizeToGrayBoxScale,
         kernelStride: KERNEL_INFO[layerName]!.unmasked.stride,
         kernelDimension: KERNEL_INFO[layerName]!.unmasked.dimension,
-        kernelTick: KERNEL_INFO[layerName]!.masked.tick, // Yes, it's masked, not a bug
-        masked: true,
       }
 
       infographicsModal.layerName = layerName
