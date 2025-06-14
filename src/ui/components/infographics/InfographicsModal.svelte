@@ -31,16 +31,17 @@
   bind:this={infographicsModal.element}
   onclick={closeModal}
 >
-  <div class="grid place-items-center" onclick={preventClickEventPropagation}>
+  <div
+    class="grid place-items-center p-2"
+    onclick={preventClickEventPropagation}
+  >
     <span class="text-white text-xl font-bold my-4"
       >{infographicsModal.layerName}</span
     >
 
     {#if infographicsModal.isOpen}
-      <div class="flex flex-col lg:flex-row">
-        <div
-          class="grid grid-flow-col [grid-template-rows:repeat(4,min-content)] gap-4"
-        >
+      <div class="flex flex-row gap-10">
+        <div class="flex flex-col gap-4">
           {#each tensorState.unmaskedTensors as tensor}
             <UnmaskedTensor
               tensorData={tensor.tensorData}
@@ -49,11 +50,12 @@
               grayBoxSize={tensor.grayBoxSize}
               kernelStride={tensor.kernelStride}
               kernelDimension={tensor.kernelDimension}
+              kernelTick={tensor.kernelTick}
             ></UnmaskedTensor>
           {/each}
         </div>
 
-        <span class="text-white my-2">Masked tensor</span>
+        <span class="text-white">Masked tensor</span>
       </div>
     {/if}
   </div>

@@ -7,10 +7,10 @@
     tensorCellSize,
     tensorColumns,
     tensorRows,
+    tick,
   }: Kernel = $props()
 
   let lastTime = performance.now()
-  const tick = 300
   let animationId: number
   let transformStyle = $state("")
   let row = 0
@@ -41,13 +41,12 @@
     animationId = requestAnimationFrame(animate)
 
     return () => {
-      console.log("Component destroyed")
       cancelAnimationFrame(animationId)
     }
   })
 </script>
 
 <div
-  class="absolute top-0 left-0 z-100 border-2 border-white transition-transform duration-100"
+  class="absolute top-0 left-0 z-100 border-2 border-green-600"
   style={`width: ${dimension * tensorCellSize}rem; height: ${dimension * tensorCellSize}rem; ${transformStyle}`}
 ></div>

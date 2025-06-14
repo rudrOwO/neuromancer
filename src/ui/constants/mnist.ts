@@ -62,23 +62,28 @@ export type LayerName =
 type Kernel = {
   stride: number
   dimension: number
+  tick: number
 }
 
 export const KERNEL_INFO: Partial<Record<LayerName, Kernel>> = {
   "Convolution Layer #1": {
     stride: 1,
     dimension: 5,
+    tick: 40,
   },
   "Max Pool #1": {
     stride: 2,
     dimension: 2,
+    tick: 100,
   },
   "Convolution Layer #2": {
     stride: 1,
     dimension: 5,
+    tick: 200,
   },
   "Max Pool #2": {
     stride: 3,
     dimension: 3,
+    tick: 400,
   },
 }

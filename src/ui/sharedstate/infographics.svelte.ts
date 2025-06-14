@@ -18,6 +18,7 @@ export type Kernel = {
   tensorCellSize: number
   tensorRows: number
   tensorColumns: number
+  tick: number
 }
 
 export type Tensor = {
@@ -27,6 +28,7 @@ export type Tensor = {
   grayBoxSize: number
   kernelStride: number
   kernelDimension: number
+  kernelTick: number
 }
 
 type TensorState = { unmaskedTensors: Tensor[]; maskedTensor: Tensor | null }
