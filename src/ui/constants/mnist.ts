@@ -16,6 +16,7 @@ const ORDERED_NODE_DIMENSIONS = [
   [1, 16, 14, 14],
   [1, 16, 4, 4],
 ]
+
 export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
   isSuccessful: false,
   orderedOutputNodes: (() => {
@@ -42,6 +43,7 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
   })(),
   predictions: Array(10).fill(0.1), // Probability of 1 distributed equally among 10 possibilities
 }
+
 export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
   const newTensor = new Float32Array(
     3 * INPUT_TENSOR_DIMENSION.reduce((a, b) => a * b),
@@ -49,9 +51,34 @@ export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
   newTensor.fill(TENSOR_DEFAULT_GRAY_VALUE)
   return newTensor
 })()
+
 export type LayerName =
   | "Input"
   | "Convolution Layer #1"
   | "Max Pool #1"
   | "Convolution Layer #2"
   | "Max Pool #2"
+
+type Kernel = {
+  stride: number
+  dimension: number
+}
+
+export const KERNEL_INFO: Partial<Record<LayerName, Kernel>> = {
+  "Convolution Layer #1": {
+    stride: 1,
+    dimension: 5,
+  },
+  "Max Pool #1": {
+    stride: 2,
+    dimension: 2,
+  },
+  "Convolution Layer #2": {
+    stride: 1,
+    dimension: 5,
+  },
+  "Max Pool #2": {
+    stride: 3,
+    dimension: 3,
+  },
+}

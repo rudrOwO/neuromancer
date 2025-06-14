@@ -6,9 +6,13 @@
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
   import { pointerDraggingState } from "@sharedstate/dragging.svelte"
-  import { showModal, tensorState } from "@sharedstate/infographics.svelte"
+  import {
+    infographicsModal,
+    showModal,
+    tensorState,
+  } from "@sharedstate/infographics.svelte"
   import { getTensorDependencies } from "@utils/tensordeps"
-  import type { LayerName } from "@constants/mnist"
+  import { KERNEL_INFO, type LayerName } from "@constants/mnist"
   import type { OutputNode } from "bridge"
 
   type Props = {
@@ -97,13 +101,27 @@
         previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
       )
 
+      const pointSizeToGrayBoxScale = 1 / 15
+
       tensorState.unmaskedTensors = tensorDependencies.map((dep) => ({
         tensorData: dep,
         rows: previousOutputNode!.dimension[2],
         columns: previousOutputNode!.dimension[3],
-        size: pointSize / 15, // 👀 Look a magic number!
+        grayBoxSize: pointSize * pointSizeToGrayBoxScale,
+        kernelStride: KERNEL_INFO[layerName]!.stride,
+        kernelDimension: KERNEL_INFO[layerName]!.dimension,
       }))
 
+      tensorState.maskedTensor = {
+        tensorData,
+        rows,
+        columns,
+        grayBoxSize: pointSize * pointSizeToGrayBoxScale,
+        kernelStride: 1,
+        kernelDimension: 1,
+      }
+
+      infographicsModal.layerName = layerName
       showModal()
     }
   }
@@ -163,8 +181,10 @@
     <T.PointsMaterial size={pointSize} vertexColors={true} />
   </T.Points>
 
+  <!-- usually z = -1 would suffice ro render a back mesh. -->
+  <!-- But for some reason, it does not render correctly on small screens. -->
   <T.Mesh
-    position={[rows, -columns, -2]}
+    position={[rows, -columns, -3]}
     onclick={handleClick}
     onpointerover={handlePointerOver}
     onpointerout={handlePointerOut}
@@ -181,7 +201,7 @@
           color: 0x000000,
           side: 2,
           transparent: true,
-          opacity: 0.6,
+          opacity: 0.7,
         },
       ]}
     />
