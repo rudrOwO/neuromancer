@@ -4,7 +4,7 @@
     closeModal,
     tensorState,
   } from "@sharedstate/infographics.svelte"
-  import UnmaskedTensor from "./UnmaskedTensor.svelte"
+  import Tensor from "./Tensor.svelte"
 
   function preventClickEventPropagation(e: MouseEvent) {
     e.stopPropagation()
@@ -27,7 +27,7 @@
 </script>
 
 <dialog
-  class="m-auto bg-background outline-0"
+  class="m-auto bg-background outline-0 rounded-lg"
   bind:this={infographicsModal.element}
   onclick={closeModal}
 >
@@ -43,7 +43,7 @@
       <div class="flex flex-row gap-10">
         <div class="flex flex-col gap-4">
           {#each tensorState.unmaskedTensors as tensor}
-            <UnmaskedTensor
+            <Tensor
               tensorData={tensor.tensorData}
               rows={tensor.rows}
               columns={tensor.columns}
@@ -51,7 +51,7 @@
               kernelStride={tensor.kernelStride}
               kernelDimension={tensor.kernelDimension}
               kernelTick={tensor.kernelTick}
-            ></UnmaskedTensor>
+            ></Tensor>
           {/each}
         </div>
 
