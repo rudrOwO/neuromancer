@@ -53,6 +53,7 @@ export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
 })()
 
 export type LayerName =
+  | ""
   | "Input"
   | "Convolution Layer #1"
   | "Max Pool #1"
@@ -65,25 +66,54 @@ type Kernel = {
   tick: number
 }
 
-export const KERNEL_INFO: Partial<Record<LayerName, Kernel>> = {
+type KernelEntry = {
+  masked: Kernel
+  unmasked: Pick<Kernel, "stride" | "dimension"> // tick musk be the same for both masked and unmasked tensor
+}
+
+export const KERNEL_INFO: Partial<Record<LayerName, KernelEntry>> = {
   "Convolution Layer #1": {
-    stride: 1,
-    dimension: 5,
-    tick: 40,
+    masked: {
+      stride: 1,
+      dimension: 5,
+      tick: 40,
+    },
+    unmasked: {
+      stride: 1,
+      dimension: 5,
+    },
   },
   "Max Pool #1": {
-    stride: 2,
-    dimension: 2,
-    tick: 100,
+    masked: {
+      stride: 2,
+      dimension: 2,
+      tick: 100,
+    },
+    unmasked: {
+      stride: 1,
+      dimension: 1,
+    },
   },
   "Convolution Layer #2": {
-    stride: 1,
-    dimension: 5,
-    tick: 200,
+    masked: {
+      stride: 1,
+      dimension: 5,
+      tick: 200,
+    },
+    unmasked: {
+      stride: 1,
+      dimension: 5,
+    },
   },
   "Max Pool #2": {
-    stride: 3,
-    dimension: 3,
-    tick: 400,
+    masked: {
+      stride: 3,
+      dimension: 3,
+      tick: 400,
+    },
+    unmasked: {
+      stride: 1,
+      dimension: 1,
+    },
   },
 }

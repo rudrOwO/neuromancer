@@ -13,8 +13,16 @@
   }
 </script>
 
-<div
-  style={`background-color: ${brightnessToGrayscale(grayValue)};
+{#if masked}
+  <div
+    style={`background-color: black;
           width:${cellSize}rem; 
           height:${cellSize}rem`}
-></div>
+  ></div>
+{:else}
+  <div
+    style={`background-color: ${brightnessToGrayscale(grayValue)};
+          width:${cellSize}rem; 
+          height:${cellSize}rem`}
+  ></div>
+{/if}
