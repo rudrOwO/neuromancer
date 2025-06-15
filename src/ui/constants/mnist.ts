@@ -66,54 +66,25 @@ type Kernel = {
   tick: number
 }
 
-type KernelEntry = {
-  masked: Kernel
-  unmasked: Pick<Kernel, "stride" | "dimension"> // tick musk be the same for both masked and unmasked tensor
-}
-
-export const KERNEL_INFO: Partial<Record<LayerName, KernelEntry>> = {
+export const KERNEL_INFO: Partial<Record<LayerName, Kernel>> = {
   "Convolution Layer #1": {
-    masked: {
-      stride: 1,
-      dimension: 5,
-      tick: 10,
-    },
-    unmasked: {
-      stride: 1,
-      dimension: 5,
-    },
+    stride: 1,
+    dimension: 5,
+    tick: 10,
   },
   "Max Pool #1": {
-    masked: {
-      stride: 2,
-      dimension: 2,
-      tick: 30,
-    },
-    unmasked: {
-      stride: 1,
-      dimension: 1,
-    },
+    stride: 2,
+    dimension: 2,
+    tick: 30,
   },
   "Convolution Layer #2": {
-    masked: {
-      stride: 1,
-      dimension: 5,
-      tick: 50,
-    },
-    unmasked: {
-      stride: 1,
-      dimension: 5,
-    },
+    stride: 1,
+    dimension: 5,
+    tick: 50,
   },
   "Max Pool #2": {
-    masked: {
-      stride: 3,
-      dimension: 3,
-      tick: 200,
-    },
-    unmasked: {
-      stride: 1,
-      dimension: 1,
-    },
+    stride: 3,
+    dimension: 3,
+    tick: 200,
   },
 }

@@ -29,12 +29,7 @@ type TensorState = {
   unmaskedTensors: Tensor[]
   maskedTensor: Pick<
     Tensor,
-    | "tensorData"
-    | "rows"
-    | "columns"
-    | "cellSize"
-    | "kernelStride"
-    | "kernelDimension"
+    "tensorData" | "rows" | "columns" | "cellSize"
   > | null
 }
 

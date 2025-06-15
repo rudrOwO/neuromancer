@@ -261,36 +261,3 @@
     text="Show Canvas"
   />
 </div>
-
-<style>
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideDown {
-    from {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-  }
-
-  :global(.slide-up-active) {
-    animation: slideUp 0.2s ease-out forwards;
-  }
-
-  :global(.slide-down-active) {
-    animation: slideDown 0.2s ease-out forwards;
-  }
-</style>

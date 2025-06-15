@@ -8,6 +8,6 @@
 </script>
 
 <div
-  class="absolute top-0 left-0 z-100 border-2 border-green-600"
+  class="absolute top-0 left-0 z-10 border-2 border-kernel"
   style={`width: ${width}rem; height: ${height}rem; ${transformStyle}`}
 ></div>

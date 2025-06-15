@@ -7,19 +7,19 @@
     rows: number
     columns: number
     cellSize: number
-    kernelDimension: number
     transformStyle: string
     maskMatrix: boolean[][]
+    arrowTarget: HTMLDivElement
   }
 
-  const {
+  let {
     tensorData,
     rows,
     columns,
     cellSize,
-    kernelDimension,
     transformStyle,
     maskMatrix,
+    arrowTarget = $bindable(),
   }: Props = $props()
 
   const rowBuffers = $derived.by(() => {
@@ -31,7 +31,7 @@
   })
 </script>
 
-<div class="relative">
+<div bind:this={arrowTarget} class="relative my-auto">
   {#each rowBuffers as rowBuffer, i}
     <div class="flex flex-row">
       {#each rowBuffer as grayValue, j}
@@ -39,9 +39,5 @@
       {/each}
     </div>
   {/each}
-  <Kernel
-    width={kernelDimension * cellSize}
-    height={kernelDimension * cellSize}
-    {transformStyle}
-  />
+  <Kernel width={cellSize} height={cellSize} {transformStyle} />
 </div>

@@ -1,9 +1,13 @@
 <script lang="ts">
-  import { tensorState } from "@sharedstate/infographics.svelte"
+  import {
+    infographicsModal,
+    tensorState,
+  } from "@sharedstate/infographics.svelte"
   import UnmaskedTensor from "./UnmaskedTensor.svelte"
   import MaskedTensor from "./MaskedTensor.svelte"
-
-  const kernelTick = tensorState.unmaskedTensors[0].kernelTick
+  import Aggregate from "./Aggregate.svelte"
+  import { initializeSVG } from "@utils/svgarrows"
+  import type { Line } from "@svgdotjs/svg.js"
 
   const unmaskedTensorData = tensorState.unmaskedTensors.map(
     (ut) => ut.tensorData,
@@ -18,7 +22,7 @@
   const maskedRows = tensorState.maskedTensor!.rows
   const maskedColumns = tensorState.maskedTensor!.columns
   const maskedCellSize = tensorState.maskedTensor!.cellSize
-  const maskedKernelStride = tensorState.maskedTensor!.kernelStride
+  const maskedKernelStride = 1 // Masked kernels always have unit stride and dimension
   let maskedTransformStyle = $state("")
 
   const maskMatrix = $state(new Array(maskedRows))
@@ -33,55 +37,70 @@
   let mask_i = 0
   let mask_j = 0 // For keeping track of updates in animation iterations
 
+  const kernelTick = tensorState.unmaskedTensors[0].kernelTick
   let lastTime = performance.now()
   let animationId: number
-  let unmaskedAnimationRowIndex = 0
-  let unmaskedAnimationColumnIndex = 0
-  let maskedAnimationRowIndex = 0
-  let maskedAnimationColumnIndex = 0
+  let unmaskedAnimationRow = 0
+  let unmaskedAnimationColumn = 0
+  let maskedAnimationRow = 0
+  let maskedAnimationColumn = 0
+
+  const renderAggregate =
+    infographicsModal.layerName == "Convolution Layer #1" ||
+    infographicsModal.layerName == "Convolution Layer #2"
+
+  let svgContainer: HTMLDivElement
+  let unmaskedTensorDivs: HTMLDivElement[] = new Array(
+    unmaskedTensorData.length,
+  )
+  let aggregateIcon: HTMLImageElement
+  let maskedTensorDiv: HTMLDivElement
+  const arrows: Line[] = []
+  let arrowOffset = 0
 
   function animate(timestamp: DOMHighResTimeStamp) {
     if (timestamp - lastTime >= kernelTick) {
       lastTime = timestamp
 
+      // Kernel animation starts here
       maskMatrix[mask_i][mask_j] = false // unmask with each animation iteration
 
-      const unmaskedX = unmaskedAnimationColumnIndex * unmaskedCellSize
-      const unmaskedY = unmaskedAnimationRowIndex * unmaskedCellSize
+      const unmaskedX = unmaskedAnimationColumn * unmaskedCellSize
+      const unmaskedY = unmaskedAnimationRow * unmaskedCellSize
       unmaskedTransformStyle = `transform: translate(${unmaskedX}rem, ${unmaskedY}rem);`
 
-      const maskedX = maskedAnimationColumnIndex * maskedCellSize
-      const maskedY = maskedAnimationRowIndex * maskedCellSize
+      const maskedX = maskedAnimationColumn * maskedCellSize
+      const maskedY = maskedAnimationRow * maskedCellSize
       maskedTransformStyle = `transform: translate(${maskedX}rem, ${maskedY}rem);`
 
       // Slide kernel to right - 1 step
-      unmaskedAnimationColumnIndex += unmaskedKernelStride
-      maskedAnimationColumnIndex += maskedKernelStride
+      unmaskedAnimationColumn += unmaskedKernelStride
+      maskedAnimationColumn += maskedKernelStride
       mask_j += 1
 
-      if (
-        unmaskedAnimationColumnIndex + unmaskedKernelDimension >
-        unmaskedRows
-      ) {
+      if (unmaskedAnimationColumn + unmaskedKernelDimension > unmaskedRows) {
         // This is basically CRLF equivalent of a typwriter
-        unmaskedAnimationColumnIndex = 0
-        maskedAnimationColumnIndex = 0
+        unmaskedAnimationColumn = 0
+        maskedAnimationColumn = 0
         mask_j = 0
 
-        unmaskedAnimationRowIndex += unmaskedKernelStride
-        maskedAnimationRowIndex += maskedKernelStride
+        unmaskedAnimationRow += unmaskedKernelStride
+        maskedAnimationRow += maskedKernelStride
         mask_i += 1
       }
 
-      if (
-        unmaskedAnimationRowIndex + unmaskedKernelDimension >
-        unmaskedColumns
-      ) {
+      if (unmaskedAnimationRow + unmaskedKernelDimension > unmaskedColumns) {
         // Reset everything once the last cell is animated
-        unmaskedAnimationRowIndex = 0
-        maskedAnimationRowIndex = 0
+        unmaskedAnimationRow = 0
+        maskedAnimationRow = 0
         mask_i = 0
         fillMaskArray()
+      }
+
+      // Arrows animation starts here
+      for (const arrow of arrows) {
+        arrowOffset = (arrowOffset + 1) % 60
+        arrow.stroke({ dashoffset: arrowOffset })
       }
     }
 
@@ -89,18 +108,37 @@
   }
 
   $effect(() => {
-    animationId = requestAnimationFrame(animate)
+    const drawArrow = initializeSVG(svgContainer)
 
+    if (renderAggregate) {
+      for (const t of unmaskedTensorDivs) {
+        arrows.push(drawArrow(t, aggregateIcon))
+      }
+
+      arrows.push(drawArrow(aggregateIcon, maskedTensorDiv))
+    } else {
+      arrows.push(drawArrow(unmaskedTensorDivs[0], maskedTensorDiv))
+    }
+
+    animationId = requestAnimationFrame(animate)
     return () => {
       cancelAnimationFrame(animationId)
     }
   })
+
+  // let offset = 0
+  //    function animateDashes() {
+  //      offset = (offset + 1) % 12  // 6+6 dash length
+  //      line.stroke({ dashoffset: offset })
+  //      requestAnimationFrame(animateDashes)
+  //    }
 </script>
 
-<div class="flex flex-row gap-10">
+<div class="flex flex-row relative p-2 lg:p-4">
   <div class="flex flex-col gap-4">
-    {#each unmaskedTensorData as td}
+    {#each unmaskedTensorData as td, i}
       <UnmaskedTensor
+        bind:arrowSource={unmaskedTensorDivs[i]}
         tensorData={td}
         rows={unmaskedRows}
         columns={unmaskedColumns}
@@ -111,15 +149,20 @@
     {/each}
   </div>
 
-  {#if tensorState.maskedTensor != null}
-    <MaskedTensor
-      tensorData={tensorState.maskedTensor.tensorData}
-      rows={tensorState.maskedTensor.rows}
-      columns={tensorState.maskedTensor.columns}
-      cellSize={tensorState.maskedTensor.cellSize}
-      kernelDimension={tensorState.maskedTensor.kernelDimension}
-      transformStyle={maskedTransformStyle}
-      {maskMatrix}
-    ></MaskedTensor>
-  {/if}
+  <div class="w-[80px] lg:w-[200px] grid place-content-center">
+    {#if renderAggregate}
+      <Aggregate bind:arrowTarget={aggregateIcon} />
+    {/if}
+  </div>
+
+  <MaskedTensor
+    bind:arrowTarget={maskedTensorDiv}
+    tensorData={tensorState.maskedTensor!.tensorData}
+    rows={tensorState.maskedTensor!.rows}
+    columns={tensorState.maskedTensor!.columns}
+    cellSize={tensorState.maskedTensor!.cellSize}
+    transformStyle={maskedTransformStyle}
+    {maskMatrix}
+  ></MaskedTensor>
+  <div bind:this={svgContainer} class="absolute inset-0 stroke-kernel"></div>
 </div>
