@@ -101,16 +101,16 @@
         previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
       )
 
-      const pointSizeToGrayBoxScale = 1 / 22
+      const pointSizeToGrayBoxScale = 1 / 20
 
       tensorState.unmaskedTensors = tensorDependencies.map((dep) => ({
         tensorData: dep,
         rows: previousOutputNode!.dimension[2],
         columns: previousOutputNode!.dimension[3],
         cellSize: pointSize * pointSizeToGrayBoxScale,
-        kernelStride: KERNEL_INFO[layerName]!.masked.stride,
-        kernelDimension: KERNEL_INFO[layerName]!.masked.dimension,
-        kernelTick: KERNEL_INFO[layerName]!.masked.tick,
+        kernelStride: KERNEL_INFO[layerName]!.stride,
+        kernelDimension: KERNEL_INFO[layerName]!.dimension,
+        kernelTick: KERNEL_INFO[layerName]!.tick,
       }))
 
       tensorState.maskedTensor = {
@@ -118,8 +118,6 @@
         rows,
         columns,
         cellSize: pointSize * pointSizeToGrayBoxScale,
-        kernelStride: KERNEL_INFO[layerName]!.unmasked.stride,
-        kernelDimension: KERNEL_INFO[layerName]!.unmasked.dimension,
       }
 
       infographicsModal.layerName = layerName

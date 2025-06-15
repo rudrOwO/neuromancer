@@ -18,7 +18,7 @@
   const maskedRows = tensorState.maskedTensor!.rows
   const maskedColumns = tensorState.maskedTensor!.columns
   const maskedCellSize = tensorState.maskedTensor!.cellSize
-  const maskedKernelStride = tensorState.maskedTensor!.kernelStride
+  const maskedKernelStride = 1 // Masked kernels always have unit stride and dimension
   let maskedTransformStyle = $state("")
 
   const maskMatrix = $state(new Array(maskedRows))
@@ -35,10 +35,10 @@
 
   let lastTime = performance.now()
   let animationId: number
-  let unmaskedAnimationRowIndex = 0
-  let unmaskedAnimationColumnIndex = 0
-  let maskedAnimationRowIndex = 0
-  let maskedAnimationColumnIndex = 0
+  let unmaskedAnimationRow = 0
+  let unmaskedAnimationColumn = 0
+  let maskedAnimationRow = 0
+  let maskedAnimationColumn = 0
 
   function animate(timestamp: DOMHighResTimeStamp) {
     if (timestamp - lastTime >= kernelTick) {
@@ -46,40 +46,34 @@
 
       maskMatrix[mask_i][mask_j] = false // unmask with each animation iteration
 
-      const unmaskedX = unmaskedAnimationColumnIndex * unmaskedCellSize
-      const unmaskedY = unmaskedAnimationRowIndex * unmaskedCellSize
+      const unmaskedX = unmaskedAnimationColumn * unmaskedCellSize
+      const unmaskedY = unmaskedAnimationRow * unmaskedCellSize
       unmaskedTransformStyle = `transform: translate(${unmaskedX}rem, ${unmaskedY}rem);`
 
-      const maskedX = maskedAnimationColumnIndex * maskedCellSize
-      const maskedY = maskedAnimationRowIndex * maskedCellSize
+      const maskedX = maskedAnimationColumn * maskedCellSize
+      const maskedY = maskedAnimationRow * maskedCellSize
       maskedTransformStyle = `transform: translate(${maskedX}rem, ${maskedY}rem);`
 
       // Slide kernel to right - 1 step
-      unmaskedAnimationColumnIndex += unmaskedKernelStride
-      maskedAnimationColumnIndex += maskedKernelStride
+      unmaskedAnimationColumn += unmaskedKernelStride
+      maskedAnimationColumn += maskedKernelStride
       mask_j += 1
 
-      if (
-        unmaskedAnimationColumnIndex + unmaskedKernelDimension >
-        unmaskedRows
-      ) {
+      if (unmaskedAnimationColumn + unmaskedKernelDimension > unmaskedRows) {
         // This is basically CRLF equivalent of a typwriter
-        unmaskedAnimationColumnIndex = 0
-        maskedAnimationColumnIndex = 0
+        unmaskedAnimationColumn = 0
+        maskedAnimationColumn = 0
         mask_j = 0
 
-        unmaskedAnimationRowIndex += unmaskedKernelStride
-        maskedAnimationRowIndex += maskedKernelStride
+        unmaskedAnimationRow += unmaskedKernelStride
+        maskedAnimationRow += maskedKernelStride
         mask_i += 1
       }
 
-      if (
-        unmaskedAnimationRowIndex + unmaskedKernelDimension >
-        unmaskedColumns
-      ) {
+      if (unmaskedAnimationRow + unmaskedKernelDimension > unmaskedColumns) {
         // Reset everything once the last cell is animated
-        unmaskedAnimationRowIndex = 0
-        maskedAnimationRowIndex = 0
+        unmaskedAnimationRow = 0
+        maskedAnimationRow = 0
         mask_i = 0
         fillMaskArray()
       }
@@ -117,7 +111,6 @@
       rows={tensorState.maskedTensor.rows}
       columns={tensorState.maskedTensor.columns}
       cellSize={tensorState.maskedTensor.cellSize}
-      kernelDimension={tensorState.maskedTensor.kernelDimension}
       transformStyle={maskedTransformStyle}
       {maskMatrix}
     ></MaskedTensor>
