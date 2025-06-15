@@ -1,7 +1,11 @@
 <script lang="ts">
-  import { tensorState } from "@sharedstate/infographics.svelte"
+  import {
+    infographicsModal,
+    tensorState,
+  } from "@sharedstate/infographics.svelte"
   import UnmaskedTensor from "./UnmaskedTensor.svelte"
   import MaskedTensor from "./MaskedTensor.svelte"
+  import Aggregate from "./Aggregate.svelte"
 
   const kernelTick = tensorState.unmaskedTensors[0].kernelTick
 
@@ -91,7 +95,7 @@
   })
 </script>
 
-<div class="flex flex-row gap-10">
+<div class="flex flex-row relative p-2">
   <div class="flex flex-col gap-4">
     {#each unmaskedTensorData as td}
       <UnmaskedTensor
@@ -105,14 +109,18 @@
     {/each}
   </div>
 
-  {#if tensorState.maskedTensor != null}
-    <MaskedTensor
-      tensorData={tensorState.maskedTensor.tensorData}
-      rows={tensorState.maskedTensor.rows}
-      columns={tensorState.maskedTensor.columns}
-      cellSize={tensorState.maskedTensor.cellSize}
-      transformStyle={maskedTransformStyle}
-      {maskMatrix}
-    ></MaskedTensor>
-  {/if}
+  <div class="w-[80px] lg:w-[150px] grid place-content-center m-1 relative">
+    {#if infographicsModal.layerName == "Convolution Layer #1" || infographicsModal.layerName == "Convolution Layer #2"}
+      <Aggregate />
+    {/if}
+  </div>
+
+  <MaskedTensor
+    tensorData={tensorState.maskedTensor!.tensorData}
+    rows={tensorState.maskedTensor!.rows}
+    columns={tensorState.maskedTensor!.columns}
+    cellSize={tensorState.maskedTensor!.cellSize}
+    transformStyle={maskedTransformStyle}
+    {maskMatrix}
+  ></MaskedTensor>
 </div>
