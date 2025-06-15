@@ -53,6 +53,7 @@ export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
 })()
 
 export type LayerName =
+  | ""
   | "Input"
   | "Convolution Layer #1"
   | "Max Pool #1"
@@ -62,23 +63,28 @@ export type LayerName =
 type Kernel = {
   stride: number
   dimension: number
+  tick: number
 }
 
 export const KERNEL_INFO: Partial<Record<LayerName, Kernel>> = {
   "Convolution Layer #1": {
     stride: 1,
     dimension: 5,
+    tick: 10,
   },
   "Max Pool #1": {
     stride: 2,
     dimension: 2,
+    tick: 30,
   },
   "Convolution Layer #2": {
     stride: 1,
     dimension: 5,
+    tick: 50,
   },
   "Max Pool #2": {
     stride: 3,
     dimension: 3,
+    tick: 200,
   },
 }
