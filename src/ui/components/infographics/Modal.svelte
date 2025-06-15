@@ -4,6 +4,7 @@
     closeModal,
   } from "@sharedstate/infographics.svelte"
   import Infographics from "./Infographics.svelte"
+  import Button from "@components/Button.svelte"
 
   function preventClickEventPropagation(e: MouseEvent) {
     e.stopPropagation()
@@ -15,28 +16,31 @@
       closeModal()
     }
   }
-
-  $effect(() => {
-    infographicsModal.element!.addEventListener("keydown", handleEscapeKey)
-
-    return () => {
-      infographicsModal.element!.removeEventListener("keydown", handleEscapeKey)
-    }
-  })
 </script>
 
 <dialog
   class="m-auto bg-background outline-0 rounded-lg backdrop:bg-[#00000050]"
   bind:this={infographicsModal.element}
   onclick={closeModal}
+  onkeydown={handleEscapeKey}
 >
-  <div
-    class="grid place-items-center p-2"
-    onclick={preventClickEventPropagation}
-  >
+  <div class="grid place-items-center" onclick={preventClickEventPropagation}>
     <span class="text-white text-xl font-bold my-4"
       >{infographicsModal.layerName}</span
     >
+
+    <div
+      class="slide-up-active flex flex-col fixed max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-100"
+    >
+      <Button
+        onclick={closeModal}
+        iconSrc="/clear-icon.svg"
+        altText="Close Button"
+        text="Close"
+        type="clear"
+      />
+    </div>
+
     {#if infographicsModal.isOpen}
       <Infographics />
     {/if}

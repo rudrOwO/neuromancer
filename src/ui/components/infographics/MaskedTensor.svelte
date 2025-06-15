@@ -29,7 +29,7 @@
   })
 </script>
 
-<div class="relative">
+<div class="relative my-auto">
   {#each rowBuffers as rowBuffer, i}
     <div class="flex flex-row">
       {#each rowBuffer as grayValue, j}
