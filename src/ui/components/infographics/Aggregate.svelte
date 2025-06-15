@@ -1,9 +1,17 @@
+<script lang="ts">
+  // type Props = {
+  //   aggregateElement: HTMLImageElement
+  // }
+  //
+  // const { aggregateElement }: Props = $props()
+</script>
+
 <div class="w-full flex justify-center">
   <img class="h-6 w-6 lg:h-10 lg:w-10" src="/plus-icon.svg" alt="plus icon" />
 </div>
 
 <p
-  class="absolute top-1/2 translate-y-8 left-1/2 -translate-x-1/2 text-sm text-gray-300 text-center hidden lg:block"
+  class="absolute top-1/2 translate-y-8 left-1/2 -translate-x-1/2 text-sm text-gray-300 text-center min-w-max hidden lg:block"
 >
   Aggregate and add bias
 </p>

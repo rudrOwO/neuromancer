@@ -95,7 +95,7 @@
   })
 </script>
 
-<div class="flex flex-row relative p-2">
+<div class="flex flex-row relative p-2 lg:p-4">
   <div class="flex flex-col gap-4">
     {#each unmaskedTensorData as td}
       <UnmaskedTensor
@@ -109,7 +109,7 @@
     {/each}
   </div>
 
-  <div class="w-[80px] lg:w-[150px] grid place-content-center m-1 relative">
+  <div class="w-[80px] lg:w-[200px] grid place-content-center m-1 relative">
     {#if infographicsModal.layerName == "Convolution Layer #1" || infographicsModal.layerName == "Convolution Layer #2"}
       <Aggregate />
     {/if}
