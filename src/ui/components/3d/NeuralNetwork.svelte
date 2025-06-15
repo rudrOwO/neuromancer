@@ -3,7 +3,7 @@
   import MNIST from "@components/3d/MNIST.svelte"
   import type { InferenceResponse } from "bridge"
   import Hint from "@components/Hint.svelte"
-  import InfographicsModal from "@components/infographics/InfographicsModal.svelte"
+  import Modal from "@components/infographics/Modal.svelte"
   import { isFirstVisit } from "@utils/firstvisit"
   import { pointerDraggingState } from "@sharedstate/dragging.svelte"
 
@@ -43,7 +43,7 @@
   onmousedown={handlePointerDown}
   ontouchstart={handlePointerDown}
 >
-  <InfographicsModal />
+  <Modal />
   <div
     class="fixed flex w-dvw text-text-color justify-center items-center top-16"
   >

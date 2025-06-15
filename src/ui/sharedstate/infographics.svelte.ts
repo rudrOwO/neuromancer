@@ -1,8 +1,11 @@
 // why is this an object?
+
+import type { LayerName } from "@constants/mnist"
+
 // https://svelte.dev/docs/svelte/$state#Passing-state-across-modules
 type InfoGraphicsModal = {
   element: HTMLDialogElement | null
-  layerName: string
+  layerName: LayerName
   isOpen: boolean
 }
 
@@ -12,24 +15,23 @@ export let infographicsModal: InfoGraphicsModal = $state({
   isOpen: false,
 })
 
-export type Kernel = {
-  stride: number
-  dimension: number
-  tensorCellSize: number
-  tensorRows: number
-  tensorColumns: number
-}
-
 export type Tensor = {
   tensorData: Float32Array
   rows: number
   columns: number
-  grayBoxSize: number
+  cellSize: number
   kernelStride: number
   kernelDimension: number
+  kernelTick: number
 }
 
-type TensorState = { unmaskedTensors: Tensor[]; maskedTensor: Tensor | null }
+type TensorState = {
+  unmaskedTensors: Tensor[]
+  maskedTensor: Pick<
+    Tensor,
+    "tensorData" | "rows" | "columns" | "cellSize"
+  > | null
+}
 
 export let tensorState: TensorState = $state({
   unmaskedTensors: [],
