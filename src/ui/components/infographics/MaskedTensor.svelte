@@ -7,7 +7,6 @@
     rows: number
     columns: number
     cellSize: number
-    kernelDimension: number
     transformStyle: string
     maskMatrix: boolean[][]
   }
@@ -17,7 +16,6 @@
     rows,
     columns,
     cellSize,
-    kernelDimension,
     transformStyle,
     maskMatrix,
   }: Props = $props()
@@ -39,9 +37,5 @@
       {/each}
     </div>
   {/each}
-  <Kernel
-    width={kernelDimension * cellSize}
-    height={kernelDimension * cellSize}
-    {transformStyle}
-  />
+  <Kernel width={cellSize} height={cellSize} {transformStyle} />
 </div>
