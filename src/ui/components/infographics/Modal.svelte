@@ -26,7 +26,7 @@
 </script>
 
 <dialog
-  class="m-auto bg-background outline-0 rounded-lg"
+  class="m-auto bg-background outline-0 rounded-lg backdrop:bg-[#00000050]"
   bind:this={infographicsModal.element}
   onclick={closeModal}
 >
