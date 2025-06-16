@@ -1,13 +1,18 @@
 <script lang="ts">
-  // type Props = {
-  //   aggregateElement: HTMLImageElement
-  // }
-  //
-  // const { aggregateElement }: Props = $props()
+  type Props = {
+    arrowTarget: HTMLImageElement
+  }
+
+  let { arrowTarget = $bindable() }: Props = $props()
 </script>
 
 <div class="w-full flex justify-center">
-  <img class="h-6 w-6 lg:h-10 lg:w-10" src="/plus-icon.svg" alt="plus icon" />
+  <img
+    bind:this={arrowTarget}
+    class="h-6 w-6 lg:h-10 lg:w-10"
+    src="/plus-icon.svg"
+    alt="plus icon"
+  />
 </div>
 
 <p
