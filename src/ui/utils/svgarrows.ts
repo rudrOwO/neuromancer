@@ -34,6 +34,6 @@ export function initializeSVG(parent: HTMLElement) {
         targetCoordinates.x,
         targetCoordinates.y,
       )
-      .stroke({ width: 2, dasharray: "6 6" })
+      .stroke({ width: 2, dasharray: "10" })
   }
 }
