@@ -1,4 +1,4 @@
-import { SVG } from "@svgdotjs/svg.js"
+import { SVG_STROKE_DASHARRAY, SVG_STROKE_WIDTH } from "@constants/graphics"
 
 function getArrowSourceCoordinates(el: HTMLElement, parent: HTMLElement) {
   const rect = el.getBoundingClientRect()
@@ -21,19 +21,30 @@ function getArrowTargetCoordinates(el: HTMLElement, parent: HTMLElement) {
 }
 
 export function initializeSVG(parent: HTMLElement) {
-  const draw = SVG().addTo(parent).size("100%", "100%")
+  const svgViewBox = document.createElementNS(
+    "http://www.w3.org/2000/svg",
+    "svg",
+  )
+  svgViewBox.setAttribute("width", "100%")
+  svgViewBox.setAttribute("height", "100%")
+  parent.appendChild(svgViewBox)
 
   return function drawArrow(source: HTMLElement, target: HTMLElement) {
     const sourceCoordinates = getArrowSourceCoordinates(source, parent)
     const targetCoordinates = getArrowTargetCoordinates(target, parent)
 
-    return draw
-      .line(
-        sourceCoordinates.x,
-        sourceCoordinates.y,
-        targetCoordinates.x,
-        targetCoordinates.y,
-      )
-      .stroke({ width: 2, dasharray: "10" })
+    const newArrow = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "line",
+    )
+    newArrow.setAttribute("stroke-width", SVG_STROKE_WIDTH)
+    newArrow.setAttribute("stroke-dasharray", SVG_STROKE_DASHARRAY)
+    newArrow.setAttribute("x1", sourceCoordinates.x.toString())
+    newArrow.setAttribute("y1", sourceCoordinates.y.toString())
+    newArrow.setAttribute("x2", targetCoordinates.x.toString())
+    newArrow.setAttribute("y2", targetCoordinates.y.toString())
+    svgViewBox.appendChild(newArrow)
+
+    return newArrow
   }
 }

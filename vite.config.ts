@@ -4,7 +4,6 @@ import { defineConfig, Plugin } from "vite"
 import { svelte } from "@sveltejs/vite-plugin-svelte"
 import tsconfigPaths from "vite-tsconfig-paths"
 import tailwindcss from "@tailwindcss/vite"
-import { visualizer } from "rollup-plugin-visualizer"
 
 const wasmMimeTypePlugin: Plugin = {
   name: "wasm-mime-type-plugin",
@@ -38,18 +37,7 @@ const wasmMimeTypePlugin: Plugin = {
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    svelte(),
-    tsconfigPaths(),
-    tailwindcss(),
-    wasmMimeTypePlugin,
-    visualizer({
-      filename: "buildstats.html",
-      open: true,
-      gzipSize: true,
-      template: "flamegraph",
-    }),
-  ],
+  plugins: [svelte(), tsconfigPaths(), tailwindcss(), wasmMimeTypePlugin],
   worker: {
     plugins: () => [tsconfigPaths()],
   },
