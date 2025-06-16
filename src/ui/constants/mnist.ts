@@ -80,11 +80,11 @@ export const KERNEL_INFO: Partial<Record<LayerName, Kernel>> = {
   "Convolution Layer #2": {
     stride: 1,
     dimension: 5,
-    tick: 50,
+    tick: 40,
   },
   "Max Pool #2": {
     stride: 3,
     dimension: 3,
-    tick: 200,
+    tick: 150,
   },
 }
