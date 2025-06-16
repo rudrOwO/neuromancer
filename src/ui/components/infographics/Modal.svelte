@@ -19,7 +19,7 @@
 </script>
 
 <dialog
-  class="m-auto w-[90vw] lg:w-fit bg-background outline-0 rounded-lg backdrop:bg-[#00000050]"
+  class="m-auto w-[90vw] lg:w-fit bg-background outline-0 rounded-lg backdrop:bg-[#00000050] backdrop:backdrop-blur-xs"
   bind:this={infographicsModal.element}
   onclick={closeModal}
   onkeydown={handleEscapeKey}
