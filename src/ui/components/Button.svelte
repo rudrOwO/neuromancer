@@ -16,7 +16,7 @@
 </script>
 
 <button
-  class={"w-[300px] active:scale-105 cursor-pointer flex justify-center items-center p-3 min-w-max max-h-fit overflow-hidden shadow text-text-color " +
+  class={"grow-1 active:scale-105 cursor-pointer flex justify-center items-center p-3 min-w-max max-h-fit overflow-hidden shadow text-text-color " +
     color[type]}
   {onclick}
 >

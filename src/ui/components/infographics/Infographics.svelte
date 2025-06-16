@@ -62,7 +62,6 @@
     if (timestamp - lastTime >= kernelTick) {
       lastTime = timestamp
 
-      // Kernel animation starts here
       maskMatrix[mask_i][mask_j] = false // unmask with each animation iteration
 
       const unmaskedX = unmaskedAnimationColumn * unmaskedCellSize
@@ -97,7 +96,6 @@
         fillMaskArray()
       }
 
-      // Arrows animation starts here
       for (const arrow of arrows) {
         arrowOffset = (arrowOffset + 1) % 60
         arrow.stroke({ dashoffset: arrowOffset })
@@ -125,13 +123,6 @@
       cancelAnimationFrame(animationId)
     }
   })
-
-  // let offset = 0
-  //    function animateDashes() {
-  //      offset = (offset + 1) % 12  // 6+6 dash length
-  //      line.stroke({ dashoffset: offset })
-  //      requestAnimationFrame(animateDashes)
-  //    }
 </script>
 
 <div class="flex flex-row relative p-2 lg:p-4">
@@ -149,11 +140,15 @@
     {/each}
   </div>
 
-  <div class="w-[80px] lg:w-[200px] grid place-content-center">
-    {#if renderAggregate}
+  {#if renderAggregate}
+    <div class="w-[100px] lg:w-[220px] grid place-content-center">
       <Aggregate bind:arrowTarget={aggregateIcon} />
-    {/if}
-  </div>
+    </div>
+  {:else}
+    <div class="w-[60px] lg:w-[120px] grid place-content-center"></div>
+  {/if}
+
+  <!-- content here -->
 
   <MaskedTensor
     bind:arrowTarget={maskedTensorDiv}
