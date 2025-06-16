@@ -97,8 +97,8 @@
       }
 
       for (const arrow of arrows) {
-        arrowOffset = (arrowOffset + 1) % 60
-        arrow.stroke({ dashoffset: arrowOffset })
+        arrowOffset = (arrowOffset + 3) % 60
+        arrow.stroke({ dashoffset: -arrowOffset })
       }
     }
 
