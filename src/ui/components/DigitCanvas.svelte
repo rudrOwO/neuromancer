@@ -9,8 +9,8 @@
     INPUT_TENSOR_DEFAULT_VALUE,
     ACTIVATION_MAPS_DEFAULT_VALUE,
   } from "@constants/mnist"
-  import { DEFAULT_GRAY_VALUE } from "@constants/global"
-  import Button from "@components/Button.svelte"
+  import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
+  import Button from "./Button.svelte"
   import Hint from "./Hint.svelte"
 
   type Props = {
@@ -76,18 +76,16 @@
     const tensorLength = 28 * 28
     const inputTensorData = new Float32Array(tensorLength)
 
-    for (let i = 0, j = 0, len = data.length; i < len; i += 4, j += 3) {
+    for (let i = 0, len = data.length; i < len; i += 4) {
       inputTensorData[i / 4] = data[i + 3] / 255
     }
 
-    const renderTensorData = new Float32Array(3 * tensorLength) // 3 * for RGB
-    renderTensorData.fill(DEFAULT_GRAY_VALUE)
+    const renderTensorData = new Float32Array(tensorLength)
+    renderTensorData.fill(TENSOR_DEFAULT_GRAY_VALUE)
 
-    for (let i = 0, j = 0; i < tensorLength; i += 1, j += 3) {
-      const brightness = Math.min(1.0, renderTensorData[j] + inputTensorData[i])
-      renderTensorData[j] = brightness
-      renderTensorData[j + 1] = brightness
-      renderTensorData[j + 2] = brightness
+    for (let i = 0; i < tensorLength; i += 1) {
+      const brightness = Math.min(1.0, renderTensorData[i] + inputTensorData[i])
+      renderTensorData[i] = brightness
     }
 
     return { inputTensorData, renderTensorData }
@@ -263,36 +261,3 @@
     text="Show Canvas"
   />
 </div>
-
-<style>
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideDown {
-    from {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    to {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-  }
-
-  :global(.slide-up-active) {
-    animation: slideUp 0.2s ease-out forwards;
-  }
-
-  :global(.slide-down-active) {
-    animation: slideDown 0.2s ease-out forwards;
-  }
-</style>

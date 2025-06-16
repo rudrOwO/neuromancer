@@ -1,11 +1,15 @@
 <script lang="ts">
   import { T } from "@threlte/core"
-  import { Align, OrbitControls } from "@threlte/extras"
+  import { OrbitControls, interactivity } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
-  import Tensor2D from "@3d/Tensor2D.svelte"
-  import ActivationMap from "./ActivationMap.svelte"
-  import { AMBIENT_LIGHT_INTENSITY } from "@constants/global"
-  import Input from "./Input.svelte"
+  import TensorGrid from "./TensorGrid.svelte"
+  import {
+    AMBIENT_LIGHT_COLOR,
+    AMBIENT_LIGHT_INTENSITY,
+    CAMERA_FOV,
+    DEFAULT_CAMERA_POSITION,
+    DISTANCE_BETWEEN_TENSORS,
+  } from "@constants/graphics"
 
   type Props = {
     inputTensorDimension: number[]
@@ -13,32 +17,80 @@
     inferenceResponse: InferenceResponse
   }
 
-  const { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
+  let { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
     $props()
+
+  interactivity({
+    filter: (hits, _) => {
+      // Only return the first hit from the raycaster
+      return hits.slice(0, 1)
+    },
+  })
 </script>
 
-<T.PerspectiveCamera makeDefault position={[375, 275, 375]} fov={25}>
+<T.PerspectiveCamera
+  makeDefault
+  position={DEFAULT_CAMERA_POSITION}
+  fov={CAMERA_FOV}
+>
   <OrbitControls enableDamping></OrbitControls>
 </T.PerspectiveCamera>
 
-<T.AmbientLight color="#fff" intensity={AMBIENT_LIGHT_INTENSITY} />
-
-<Input {inputTensorDimension} {inputTensorData} pointSize={6} z={100} />
-
-<ActivationMap
-  z={0}
-  name="Convolution Layer #1"
-  {...inferenceResponse.orderedOutputNodes[0]}
-  rowLength={4}
-  pointSize={8}
-  gap={50}
+<T.AmbientLight
+  color={AMBIENT_LIGHT_COLOR}
+  intensity={AMBIENT_LIGHT_INTENSITY}
 />
 
-<ActivationMap
-  z={-100}
-  name="Convolution Layer #2"
+<TensorGrid
+  z={2 * DISTANCE_BETWEEN_TENSORS}
+  layerName="Input"
+  dimension={inputTensorDimension}
+  activationMaps={[inputTensorData]}
+  numberOfColumns={1}
+  pointSize={6}
+  gap={0}
+  previousOutputNode={null}
+/>
+
+<TensorGrid
+  z={DISTANCE_BETWEEN_TENSORS}
+  layerName="Convolution Layer #1"
+  {...inferenceResponse.orderedOutputNodes[0]}
+  numberOfColumns={4}
+  pointSize={6}
+  gap={60}
+  previousOutputNode={{
+    activationMaps: [inputTensorData],
+    dimension: inputTensorDimension,
+  }}
+/>
+
+<TensorGrid
+  z={0}
+  layerName="Max Pool #1"
   {...inferenceResponse.orderedOutputNodes[1]}
-  rowLength={4}
+  numberOfColumns={4}
+  pointSize={8}
+  gap={50}
+  previousOutputNode={inferenceResponse.orderedOutputNodes[0]}
+/>
+
+<TensorGrid
+  z={-DISTANCE_BETWEEN_TENSORS}
+  layerName="Convolution Layer #2"
+  {...inferenceResponse.orderedOutputNodes[2]}
+  numberOfColumns={4}
+  pointSize={8}
+  gap={40}
+  previousOutputNode={inferenceResponse.orderedOutputNodes[1]}
+/>
+
+<TensorGrid
+  z={-2 * DISTANCE_BETWEEN_TENSORS}
+  layerName="Max Pool #2"
+  {...inferenceResponse.orderedOutputNodes[3]}
+  numberOfColumns={4}
   pointSize={12}
   gap={40}
+  previousOutputNode={inferenceResponse.orderedOutputNodes[2]}
 />

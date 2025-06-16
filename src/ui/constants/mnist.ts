@@ -1,14 +1,22 @@
-import { DEFAULT_GRAY_VALUE } from "@constants/global"
+import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
 import type { InferenceResponse, OutputNode } from "bridge"
 
 export const MODEL_URL = `${import.meta.env.VITE_PUBLIC_URL}/mnist-12.onnx`
 export const INPUT_TENSOR_DIMENSION = [1, 1, 28, 28]
-export const ORDERED_NODE_NAMES = ["Pooling66_Output_0", "Pooling160_Output_0"]
+export const ORDERED_NODE_NAMES = [
+  "ReLU32_Output_0",
+  "Pooling66_Output_0",
+  "ReLU114_Output_0",
+  "Pooling160_Output_0",
+]
 export const FINAL_NODE = "Plus214_Output_0"
 const ORDERED_NODE_DIMENSIONS = [
+  [1, 8, 28, 28],
   [1, 8, 14, 14],
+  [1, 16, 14, 14],
   [1, 16, 4, 4],
 ]
+
 export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
   isSuccessful: false,
   orderedOutputNodes: (() => {
@@ -22,7 +30,7 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
 
       for (let i = 0; i < numberOfTensors; i += 1) {
         activationMaps[i] = new Float32Array(3 * activationMapLength)
-        activationMaps[i].fill(DEFAULT_GRAY_VALUE)
+        activationMaps[i].fill(TENSOR_DEFAULT_GRAY_VALUE)
       }
 
       orderedOutputNodes.push({
@@ -35,10 +43,48 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
   })(),
   predictions: Array(10).fill(0.1), // Probability of 1 distributed equally among 10 possibilities
 }
+
 export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
   const newTensor = new Float32Array(
     3 * INPUT_TENSOR_DIMENSION.reduce((a, b) => a * b),
   )
-  newTensor.fill(DEFAULT_GRAY_VALUE)
+  newTensor.fill(TENSOR_DEFAULT_GRAY_VALUE)
   return newTensor
 })()
+
+export type LayerName =
+  | ""
+  | "Input"
+  | "Convolution Layer #1"
+  | "Max Pool #1"
+  | "Convolution Layer #2"
+  | "Max Pool #2"
+
+type Kernel = {
+  stride: number
+  dimension: number
+  tick: number
+}
+
+export const KERNEL_INFO: Partial<Record<LayerName, Kernel>> = {
+  "Convolution Layer #1": {
+    stride: 1,
+    dimension: 5,
+    tick: 10,
+  },
+  "Max Pool #1": {
+    stride: 2,
+    dimension: 2,
+    tick: 30,
+  },
+  "Convolution Layer #2": {
+    stride: 1,
+    dimension: 5,
+    tick: 50,
+  },
+  "Max Pool #2": {
+    stride: 3,
+    dimension: 3,
+    tick: 200,
+  },
+}
