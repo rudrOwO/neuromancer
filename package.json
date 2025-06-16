@@ -2,7 +2,7 @@
   "name": "neuromancer",
   "description": "Real-time 3D visualilzer for convolutional neural networks running on the ONNX runtime",
   "private": true,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -25,7 +25,6 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
-    "@svgdotjs/svg.js": "^3.2.4",
     "@threlte/core": "^8.0.0",
     "@threlte/extras": "^9.0.1",
     "@vercel/analytics": "^1.5.0",

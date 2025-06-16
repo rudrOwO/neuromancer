@@ -11,3 +11,7 @@ export const TENSOR_FONT_SIZE = 8
 export const TENSOR_HIGHLIGHT_MAGNITUDE = 0.05
 export const TENSOR_TEXT_COLOR = "lightgray"
 export const DISTANCE_BETWEEN_TENSORS = 150
+
+export const SVG_STROKE_WIDTH = "2"
+export const SVG_STROKE_DASHARRAY = "10"
+export const SVG_ARROW_OFFSET_PER_FRAME = 3

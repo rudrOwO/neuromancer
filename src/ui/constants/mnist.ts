@@ -85,6 +85,6 @@ export const KERNEL_INFO: Partial<Record<LayerName, Kernel>> = {
   "Max Pool #2": {
     stride: 3,
     dimension: 3,
-    tick: 200,
+    tick: 150,
   },
 }

@@ -7,7 +7,7 @@
   import MaskedTensor from "./MaskedTensor.svelte"
   import Aggregate from "./Aggregate.svelte"
   import { initializeSVG } from "@utils/svgarrows"
-  import type { Line } from "@svgdotjs/svg.js"
+  import { SVG_ARROW_OFFSET_PER_FRAME } from "@constants/graphics"
 
   const unmaskedTensorData = tensorState.unmaskedTensors.map(
     (ut) => ut.tensorData,
@@ -55,7 +55,7 @@
   )
   let aggregateIcon: HTMLImageElement
   let maskedTensorDiv: HTMLDivElement
-  const arrows: Line[] = []
+  const arrows: SVGLineElement[] = []
   let arrowOffset = 0
 
   function animate(timestamp: DOMHighResTimeStamp) {
@@ -97,8 +97,8 @@
       }
 
       for (const arrow of arrows) {
-        arrowOffset = (arrowOffset + 3) % 60
-        arrow.stroke({ dashoffset: -arrowOffset })
+        arrowOffset = (arrowOffset - SVG_ARROW_OFFSET_PER_FRAME) % 60 // Resetting after 60 frames ~ 1 second
+        arrow.setAttribute("stroke-dashoffset", arrowOffset.toString())
       }
     }
 
@@ -147,8 +147,6 @@
   {:else}
     <div class="w-[60px] lg:w-[120px] grid place-content-center"></div>
   {/if}
-
-  <!-- content here -->
 
   <MaskedTensor
     bind:arrowTarget={maskedTensorDiv}
