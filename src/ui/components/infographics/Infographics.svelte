@@ -6,11 +6,8 @@
   import UnmaskedTensor from "./UnmaskedTensor.svelte"
   import MaskedTensor from "./MaskedTensor.svelte"
   import Aggregate from "./Aggregate.svelte"
-  import { SVG } from "@svgdotjs/svg.js"
-  import {
-    getArrowSourceCoordinates,
-    getArrowTargetCoordinates,
-  } from "@utils/svgarrows"
+  import { initializeSVG } from "@utils/svgarrows"
+  import type { Line } from "@svgdotjs/svg.js"
 
   const unmaskedTensorData = tensorState.unmaskedTensors.map(
     (ut) => ut.tensorData,
@@ -48,10 +45,24 @@
   let maskedAnimationRow = 0
   let maskedAnimationColumn = 0
 
+  const renderAggregate =
+    infographicsModal.layerName == "Convolution Layer #1" ||
+    infographicsModal.layerName == "Convolution Layer #2"
+
+  let svgContainer: HTMLDivElement
+  let unmaskedTensorDivs: HTMLDivElement[] = new Array(
+    unmaskedTensorData.length,
+  )
+  let aggregateIcon: HTMLImageElement
+  let maskedTensorDiv: HTMLDivElement
+  const arrows: Line[] = []
+  let arrowOffset = 0
+
   function animate(timestamp: DOMHighResTimeStamp) {
     if (timestamp - lastTime >= kernelTick) {
       lastTime = timestamp
 
+      // Kernel animation starts here
       maskMatrix[mask_i][mask_j] = false // unmask with each animation iteration
 
       const unmaskedX = unmaskedAnimationColumn * unmaskedCellSize
@@ -85,38 +96,42 @@
         mask_i = 0
         fillMaskArray()
       }
+
+      // Arrows animation starts here
+      for (const arrow of arrows) {
+        arrowOffset = (arrowOffset + 1) % 60
+        arrow.stroke({ dashoffset: arrowOffset })
+      }
     }
 
     animationId = requestAnimationFrame(animate)
   }
 
-  const renderAggregate =
-    infographicsModal.layerName == "Convolution Layer #1" ||
-    infographicsModal.layerName == "Convolution Layer #2"
-
-  let svgContainer: HTMLDivElement
-  let unmaskedTensorDivs: HTMLDivElement[] = new Array(
-    unmaskedTensorData.length,
-  )
-  let aggregateIcon: HTMLImageElement
-  let maskedTensorDiv: HTMLDivElement
-
   $effect(() => {
-    animationId = requestAnimationFrame(animate)
-    const draw = SVG().addTo("#svg-container").size("100%", "100%")
+    const drawArrow = initializeSVG(svgContainer)
 
     if (renderAggregate) {
-      const source = getArrowSourceCoordinates(aggregateIcon, svgContainer)
-      const target = getArrowTargetCoordinates(maskedTensorDiv, svgContainer)
+      for (const t of unmaskedTensorDivs) {
+        arrows.push(drawArrow(t, aggregateIcon))
+      }
 
-      draw.line(source.x, source.y, target.x, target.y).stroke({ width: 2 })
+      arrows.push(drawArrow(aggregateIcon, maskedTensorDiv))
     } else {
+      arrows.push(drawArrow(unmaskedTensorDivs[0], maskedTensorDiv))
     }
 
+    animationId = requestAnimationFrame(animate)
     return () => {
       cancelAnimationFrame(animationId)
     }
   })
+
+  // let offset = 0
+  //    function animateDashes() {
+  //      offset = (offset + 1) % 12  // 6+6 dash length
+  //      line.stroke({ dashoffset: offset })
+  //      requestAnimationFrame(animateDashes)
+  //    }
 </script>
 
 <div class="flex flex-row relative p-2 lg:p-4">
@@ -149,9 +164,5 @@
     transformStyle={maskedTransformStyle}
     {maskMatrix}
   ></MaskedTensor>
-  <div
-    bind:this={svgContainer}
-    id="svg-container"
-    class="absolute inset-0 stroke-kernel"
-  ></div>
+  <div bind:this={svgContainer} class="absolute inset-0 stroke-kernel"></div>
 </div>
