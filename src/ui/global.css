@@ -6,6 +6,7 @@
   --color-clear: #fb2c36;
   --color-accent-0: #343a40;
   --color-accent-1: #495057;
+  --color-kernel: oklch(0.627 0.194 149.214);
 }
 
 @keyframes slideUp {

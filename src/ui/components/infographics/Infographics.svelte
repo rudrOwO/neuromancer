@@ -109,9 +109,7 @@
       const source = getArrowSourceCoordinates(aggregateIcon, svgContainer)
       const target = getArrowTargetCoordinates(maskedTensorDiv, svgContainer)
 
-      draw
-        .line(source.x, source.y, target.x, target.y)
-        .stroke({ width: 2, color: "white" })
+      draw.line(source.x, source.y, target.x, target.y).stroke({ width: 2 })
     } else {
     }
 
@@ -136,7 +134,7 @@
     {/each}
   </div>
 
-  <div class="w-[80px] lg:w-[200px] grid place-content-center m-1 relative">
+  <div class="w-[80px] lg:w-[200px] grid place-content-center">
     {#if renderAggregate}
       <Aggregate bind:arrowTarget={aggregateIcon} />
     {/if}
@@ -154,6 +152,6 @@
   <div
     bind:this={svgContainer}
     id="svg-container"
-    class="absolute inset-0"
+    class="absolute inset-0 stroke-kernel"
   ></div>
 </div>
