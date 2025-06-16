@@ -1,9 +1,13 @@
 <script lang="ts">
-  import { tensorState } from "@sharedstate/infographics.svelte"
+  import {
+    infographicsModal,
+    tensorState,
+  } from "@sharedstate/infographics.svelte"
   import UnmaskedTensor from "./UnmaskedTensor.svelte"
   import MaskedTensor from "./MaskedTensor.svelte"
-
-  const kernelTick = tensorState.unmaskedTensors[0].kernelTick
+  import Aggregate from "./Aggregate.svelte"
+  import { initializeSVG } from "@utils/svgarrows"
+  import type { Line } from "@svgdotjs/svg.js"
 
   const unmaskedTensorData = tensorState.unmaskedTensors.map(
     (ut) => ut.tensorData,
@@ -33,12 +37,26 @@
   let mask_i = 0
   let mask_j = 0 // For keeping track of updates in animation iterations
 
+  const kernelTick = tensorState.unmaskedTensors[0].kernelTick
   let lastTime = performance.now()
   let animationId: number
   let unmaskedAnimationRow = 0
   let unmaskedAnimationColumn = 0
   let maskedAnimationRow = 0
   let maskedAnimationColumn = 0
+
+  const renderAggregate =
+    infographicsModal.layerName == "Convolution Layer #1" ||
+    infographicsModal.layerName == "Convolution Layer #2"
+
+  let svgContainer: HTMLDivElement
+  let unmaskedTensorDivs: HTMLDivElement[] = new Array(
+    unmaskedTensorData.length,
+  )
+  let aggregateIcon: HTMLImageElement
+  let maskedTensorDiv: HTMLDivElement
+  const arrows: Line[] = []
+  let arrowOffset = 0
 
   function animate(timestamp: DOMHighResTimeStamp) {
     if (timestamp - lastTime >= kernelTick) {
@@ -77,24 +95,41 @@
         mask_i = 0
         fillMaskArray()
       }
+
+      for (const arrow of arrows) {
+        arrowOffset = (arrowOffset + 3) % 60
+        arrow.stroke({ dashoffset: -arrowOffset })
+      }
     }
 
     animationId = requestAnimationFrame(animate)
   }
 
   $effect(() => {
-    animationId = requestAnimationFrame(animate)
+    const drawArrow = initializeSVG(svgContainer)
 
+    if (renderAggregate) {
+      for (const t of unmaskedTensorDivs) {
+        arrows.push(drawArrow(t, aggregateIcon))
+      }
+
+      arrows.push(drawArrow(aggregateIcon, maskedTensorDiv))
+    } else {
+      arrows.push(drawArrow(unmaskedTensorDivs[0], maskedTensorDiv))
+    }
+
+    animationId = requestAnimationFrame(animate)
     return () => {
       cancelAnimationFrame(animationId)
     }
   })
 </script>
 
-<div class="flex flex-row gap-10">
+<div class="flex flex-row relative p-2 lg:p-4">
   <div class="flex flex-col gap-4">
-    {#each unmaskedTensorData as td}
+    {#each unmaskedTensorData as td, i}
       <UnmaskedTensor
+        bind:arrowSource={unmaskedTensorDivs[i]}
         tensorData={td}
         rows={unmaskedRows}
         columns={unmaskedColumns}
@@ -105,14 +140,24 @@
     {/each}
   </div>
 
-  {#if tensorState.maskedTensor != null}
-    <MaskedTensor
-      tensorData={tensorState.maskedTensor.tensorData}
-      rows={tensorState.maskedTensor.rows}
-      columns={tensorState.maskedTensor.columns}
-      cellSize={tensorState.maskedTensor.cellSize}
-      transformStyle={maskedTransformStyle}
-      {maskMatrix}
-    ></MaskedTensor>
+  {#if renderAggregate}
+    <div class="w-[100px] lg:w-[220px] grid place-content-center">
+      <Aggregate bind:arrowTarget={aggregateIcon} />
+    </div>
+  {:else}
+    <div class="w-[60px] lg:w-[120px] grid place-content-center"></div>
   {/if}
+
+  <!-- content here -->
+
+  <MaskedTensor
+    bind:arrowTarget={maskedTensorDiv}
+    tensorData={tensorState.maskedTensor!.tensorData}
+    rows={tensorState.maskedTensor!.rows}
+    columns={tensorState.maskedTensor!.columns}
+    cellSize={tensorState.maskedTensor!.cellSize}
+    transformStyle={maskedTransformStyle}
+    {maskMatrix}
+  ></MaskedTensor>
+  <div bind:this={svgContainer} class="absolute inset-0 stroke-kernel"></div>
 </div>
