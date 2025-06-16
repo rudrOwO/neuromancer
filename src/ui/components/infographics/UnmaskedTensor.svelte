@@ -9,15 +9,17 @@
     cellSize: number
     kernelDimension: number
     transformStyle: string
+    arrowSource: HTMLDivElement
   }
 
-  const {
+  let {
     tensorData,
     rows,
     columns,
     cellSize,
     kernelDimension,
     transformStyle,
+    arrowSource = $bindable(),
   }: Props = $props()
 
   const rowBuffers = $derived.by(() => {
@@ -29,7 +31,7 @@
   })
 </script>
 
-<div class="relative">
+<div bind:this={arrowSource} class="relative">
   {#each rowBuffers as rowBuffer}
     <div class="flex flex-row">
       {#each rowBuffer as grayValue}

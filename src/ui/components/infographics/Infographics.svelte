@@ -6,8 +6,11 @@
   import UnmaskedTensor from "./UnmaskedTensor.svelte"
   import MaskedTensor from "./MaskedTensor.svelte"
   import Aggregate from "./Aggregate.svelte"
-
-  const kernelTick = tensorState.unmaskedTensors[0].kernelTick
+  import { SVG } from "@svgdotjs/svg.js"
+  import {
+    getArrowSourceCoordinates,
+    getArrowTargetCoordinates,
+  } from "@utils/svgarrows"
 
   const unmaskedTensorData = tensorState.unmaskedTensors.map(
     (ut) => ut.tensorData,
@@ -37,6 +40,7 @@
   let mask_i = 0
   let mask_j = 0 // For keeping track of updates in animation iterations
 
+  const kernelTick = tensorState.unmaskedTensors[0].kernelTick
   let lastTime = performance.now()
   let animationId: number
   let unmaskedAnimationRow = 0
@@ -86,8 +90,30 @@
     animationId = requestAnimationFrame(animate)
   }
 
+  const renderAggregate =
+    infographicsModal.layerName == "Convolution Layer #1" ||
+    infographicsModal.layerName == "Convolution Layer #2"
+
+  let svgContainer: HTMLDivElement
+  let unmaskedTensorDivs: HTMLDivElement[] = new Array(
+    unmaskedTensorData.length,
+  )
+  let aggregateIcon: HTMLImageElement
+  let maskedTensorDiv: HTMLDivElement
+
   $effect(() => {
     animationId = requestAnimationFrame(animate)
+    const draw = SVG().addTo("#svg-container").size("100%", "100%")
+
+    if (renderAggregate) {
+      const source = getArrowSourceCoordinates(aggregateIcon, svgContainer)
+      const target = getArrowTargetCoordinates(maskedTensorDiv, svgContainer)
+
+      draw
+        .line(source.x, source.y, target.x, target.y)
+        .stroke({ width: 2, color: "white" })
+    } else {
+    }
 
     return () => {
       cancelAnimationFrame(animationId)
@@ -97,8 +123,9 @@
 
 <div class="flex flex-row relative p-2 lg:p-4">
   <div class="flex flex-col gap-4">
-    {#each unmaskedTensorData as td}
+    {#each unmaskedTensorData as td, i}
       <UnmaskedTensor
+        bind:arrowSource={unmaskedTensorDivs[i]}
         tensorData={td}
         rows={unmaskedRows}
         columns={unmaskedColumns}
@@ -110,12 +137,13 @@
   </div>
 
   <div class="w-[80px] lg:w-[200px] grid place-content-center m-1 relative">
-    {#if infographicsModal.layerName == "Convolution Layer #1" || infographicsModal.layerName == "Convolution Layer #2"}
-      <Aggregate />
+    {#if renderAggregate}
+      <Aggregate bind:arrowTarget={aggregateIcon} />
     {/if}
   </div>
 
   <MaskedTensor
+    bind:arrowTarget={maskedTensorDiv}
     tensorData={tensorState.maskedTensor!.tensorData}
     rows={tensorState.maskedTensor!.rows}
     columns={tensorState.maskedTensor!.columns}
@@ -123,4 +151,9 @@
     transformStyle={maskedTransformStyle}
     {maskMatrix}
   ></MaskedTensor>
+  <div
+    bind:this={svgContainer}
+    id="svg-container"
+    class="absolute inset-0"
+  ></div>
 </div>
