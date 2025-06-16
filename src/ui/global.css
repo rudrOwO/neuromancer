@@ -6,5 +6,36 @@
   --color-clear: #fb2c36;
   --color-accent-0: #343a40;
   --color-accent-1: #495057;
+  --color-kernel: oklch(0.627 0.194 149.214);
 }
 
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.slide-up-active {
+  animation: slideUp 0.2s ease-out forwards;
+}
+
+.slide-down-active {
+  animation: slideDown 0.2s ease-out forwards;
+}

@@ -101,7 +101,7 @@
         previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
       )
 
-      const pointSizeToGrayBoxScale = 1 / 20
+      const pointSizeToGrayBoxScale = 1 / 22
 
       tensorState.unmaskedTensors = tensorDependencies.map((dep) => ({
         tensorData: dep,
