@@ -30,7 +30,7 @@
     >
 
     <div
-      class="slide-up-active flex flex-col fixed max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-100"
+      class="slide-up-active flex flex-col fixed max-h-min right-2 bottom-[2.5vh] sm:right-6 rounded-lg overflow-hidden z-100 lg:hidden"
     >
       <Button
         onclick={closeModal}
