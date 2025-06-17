@@ -58,6 +58,7 @@
   let maskedTensorDiv: HTMLDivElement
   const arrows: SVGLineElement[] = []
   let arrowOffset = 0
+  let padding = isConvolutionLayer ? Math.round(kernelDimension / 2) : 0
 
   function animate(timestamp: DOMHighResTimeStamp) {
     if (timestamp - lastTime >= kernelTick) {
@@ -65,8 +66,8 @@
 
       maskMatrix[mask_i][mask_j] = false // unmask with each animation iteration
 
-      const unmaskedX = unmaskedColumnIndex * unmaskedCellSize
-      const unmaskedY = unmaskedRowIndex * unmaskedCellSize
+      const unmaskedX = (unmaskedColumnIndex - padding) * unmaskedCellSize
+      const unmaskedY = (unmaskedRowIndex - padding) * unmaskedCellSize
       unmaskedTransformStyle = `transform: translate(${unmaskedX}rem, ${unmaskedY}rem);`
 
       const maskedX = maskedColumnIndex * maskedCellSize
@@ -78,7 +79,7 @@
       maskedColumnIndex += maskedKernelStride
       mask_j += 1
 
-      if (unmaskedColumnIndex + kernelDimension > unmaskedRows) {
+      if (maskedColumnIndex == maskedColumns) {
         // This is basically CRLF equivalent of a typwriter
         unmaskedColumnIndex = 0
         maskedColumnIndex = 0
@@ -89,11 +90,12 @@
         mask_i += 1
       }
 
-      if (unmaskedRowIndex + kernelDimension > unmaskedColumns) {
+      if (maskedRowIndex == maskedRows) {
         // Reset everything once the last cell is animated
         unmaskedRowIndex = 0
         maskedRowIndex = 0
         mask_i = 0
+
         fillMaskArray()
       }
 
@@ -127,7 +129,7 @@
 </script>
 
 <div class="flex flex-row relative p-2 lg:p-4">
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col gap-6">
     {#each unmaskedTensorData as td, i}
       <UnmaskedTensor
         bind:arrowSource={unmaskedTensorDivs[i]}
