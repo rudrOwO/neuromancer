@@ -9,6 +9,9 @@
   import { initializeSVG } from "@utils/svgarrows"
   import { SVG_ARROW_OFFSET_PER_FRAME } from "@constants/graphics"
 
+  const kernelTick = tensorState.unmaskedTensors[0].kernelTick
+  const kernelDimension = tensorState.unmaskedTensors[0].kernelDimension
+
   const unmaskedTensorData = tensorState.unmaskedTensors.map(
     (ut) => ut.tensorData,
   )
@@ -16,7 +19,6 @@
   const unmaskedColumns = tensorState.unmaskedTensors[0].columns
   const unmaskedCellSize = tensorState.unmaskedTensors[0].cellSize
   const unmaskedKernelStride = tensorState.unmaskedTensors[0].kernelStride
-  const unmaskedKernelDimension = tensorState.unmaskedTensors[0].kernelDimension
   let unmaskedTransformStyle = $state("")
 
   const maskedRows = tensorState.maskedTensor!.rows
@@ -37,15 +39,14 @@
   let mask_i = 0
   let mask_j = 0 // For keeping track of updates in animation iterations
 
-  const kernelTick = tensorState.unmaskedTensors[0].kernelTick
   let lastTime = performance.now()
   let animationId: number
-  let unmaskedAnimationRow = 0
-  let unmaskedAnimationColumn = 0
-  let maskedAnimationRow = 0
-  let maskedAnimationColumn = 0
+  let unmaskedRowIndex = 0
+  let unmaskedColumnIndex = 0
+  let maskedRowIndex = 0
+  let maskedColumnIndex = 0
 
-  const renderAggregate =
+  const isConvolutionLayer =
     infographicsModal.layerName == "Convolution Layer #1" ||
     infographicsModal.layerName == "Convolution Layer #2"
 
@@ -64,34 +65,34 @@
 
       maskMatrix[mask_i][mask_j] = false // unmask with each animation iteration
 
-      const unmaskedX = unmaskedAnimationColumn * unmaskedCellSize
-      const unmaskedY = unmaskedAnimationRow * unmaskedCellSize
+      const unmaskedX = unmaskedColumnIndex * unmaskedCellSize
+      const unmaskedY = unmaskedRowIndex * unmaskedCellSize
       unmaskedTransformStyle = `transform: translate(${unmaskedX}rem, ${unmaskedY}rem);`
 
-      const maskedX = maskedAnimationColumn * maskedCellSize
-      const maskedY = maskedAnimationRow * maskedCellSize
+      const maskedX = maskedColumnIndex * maskedCellSize
+      const maskedY = maskedRowIndex * maskedCellSize
       maskedTransformStyle = `transform: translate(${maskedX}rem, ${maskedY}rem);`
 
       // Slide kernel to right - 1 step
-      unmaskedAnimationColumn += unmaskedKernelStride
-      maskedAnimationColumn += maskedKernelStride
+      unmaskedColumnIndex += unmaskedKernelStride
+      maskedColumnIndex += maskedKernelStride
       mask_j += 1
 
-      if (unmaskedAnimationColumn + unmaskedKernelDimension > unmaskedRows) {
+      if (unmaskedColumnIndex + kernelDimension > unmaskedRows) {
         // This is basically CRLF equivalent of a typwriter
-        unmaskedAnimationColumn = 0
-        maskedAnimationColumn = 0
+        unmaskedColumnIndex = 0
+        maskedColumnIndex = 0
         mask_j = 0
 
-        unmaskedAnimationRow += unmaskedKernelStride
-        maskedAnimationRow += maskedKernelStride
+        unmaskedRowIndex += unmaskedKernelStride
+        maskedRowIndex += maskedKernelStride
         mask_i += 1
       }
 
-      if (unmaskedAnimationRow + unmaskedKernelDimension > unmaskedColumns) {
+      if (unmaskedRowIndex + kernelDimension > unmaskedColumns) {
         // Reset everything once the last cell is animated
-        unmaskedAnimationRow = 0
-        maskedAnimationRow = 0
+        unmaskedRowIndex = 0
+        maskedRowIndex = 0
         mask_i = 0
         fillMaskArray()
       }
@@ -108,7 +109,7 @@
   $effect(() => {
     const drawArrow = initializeSVG(svgContainer)
 
-    if (renderAggregate) {
+    if (isConvolutionLayer) {
       for (const t of unmaskedTensorDivs) {
         arrows.push(drawArrow(t, aggregateIcon))
       }
@@ -134,13 +135,13 @@
         rows={unmaskedRows}
         columns={unmaskedColumns}
         cellSize={unmaskedCellSize}
-        kernelDimension={unmaskedKernelDimension}
+        {kernelDimension}
         transformStyle={unmaskedTransformStyle}
       ></UnmaskedTensor>
     {/each}
   </div>
 
-  {#if renderAggregate}
+  {#if isConvolutionLayer}
     <div class="w-[100px] lg:w-[220px] grid place-content-center">
       <Aggregate bind:arrowTarget={aggregateIcon} />
     </div>
