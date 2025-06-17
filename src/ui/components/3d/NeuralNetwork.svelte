@@ -48,7 +48,10 @@
     class="fixed flex w-dvw text-text-color justify-center items-center top-16"
   >
     {#if showHint}
-      <Hint iconSrc="/mouse-icon.svg" message="Drag, zoom, click" />
+      <Hint
+        iconSrc="/mouse-icon.svg"
+        message="<p>✨New✨<br>Drag, zoom, <b>click</b></p>"
+      />
     {/if}
   </div>
   <Canvas>
