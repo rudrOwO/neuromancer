@@ -1,8 +1,8 @@
 function checkFirstVisit() {
   if (typeof localStorage !== "undefined") {
-    const hasVisited = localStorage.getItem("hasVisited")
+    const hasVisited = localStorage.getItem("hasVisited_v1.0.4")
     if (!hasVisited) {
-      localStorage.setItem("hasVisited", "true")
+      localStorage.setItem("hasVisited_v1.0.4", "true")
       return true
     }
     return false
