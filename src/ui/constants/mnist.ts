@@ -29,7 +29,7 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
       const activationMaps: Float32Array[] = new Array(numberOfTensors)
 
       for (let i = 0; i < numberOfTensors; i += 1) {
-        activationMaps[i] = new Float32Array(3 * activationMapLength)
+        activationMaps[i] = new Float32Array(activationMapLength)
         activationMaps[i].fill(TENSOR_DEFAULT_GRAY_VALUE)
       }
 
@@ -46,7 +46,7 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
 
 export const INPUT_TENSOR_DEFAULT_VALUE = (() => {
   const newTensor = new Float32Array(
-    3 * INPUT_TENSOR_DIMENSION.reduce((a, b) => a * b),
+    INPUT_TENSOR_DIMENSION.reduce((a, b) => a * b),
   )
   newTensor.fill(TENSOR_DEFAULT_GRAY_VALUE)
   return newTensor
