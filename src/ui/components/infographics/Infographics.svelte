@@ -148,7 +148,7 @@
       <Aggregate bind:arrowTarget={aggregateIcon} />
     </div>
   {:else}
-    <div class="w-[60px] lg:w-[120px] grid place-content-center"></div>
+    <div class="w-[60px] lg:w-[120px]"></div>
   {/if}
 
   <MaskedTensor
