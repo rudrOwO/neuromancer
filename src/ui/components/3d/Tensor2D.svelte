@@ -5,7 +5,6 @@
   } from "@constants/graphics"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
-  import { pointerDraggingState } from "@sharedstate/dragging.svelte"
   import {
     infographicsModal,
     showModal,
@@ -94,7 +93,9 @@
   const { onPointerEnter, onPointerLeave } = useCursor()
 
   function handleClick() {
-    if (!pointerDraggingState.isDragging && layerName != "Input") {
+    console.log("Fired handleClick")
+
+    if (layerName != "Input") {
       const tensorDependencies = getTensorDependencies(
         layerName,
         tensorIndex,
