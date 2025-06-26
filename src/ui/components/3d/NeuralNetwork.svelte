@@ -18,7 +18,6 @@
   let showHint = $state(isFirstVisit)
 
   function handlePointerDown() {
-    console.log("Fired handlePointerDown")
     showHint = false
   }
 </script>
