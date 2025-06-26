@@ -93,8 +93,6 @@
   const { onPointerEnter, onPointerLeave } = useCursor()
 
   function handleClick() {
-    console.log("Fired handleClick")
-
     if (layerName != "Input") {
       const tensorDependencies = getTensorDependencies(
         layerName,
