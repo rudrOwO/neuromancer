@@ -13,6 +13,12 @@
   import { getTensorDependencies } from "@utils/tensordeps"
   import { KERNEL_INFO, type LayerName } from "@constants/mnist"
   import type { OutputNode } from "bridge"
+  import { Vector3, type Mesh } from "three"
+  import {
+    clearCurrentFlow,
+    setCurrentFlow,
+    tensorLocationMatrix,
+  } from "@sharedstate/inferenceflow.svelte"
 
   type Props = {
     layerName: LayerName
@@ -35,10 +41,13 @@
     tensorIndex,
     previousOutputNode,
   }: Props = $props()
-  let hightlighted = $state(false)
 
+  let meshRef = $state<Mesh>()
+  let hightlighted = $state(false)
   const bufferGeometryLength = 3 * rows * columns
   const vertices = new Float32Array(bufferGeometryLength)
+
+  const worldPosition = new Vector3()
 
   // Enumerating vertices
   // 3 consecutive values define one vertex (x, y, z)
@@ -94,15 +103,16 @@
 
   function handleClick() {
     if (layerName != "Input") {
-      const tensorDependencies = getTensorDependencies(
-        layerName,
-        tensorIndex,
-        previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
-      )
+      const { dependencyTensors, dependencyTensorLocations } =
+        getTensorDependencies(
+          layerName,
+          tensorIndex,
+          previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+        )
 
       const pointSizeToGrayBoxScale = 1 / 22
 
-      tensorState.unmaskedTensors = tensorDependencies.map((dep) => ({
+      tensorState.unmaskedTensors = dependencyTensors.map((dep) => ({
         tensorData: dep,
         rows: previousOutputNode!.dimension[2],
         columns: previousOutputNode!.dimension[3],
@@ -125,7 +135,41 @@
   }
 
   function handlePointerOver() {
+    // TODO  Toggle modal here at  mouse location
+    // Only for Desktops
+
     if (layerName != "Input") {
+      const { dependencyTensors, dependencyTensorLocations } =
+        getTensorDependencies(
+          layerName,
+          tensorIndex,
+          previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+        )
+
+      // const pointSizeToGrayBoxScale = 1 / 22
+      //
+      // tensorState.unmaskedTensors = dependencyTensors.map((dep) => ({
+      //   tensorData: dep,
+      //   rows: previousOutputNode!.dimension[2],
+      //   columns: previousOutputNode!.dimension[3],
+      //   cellSize: pointSize * pointSizeToGrayBoxScale,
+      //   kernelStride: KERNEL_INFO[layerName]!.stride,
+      //   kernelDimension: KERNEL_INFO[layerName]!.dimension,
+      //   kernelTick: KERNEL_INFO[layerName]!.tick,
+      // }))
+      //
+      // tensorState.maskedTensor = {
+      //   tensorData,
+      //   rows,
+      //   columns,
+      //   cellSize: pointSize * pointSizeToGrayBoxScale,
+      // }
+      //
+
+      setCurrentFlow(
+        dependencyTensorLocations.map((start) => [start, worldPosition]),
+      )
+
       onPointerEnter()
       hightlighted = true
     }
@@ -133,10 +177,22 @@
 
   function handlePointerOut() {
     if (layerName != "Input") {
+      clearCurrentFlow()
       onPointerLeave()
       hightlighted = false
     }
   }
+
+  $effect(() => {
+    if (meshRef) {
+      // Wait for next frame to ensure matrix is updated
+      requestAnimationFrame(() => {
+        meshRef!.updateMatrixWorld()
+        meshRef!.getWorldPosition(worldPosition)
+        tensorLocationMatrix[layerName].push(worldPosition)
+      })
+    }
+  })
 </script>
 
 <T.Group {position}>
@@ -182,6 +238,7 @@
   <!-- usually z = -1 would suffice ro render a back mesh. -->
   <!-- But for some reason, it does not render correctly on small screens. -->
   <T.Mesh
+    bind:ref={meshRef}
     position={[rows, -columns, -3]}
     onclick={handleClick}
     onpointerover={handlePointerOver}
