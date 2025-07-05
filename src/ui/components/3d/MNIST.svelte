@@ -10,6 +10,7 @@
     DEFAULT_CAMERA_POSITION,
     DISTANCE_BETWEEN_TENSORS,
   } from "@constants/graphics"
+    import InferenceFlow from "./InferenceFlow.svelte"
 
   type Props = {
     inputTensorDimension: number[]
@@ -94,3 +95,5 @@
   gap={40}
   previousOutputNode={inferenceResponse.orderedOutputNodes[2]}
 />
+
+<InferenceFlow />
