@@ -13,7 +13,7 @@
   import { getTensorDependencies } from "@utils/tensordeps"
   import { KERNEL_INFO, type LayerName } from "@constants/mnist"
   import type { OutputNode } from "bridge"
-  import { Vector3, type Mesh } from "three"
+  import { AdditiveBlending, Vector3, type Mesh } from "three"
   import {
     clearCurrentFlow,
     setCurrentFlow,
@@ -232,7 +232,12 @@
         />
       {/if}
     </T.BufferGeometry>
-    <T.PointsMaterial size={pointSize} vertexColors={true} />
+
+    <T.PointsMaterial
+      size={pointSize}
+      vertexColors={true}
+      blending={AdditiveBlending}
+    />
   </T.Points>
 
   <!-- usually z = -1 would suffice ro render a back mesh. -->
@@ -256,7 +261,7 @@
           color: 0x000000,
           side: 2,
           transparent: true,
-          opacity: 0.7,
+          opacity: 0.9,
         },
       ]}
     />
