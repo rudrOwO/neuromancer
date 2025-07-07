@@ -1,9 +1,11 @@
-export const AMBIENT_LIGHT_INTENSITY = 0.4
-export const AMBIENT_LIGHT_COLOR = "#fff"
 export const CAMERA_FOV = 25
 export const DEFAULT_CAMERA_POSITION: [x: number, y: number, z: number] = [
   300, 300, 800,
 ]
+export const GRID_SECTION_COLOR = "#4a4b4a"
+export const GRID_SECTION_THICKNESS = 1
+export const GRID_POSITION: [x: number, y: number, z: number] = [0, -90, 0]
+export const GRID_SECTION_SIZE = 50
 
 export const TENSOR_DEFAULT_GRAY_VALUE = 0.05
 export const TENSOR_ZOOM_CONSTANT = 0.3
