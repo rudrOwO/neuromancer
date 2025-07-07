@@ -8,16 +8,16 @@
   }
 
   const color = [
-    "bg-accent-0",
-    "bg-accent-1",
-    "bg-accent-0",
-    "bg-accent-1",
-    "bg-accent-0",
-    "bg-accent-1",
-    "bg-accent-0",
-    "bg-accent-1",
-    "bg-accent-0",
-    "bg-accent-1",
+    "bg-accent",
+    "bg-background",
+    "bg-accent",
+    "bg-background",
+    "bg-accent",
+    "bg-background",
+    "bg-accent",
+    "bg-background",
+    "bg-accent",
+    "bg-background",
   ]
 
   const { label, flexValue, highlight }: Props = $props()
@@ -42,7 +42,7 @@
   .highlight-box {
     border: 2px solid transparent;
     border-radius: 4px;
-    animation: borderPulse 2s infinite ease-in-out;
+    animation: borderPulse 1.5s infinite ease-in-out;
   }
 
   /* Keyframes for border animation */

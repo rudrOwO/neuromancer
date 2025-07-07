@@ -1,16 +1,18 @@
 <script lang="ts">
   import { T } from "@threlte/core"
-  import { OrbitControls, interactivity } from "@threlte/extras"
+  import { Grid, OrbitControls, interactivity } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
   import TensorGrid from "./TensorGrid.svelte"
   import {
-    AMBIENT_LIGHT_COLOR,
-    AMBIENT_LIGHT_INTENSITY,
     CAMERA_FOV,
     DEFAULT_CAMERA_POSITION,
     DISTANCE_BETWEEN_TENSORS,
+    GRID_POSITION,
+    GRID_SECTION_COLOR,
+    GRID_SECTION_SIZE,
+    GRID_SECTION_THICKNESS,
   } from "@constants/graphics"
-    import InferenceFlow from "./InferenceFlow.svelte"
+  import InferenceFlow from "./InferenceFlow.svelte"
 
   type Props = {
     inputTensorDimension: number[]
@@ -36,11 +38,6 @@
 >
   <OrbitControls enableDamping></OrbitControls>
 </T.PerspectiveCamera>
-
-<T.AmbientLight
-  color={AMBIENT_LIGHT_COLOR}
-  intensity={AMBIENT_LIGHT_INTENSITY}
-/>
 
 <TensorGrid
   z={2 * DISTANCE_BETWEEN_TENSORS}
@@ -91,9 +88,18 @@
   layerName="Max Pool #2"
   {...inferenceResponse.orderedOutputNodes[3]}
   numberOfColumns={4}
-  pointSize={12}
+  pointSize={16}
   gap={40}
   previousOutputNode={inferenceResponse.orderedOutputNodes[2]}
 />
 
 <InferenceFlow />
+
+<Grid
+  position={GRID_POSITION}
+  infiniteGrid
+  sectionColor={GRID_SECTION_COLOR}
+  sectionThickness={GRID_SECTION_THICKNESS}
+  sectionSize={GRID_SECTION_SIZE}
+  fadeDistance={DEFAULT_CAMERA_POSITION[2] * 3}
+/>

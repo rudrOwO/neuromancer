@@ -2,7 +2,11 @@
   "name": "neuromancer",
   "description": "Real-time 3D visualilzer for convolutional neural networks running on the ONNX runtime",
   "private": true,
-  "version": "1.0.8",
+<<<<<<< HEAD
+  "version": "1.3.0",
+=======
+  "version": "1.4.8",
+>>>>>>> 68d12cd (add animated dash lines in 3d space)
   "type": "module",
   "scripts": {
     "dev": "vite",
