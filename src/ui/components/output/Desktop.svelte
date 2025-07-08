@@ -49,21 +49,4 @@
   .prediction-bar {
     transition: width 0.3s ease-in-out;
   }
-
-  .highlight-box {
-    border: 2px solid transparent;
-    border-radius: 4px;
-    animation: borderPulse 1.5s infinite ease-in-out;
-  }
-
-  /* Keyframes for border animation */
-  @keyframes borderPulse {
-    0%,
-    100% {
-      border-color: transparent;
-    }
-    50% {
-      border-color: var(--color-gray-300);
-    }
-  }
 </style>
