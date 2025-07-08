@@ -8,15 +8,15 @@
   }
 
   const color = [
-    "bg-accent",
+    "bg-accent-dark",
     "bg-background",
-    "bg-accent",
+    "bg-accent-dark",
     "bg-background",
-    "bg-accent",
+    "bg-accent-dark",
     "bg-background",
-    "bg-accent",
+    "bg-accent-dark",
     "bg-background",
-    "bg-accent",
+    "bg-accent-dark",
     "bg-background",
   ]
 
