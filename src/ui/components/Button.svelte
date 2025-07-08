@@ -9,7 +9,7 @@
 
   const color = {
     ["clear"]: "bg-clear",
-    ["default"]: "bg-accent",
+    ["default"]: "bg-accent-dark",
   }
 
   const { onclick, iconSrc, altText, text, type = "default" }: Props = $props()

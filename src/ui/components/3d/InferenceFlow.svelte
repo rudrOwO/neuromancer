@@ -11,6 +11,10 @@
     // increase the dash offset
     dashOffset -= delta * 2
   })
+
+  const dashColor = getComputedStyle(document.documentElement).getPropertyValue(
+    "--color-accent-light",
+  )
 </script>
 
 {#each getCurrentFlow() as edge}
@@ -19,7 +23,7 @@
     <MeshLineMaterial
       transparent={true}
       width={2.0}
-      color="gray"
+      color={dashColor}
       {dashOffset}
       dashArray={0.5}
       dashRatio={0.3}
