@@ -1,7 +1,7 @@
 <script lang="ts">
   import { isFirstVisit } from "@utils/firstvisit"
   import DigitCanvas from "@components/DigitCanvas.svelte"
-  import OutputPanel from "@components/output/OutputPanel.svelte"
+  import MobileOutputPanel from "@components/output/Mobile.svelte"
   import type { InferenceResponse } from "bridge"
   import { initializeModel } from "bridge"
   import {
@@ -10,6 +10,8 @@
     ACTIVATION_MAPS_DEFAULT_VALUE,
     INPUT_TENSOR_DEFAULT_VALUE,
   } from "@constants/mnist"
+  import { checkIfMobile, mobileMediaQuery } from "@utils/mediaquery"
+  import DesktopOutputPanel from "@components/output/Desktop.svelte"
 
   // lazy import to parallelize network requests
   const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
@@ -19,6 +21,14 @@
     ACTIVATION_MAPS_DEFAULT_VALUE,
   )
   let inputTensorData = $state<Float32Array>(INPUT_TENSOR_DEFAULT_VALUE)
+  let isMobile = $state(false)
+
+  $effect(() => {
+    isMobile = checkIfMobile(mobileMediaQuery as unknown as MediaQueryListEvent)
+    mobileMediaQuery.addEventListener("change", (ev: MediaQueryListEvent) => {
+      isMobile = checkIfMobile(ev)
+    })
+  })
 </script>
 
 <main class="bg-black h-svh flex">
@@ -28,7 +38,11 @@
     {#await neuralNetworkImport}
       {@render placeholder("Loading 3D assets...")}
     {:then { default: NeuralNetwork }}
-      <OutputPanel {inferenceResponse} {showHint} />
+      {#if isMobile}
+        <MobileOutputPanel {inferenceResponse} {showHint} />
+      {:else}
+        <DesktopOutputPanel {showHint} {inferenceResponse} />
+      {/if}
       <DigitCanvas bind:inferenceResponse bind:inputTensorData bind:showHint />
       <NeuralNetwork
         inputTensorDimension={INPUT_TENSOR_DIMENSION}
