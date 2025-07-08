@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { InferenceResponse } from "bridge"
-  import PredictionBar from "./PredictionBar.svelte"
   import Hint from "@components/Hint.svelte"
+  import clsx from "clsx"
 
   type Props = {
     inferenceResponse: InferenceResponse
@@ -36,6 +36,19 @@
 
     return predictionBitmap
   })
+
+  const color = [
+    "bg-accent-dark",
+    "bg-background",
+    "bg-accent-dark",
+    "bg-background",
+    "bg-accent-dark",
+    "bg-background",
+    "bg-accent-dark",
+    "bg-background",
+    "bg-accent-dark",
+    "bg-background",
+  ]
 </script>
 
 <div class="flex flex-col left-2 sm:left-4 fixed z-100 h-[95dvh] self-center">
@@ -49,11 +62,39 @@
     class="flex flex-col bg-background w-9 mt-2 sm:w-12 h-full rounded-lg overflow-hidden"
   >
     {#each predictionStrings as p, index}
-      <PredictionBar
-        label={index}
-        flexValue={p}
-        highlight={predictionBitmap[index]}
-      />
+      <div
+        class={clsx(
+          "py-1 grid place-items-center font-bold text-base sm:text-xl text-text-color prediction-bar",
+          color[index],
+          predictionBitmap[index] && "highlight-box",
+        )}
+        style:flex={p}
+      >
+        {index}
+      </div>
     {/each}
   </div>
 </div>
+
+<style>
+  .prediction-bar {
+    transition: flex 0.3s ease-in-out;
+  }
+
+  .highlight-box {
+    border: 2px solid transparent;
+    border-radius: 4px;
+    animation: borderPulse 1.5s infinite ease-in-out;
+  }
+
+  /* Keyframes for border animation */
+  @keyframes borderPulse {
+    0%,
+    100% {
+      border-color: transparent;
+    }
+    50% {
+      border-color: var(--color-gray-300);
+    }
+  }
+</style>
