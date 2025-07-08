@@ -4,7 +4,8 @@
   --color-text-color: #edebf5;
   --color-background: #292b2b;
   --color-clear: #fb2c36;
-  --color-accent: #3e4042;
+  --color-accent-dark: #3e4042;
+  --color-accent-light: #929196;
   --color-kernel: oklch(0.627 0.194 149.214);
 }
 

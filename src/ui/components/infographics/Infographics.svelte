@@ -160,5 +160,8 @@
     transformStyle={maskedTransformStyle}
     {maskMatrix}
   ></MaskedTensor>
-  <div bind:this={svgContainer} class="absolute inset-0 stroke-kernel"></div>
+  <div
+    bind:this={svgContainer}
+    class="absolute inset-0 stroke-accent-light"
+  ></div>
 </div>
