@@ -30,7 +30,7 @@
 >
   <Modal />
   <div
-    class="fixed flex w-dvw text-text-color justify-center items-center top-16"
+    class="fixed flex w-dvw text-text-color z-100 justify-center items-center top-16 left-16"
   >
     {#if showHint}
       <Hint
