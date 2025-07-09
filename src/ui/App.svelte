@@ -10,7 +10,7 @@
     ACTIVATION_MAPS_DEFAULT_VALUE,
     INPUT_TENSOR_DEFAULT_VALUE,
   } from "@constants/mnist"
-  import { checkIfMobile, mobileMediaQuery } from "@utils/mediaquery"
+  import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
   import DesktopOutputPanel from "@components/output/Desktop.svelte"
 
   // lazy import to parallelize network requests
@@ -21,12 +21,12 @@
     ACTIVATION_MAPS_DEFAULT_VALUE,
   )
   let inputTensorData = $state<Float32Array>(INPUT_TENSOR_DEFAULT_VALUE)
-  let isMobile = $state(false)
+  let isDesktop = $state(false)
 
   $effect(() => {
-    isMobile = checkIfMobile(mobileMediaQuery as unknown as MediaQueryListEvent)
-    mobileMediaQuery.addEventListener("change", (ev: MediaQueryListEvent) => {
-      isMobile = checkIfMobile(ev)
+    isDesktop = checkIfDesktop(mediaQuery as unknown as MediaQueryListEvent)
+    mediaQuery.addEventListener("change", (ev: MediaQueryListEvent) => {
+      isDesktop = checkIfDesktop(ev)
     })
   })
 </script>
@@ -38,10 +38,10 @@
     {#await neuralNetworkImport}
       {@render placeholder("Loading 3D assets...")}
     {:then { default: NeuralNetwork }}
-      {#if isMobile}
-        <MobileOutputPanel {inferenceResponse} {showHint} />
-      {:else}
+      {#if isDesktop}
         <DesktopOutputPanel {showHint} {inferenceResponse} />
+      {:else}
+        <MobileOutputPanel {inferenceResponse} {showHint} />
       {/if}
       <DigitCanvas bind:inferenceResponse bind:inputTensorData bind:showHint />
       <NeuralNetwork

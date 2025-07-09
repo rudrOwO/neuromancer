@@ -1,5 +1,5 @@
-export const mobileMediaQuery = window.matchMedia("(max-width: 768px)")
+export const mediaQuery = window.matchMedia("(min-width: 1280px)")
 
-export const checkIfMobile = (event: MediaQueryListEvent) => {
+export const checkIfDesktop = (event: MediaQueryListEvent) => {
   return event.matches
 }
