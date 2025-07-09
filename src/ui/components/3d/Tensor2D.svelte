@@ -135,9 +135,6 @@
   }
 
   function handlePointerOver() {
-    // TODO  Toggle modal here at  mouse location
-    // Only for Desktops
-
     if (layerName != "Input") {
       const { dependencyTensors, dependencyTensorLocations } =
         getTensorDependencies(
@@ -145,26 +142,6 @@
           tensorIndex,
           previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
         )
-
-      // const pointSizeToGrayBoxScale = 1 / 22
-      //
-      // tensorState.unmaskedTensors = dependencyTensors.map((dep) => ({
-      //   tensorData: dep,
-      //   rows: previousOutputNode!.dimension[2],
-      //   columns: previousOutputNode!.dimension[3],
-      //   cellSize: pointSize * pointSizeToGrayBoxScale,
-      //   kernelStride: KERNEL_INFO[layerName]!.stride,
-      //   kernelDimension: KERNEL_INFO[layerName]!.dimension,
-      //   kernelTick: KERNEL_INFO[layerName]!.tick,
-      // }))
-      //
-      // tensorState.maskedTensor = {
-      //   tensorData,
-      //   rows,
-      //   columns,
-      //   cellSize: pointSize * pointSizeToGrayBoxScale,
-      // }
-      //
 
       setCurrentFlow(
         dependencyTensorLocations.map((start) => [start, worldPosition]),

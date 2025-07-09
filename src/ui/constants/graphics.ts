@@ -15,5 +15,9 @@ export const TENSOR_TEXT_COLOR = "lightgray"
 export const DISTANCE_BETWEEN_TENSORS = 150
 
 export const SVG_STROKE_WIDTH = "2"
-export const SVG_STROKE_DASHARRAY = "10"
+export const SVG_STROKE_DASH_ARRAY = "10"
 export const SVG_ARROW_OFFSET_PER_FRAME = 3
+
+export const _3D_STROKE_WIDTH = 2
+export const _3D_STROKE_DASH_ARRAY = 0.5
+export const _3D_STROKE_DASH_RATIO = 0.3
