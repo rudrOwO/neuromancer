@@ -15,6 +15,7 @@
   import Loading from "@components/Loading.svelte"
   import Error from "@components/Error.svelte"
   import Navbar from "@components/Navbar.svelte"
+  import Footer from "@components/Footer.svelte"
 
   // lazy import to parallelize network requests
   const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
@@ -60,6 +61,7 @@
         {inputTensorData}
         {inferenceResponse}
       />
+      <Footer />
     {:catch _}
       <Error message="Error: could not load 3D assets" />
     {/await}
