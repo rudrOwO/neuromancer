@@ -3,6 +3,11 @@
   import { getCurrentFlow } from "@sharedstate/inferenceflow.svelte"
   import { T } from "@threlte/core"
   import { MeshLineGeometry, MeshLineMaterial } from "@threlte/extras"
+  import {
+    _3D_STROKE_DASH_ARRAY,
+    _3D_STROKE_DASH_RATIO,
+    _3D_STROKE_WIDTH,
+  } from "@constants/graphics"
 
   let dashOffset = $state(0)
 
@@ -22,11 +27,11 @@
     <MeshLineGeometry points={edge} />
     <MeshLineMaterial
       transparent={true}
-      width={2.0}
+      width={_3D_STROKE_WIDTH}
       color={dashColor}
       {dashOffset}
-      dashArray={0.5}
-      dashRatio={0.3}
+      dashArray={_3D_STROKE_DASH_ARRAY}
+      dashRatio={_3D_STROKE_DASH_RATIO}
     />
   </T.Mesh>
 {/each}

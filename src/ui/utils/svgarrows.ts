@@ -1,4 +1,4 @@
-import { SVG_STROKE_DASHARRAY, SVG_STROKE_WIDTH } from "@constants/graphics"
+import { SVG_STROKE_DASH_ARRAY, SVG_STROKE_WIDTH } from "@constants/graphics"
 
 function getArrowSourceCoordinates(el: HTMLElement, parent: HTMLElement) {
   const rect = el.getBoundingClientRect()
@@ -38,7 +38,7 @@ export function initializeSVG(parent: HTMLElement) {
       "line",
     )
     newArrow.setAttribute("stroke-width", SVG_STROKE_WIDTH)
-    newArrow.setAttribute("stroke-dasharray", SVG_STROKE_DASHARRAY)
+    newArrow.setAttribute("stroke-dasharray", SVG_STROKE_DASH_ARRAY)
     newArrow.setAttribute("x1", sourceCoordinates.x.toString())
     newArrow.setAttribute("y1", sourceCoordinates.y.toString())
     newArrow.setAttribute("x2", targetCoordinates.x.toString())
