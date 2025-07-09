@@ -8,7 +8,7 @@
 
   $effect(() => {
     paths = document.querySelectorAll("path")
-    paths.forEach((path, i) => {
+    paths.forEach((path) => {
       path.style.setProperty(
         "--stroke-length",
         path.getTotalLength().toString(),
@@ -28,8 +28,6 @@
 <!-- svg is inlined because I need to apply animations to the strokes -->
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  width="240"
-  height="240"
   viewBox="0 0 24 24"
   fill="none"
   stroke="white"
@@ -43,7 +41,7 @@
       --stroke-length: 0;
       stroke-dasharray: var(--stroke-length);
       stroke-dashoffset: calc(var(--stroke-length) * -1);
-      animation: draw 1s cubic-bezier(0.5, 0.47, 0.16, 1) infinite;
+      animation: draw 1s cubic-bezier(0.5, 0.47, 0.16, 1) infinite forwards;
     }
 
     @keyframes draw {
