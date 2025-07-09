@@ -23,10 +23,13 @@
 1. [ convolutional neural network for identifying handwritten digits (MNIST dataset) ](https://github.com/onnx/models/tree/main/validated/vision/classification/mnist)
 2. [ AlexNet (planned) ](https://github.com/onnx/models/tree/main/validated/vision/classification/alexnet)
 
-<br>
-
 ### Inspired by
 
 - [These YouTube Videos](https://www.youtube.com/playlist?list=PLYLFPRdcr4f3uq4ji1JgXTt0gITCitG45)
 - [Netron](https://github.com/lutzroeder/netron)
 - [Transformer Explainer](https://github.com/poloclub/transformer-explainer)
+
+Icons attribution:
+
+- [SVGRepo](https://www.svgrepo.com)
+- [Tabler Icons](https://tabler.io/icons)
