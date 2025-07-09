@@ -12,9 +12,10 @@
   <div class="w-10 ml-2 sm:ml-6">
     <Processing {isAnimating} />
   </div>
-  <span class="font-title text-text-color text-lg sm:text-xl">
-    Neuromancer
-  </span>
+  <div class="flex flex-col text-text-color text-center">
+    <span class="font-title text-lg sm:text-xl"> Neuromancer </span>
+    <span class="text-base"> 3D Neural Network Visualizer </span>
+  </div>
   <a href="https://github.com/rudrowo/Neuromancer" class="mr-2 sm:mr-6">
     <img class="h-8 mx-2" src="/github-icon.svg" alt="Github Icon" />
   </a>
