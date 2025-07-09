@@ -53,6 +53,7 @@
         bind:inputTensorData
         bind:showHint
         bind:isDrawing
+        {isDesktop}
       />
       <NeuralNetwork
         inputTensorDimension={INPUT_TENSOR_DIMENSION}
