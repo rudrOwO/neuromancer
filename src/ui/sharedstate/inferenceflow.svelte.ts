@@ -14,6 +14,8 @@ let currentFlow: Array<[Vector3, Vector3]> = $state([
   [new Vector3(0, 0, 0), new Vector3(0, 0, 0)],
 ])
 
+// why these trivial getters and setters?
+// https://svelte.dev/docs/svelte/$state#Passing-state-across-modules
 export function getCurrentFlow() {
   return currentFlow
 }
