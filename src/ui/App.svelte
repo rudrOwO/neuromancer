@@ -26,10 +26,11 @@
     ACTIVATION_MAPS_DEFAULT_VALUE,
   )
   let inputTensorData = $state<Float32Array>(INPUT_TENSOR_DEFAULT_VALUE)
-  let isDesktop = $state(false)
+  let isDesktop = $state(
+    checkIfDesktop(mediaQuery as unknown as MediaQueryListEvent),
+  )
 
   $effect(() => {
-    isDesktop = checkIfDesktop(mediaQuery as unknown as MediaQueryListEvent)
     mediaQuery.addEventListener("change", (ev: MediaQueryListEvent) => {
       isDesktop = checkIfDesktop(ev)
     })
