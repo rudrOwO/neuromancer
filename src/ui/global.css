@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-title: "Press Start 2P", system-ui;
   --color-text-color: #edebf5;
   --color-background: #292b2b;
   --color-clear: #fb2c36;
