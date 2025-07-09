@@ -41,7 +41,7 @@
       --stroke-length: 0;
       stroke-dasharray: var(--stroke-length);
       stroke-dashoffset: calc(var(--stroke-length) * -1);
-      animation: draw 1s cubic-bezier(0.5, 0.47, 0.16, 1) infinite forwards;
+      animation: draw 1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite forwards;
     }
 
     @keyframes draw {
