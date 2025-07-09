@@ -17,12 +17,16 @@
     inferenceResponse: InferenceResponse
     inputTensorData: Float32Array
     showHint: boolean
+    isDrawing: boolean
+    isDesktop: boolean
   }
 
   let {
     inferenceResponse = $bindable(),
     inputTensorData = $bindable(),
     showHint = $bindable(),
+    isDrawing = $bindable(),
+    isDesktop,
   }: Props = $props()
 
   let isUIVisible = true
@@ -37,7 +41,6 @@
   let ctxScaled: CanvasRenderingContext2D
 
   let strokes: any = []
-  let isDrawing = false
   let isThrottled = false
 
   function preProcess(): {
@@ -241,12 +244,14 @@
       text="Clear"
       type="clear"
     />
-    <Button
-      onclick={toggleUI}
-      iconSrc="/hide-icon.svg"
-      altText="Hide"
-      text="Hide"
-    />
+    {#if !isDesktop}
+      <Button
+        onclick={toggleUI}
+        iconSrc="/hide-icon.svg"
+        altText="Hide"
+        text="Hide"
+      />
+    {/if}
   </div>
 </div>
 

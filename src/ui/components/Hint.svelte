@@ -1,7 +1,7 @@
 <script lang="ts">
   type Props = {
     message: string
-    iconSrc: string
+    iconSrc?: string
   }
 
   const { message, iconSrc }: Props = $props()
@@ -10,7 +10,9 @@
 <div
   class="hintbox mb-2 relative bottom-1.5 w-full max-h-min max-w-fit text-center flex justify-center items-center text-text-color text-xl p-2 bg-background rounded-lg animate-bounce z-100"
 >
-  <img class="h-8 mx-2" src={iconSrc} alt="Hint Icon" />
+  {#if iconSrc}
+    <img class="h-8 mx-2" src={iconSrc} alt="Hint Icon" />
+  {/if}
   {@html message}
 </div>
 
