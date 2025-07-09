@@ -61,7 +61,7 @@
         {inputTensorData}
         {inferenceResponse}
       />
-      <Footer />
+      <Footer {isDesktop} />
     {:catch _}
       <Error message="Error: could not load 3D assets" />
     {/await}
