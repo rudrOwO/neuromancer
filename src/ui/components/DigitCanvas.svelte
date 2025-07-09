@@ -17,12 +17,14 @@
     inferenceResponse: InferenceResponse
     inputTensorData: Float32Array
     showHint: boolean
+    isDrawing: boolean
   }
 
   let {
     inferenceResponse = $bindable(),
     inputTensorData = $bindable(),
     showHint = $bindable(),
+    isDrawing = $bindable(),
   }: Props = $props()
 
   let isUIVisible = true
@@ -37,7 +39,6 @@
   let ctxScaled: CanvasRenderingContext2D
 
   let strokes: any = []
-  let isDrawing = false
   let isThrottled = false
 
   function preProcess(): {
