@@ -19,6 +19,7 @@
   const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)
+  let isDrawing = $state(false)
   let inferenceResponse = $state<InferenceResponse>(
     ACTIVATION_MAPS_DEFAULT_VALUE,
   )
@@ -45,7 +46,12 @@
       {:else}
         <MobileOutputPanel {inferenceResponse} {showHint} />
       {/if}
-      <DigitCanvas bind:inferenceResponse bind:inputTensorData bind:showHint />
+      <DigitCanvas
+        bind:inferenceResponse
+        bind:inputTensorData
+        bind:showHint
+        bind:isDrawing
+      />
       <NeuralNetwork
         inputTensorDimension={INPUT_TENSOR_DIMENSION}
         {inputTensorData}
