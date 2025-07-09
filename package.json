@@ -2,7 +2,7 @@
   "name": "neuromancer",
   "description": "Real-time 3D visualilzer for convolutional neural networks running on the ONNX runtime",
   "private": true,
-  "version": "1.7.0",
+  "version": "1.7.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
