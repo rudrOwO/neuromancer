@@ -51,11 +51,11 @@
   ]
 </script>
 
-<div class="flex flex-col left-2 sm:left-4 fixed z-100 h-[95dvh] self-center">
+<div
+  class="flex flex-col top-12 bottom-2 my-auto left-2 fixed z-100 h-[90dvh] self-center"
+>
   {#if showHint}
-    <Hint iconSrc="brain-icon.svg" message="Predictions" />
-  {:else}
-    <img class="h-8 w-full mb-2" src="brain-icon.svg" alt="Pen Icon" />
+    <Hint  message="Predictions" />
   {/if}
 
   <div

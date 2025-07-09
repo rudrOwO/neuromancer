@@ -18,12 +18,10 @@
 </script>
 
 <div
-  class="flex flex-col items-start gap-4 top-8 left-8 fixed z-100 w-[20vw] overflow-hidden rounded-lg"
+  class="flex flex-col items-start gap-4 top-20 left-6 fixed z-100 w-[20vw] overflow-hidden rounded-lg"
 >
   {#if showHint}
-    <Hint iconSrc="brain-icon.svg" message="Predictions" />
-  {:else}
-    <img class="h-8 mb-2" src="brain-icon.svg" alt="Pen Icon" />
+    <Hint message="Predictions" />
   {/if}
 
   {#each predictionStrings as p, index}
