@@ -12,6 +12,8 @@
   } from "@constants/mnist"
   import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
   import DesktopOutputPanel from "@components/output/Desktop.svelte"
+  import Loading from "@components/Loading.svelte"
+  import Error from "@components/Error.svelte"
 
   // lazy import to parallelize network requests
   const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
@@ -33,10 +35,10 @@
 
 <main class="bg-black h-svh flex">
   {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
-    {@render placeholder("Initiliazing Model...")}
+    <Loading message="Loading Runtime..." />
   {:then}
     {#await neuralNetworkImport}
-      {@render placeholder("Loading 3D assets...")}
+      <Loading message="Loading 3D assets..." />
     {:then { default: NeuralNetwork }}
       {#if isDesktop}
         <DesktopOutputPanel {showHint} {inferenceResponse} />
@@ -49,16 +51,10 @@
         {inputTensorData}
         {inferenceResponse}
       />
-    {:catch error}
-      {@render placeholder(`Could not load 3D assets: ${error.message}`)}
+    {:catch _}
+      <Error message="Error: could not load 3D assets" />
     {/await}
-  {:catch error}
-    {@render placeholder(`Could not initialize model: ${error.message}`)}
+  {:catch _}
+    <Error message="Could not initialize model" />
   {/await}
 </main>
-
-{#snippet placeholder(message: string)}
-  <p class="fixed grid place-items-center inset-0 text-text-color text-4xl">
-    <span>{message}</span>
-  </p>
-{/snippet}
