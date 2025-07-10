@@ -1,4 +1,5 @@
 <script lang="ts">
+  import githubIcon from "/github-icon.svg?inline"
   import Processing from "./Processing.svelte"
 
   type Props = {
@@ -21,6 +22,6 @@
     target="_blank"
     class="mr-2 sm:mr-6"
   >
-    <img class="h-8 mx-2" src="/github-icon.svg" alt="Github Icon" />
+    <img class="h-8 mx-2" src={githubIcon} alt="Github Icon" />
   </a>
 </nav>

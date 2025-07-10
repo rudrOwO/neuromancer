@@ -1,4 +1,9 @@
 <script lang="ts">
+  import penIcon from "/pen-icon.svg?inline"
+  import clearIcon from "/clear-icon.svg?inline"
+  import hideIcon from "/hide-icon.svg?inline"
+  import canvasIcon from "/canvas-icon.svg?inline"
+
   import { centerCrop, getCoordinates, getMidpoint } from "@utils/math"
   import type { InferenceResponse } from "bridge"
   import { runModel } from "bridge"
@@ -206,9 +211,9 @@
   onmousedown={handleMouseDown}
 >
   {#if showHint}
-    <Hint iconSrc="/pen-icon.svg" message="Draw a digit (0 - 9)" />
+    <Hint iconSrc={penIcon} message="Draw a digit (0 - 9)" />
   {:else}
-    <img class="h-8 w-full mb-2" src="/pen-icon.svg" alt="Pen Icon" />
+    <img class="h-8 w-full mb-2" src={penIcon} alt="Pen Icon" />
   {/if}
   <canvas
     bind:this={canvas}
@@ -239,7 +244,7 @@
   <div class="flex rounded-lg overflow-hidden">
     <Button
       onclick={clear}
-      iconSrc="/clear-icon.svg"
+      iconSrc={clearIcon}
       altText="Clear Button"
       text="Clear"
       type="clear"
@@ -247,7 +252,7 @@
     {#if !isDesktop}
       <Button
         onclick={toggleUI}
-        iconSrc="/hide-icon.svg"
+        iconSrc={hideIcon}
         altText="Hide"
         text="Hide"
       />
@@ -261,7 +266,7 @@
 >
   <Button
     onclick={toggleUI}
-    iconSrc="/canvas-icon.svg"
+    iconSrc={canvasIcon}
     altText="Show Canvas"
     text="Show Canvas"
   />
