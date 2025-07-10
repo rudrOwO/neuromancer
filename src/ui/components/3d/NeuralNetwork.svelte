@@ -1,4 +1,5 @@
 <script lang="ts">
+  import mouseIcon from "/mouse-icon.svg?inline"
   import { Canvas } from "@threlte/core"
   import MNIST from "@components/3d/MNIST.svelte"
   import type { InferenceResponse } from "bridge"
@@ -34,7 +35,7 @@
   >
     {#if showHint}
       <Hint
-        iconSrc="/mouse-icon.svg"
+        iconSrc={mouseIcon}
         message="<p>✨New✨<br>Drag, zoom, <b>click</b></p>"
       />
     {/if}
