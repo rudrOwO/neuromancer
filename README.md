@@ -32,4 +32,4 @@
 Icons attribution:
 
 - [SVGRepo](https://www.svgrepo.com)
-- [Tabler Icons](https://tabler.io/icons)
+- [Wikimedia Commons](https://commons.wikimedia.org/wiki/Main_Page)
