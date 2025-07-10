@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104.33422 93.206172">
-  <!-- Putting style here to prevent svelte from hashing out classnames LOL -->
   <style>
     .stroke-animation {
       --stroke-length: 0;
@@ -14,7 +13,6 @@
       }
     }
   </style>
-
   <g fill="none" stroke="#fff">
     <path
       stroke-width="3"
