@@ -37,6 +37,9 @@ const wasmMimeTypePlugin: Plugin = {
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    assetsInlineLimit: 5 * 1024,
+  },
   plugins: [svelte(), tsconfigPaths(), tailwindcss(), wasmMimeTypePlugin],
   worker: {
     plugins: () => [tsconfigPaths()],
