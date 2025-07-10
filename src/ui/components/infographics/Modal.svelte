@@ -1,4 +1,5 @@
 <script lang="ts">
+  import clearIcon from "/clear-icon.svg?inline"
   import {
     infographicsModal,
     closeModal,
@@ -34,7 +35,7 @@
     >
       <Button
         onclick={closeModal}
-        iconSrc="/clear-icon.svg"
+        iconSrc={clearIcon}
         altText="Close Button"
         text="Close"
         type="clear"
