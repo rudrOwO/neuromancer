@@ -1,18 +1,18 @@
 <script lang="ts">
   import {
-      TENSOR_HIGHLIGHT_MAGNITUDE,
-      TENSOR_ZOOM_CONSTANT,
+    TENSOR_HIGHLIGHT_MAGNITUDE,
+    TENSOR_ZOOM_CONSTANT,
   } from "@constants/graphics"
   import { KERNEL_INFO, type LayerName } from "@constants/mnist"
   import {
-      clearCurrentFlow,
-      setCurrentFlow,
-      tensorLocationMatrix,
+    clearCurrentFlow,
+    setCurrentFlow,
+    tensorLocationMatrix,
   } from "@sharedstate/inferenceflow.svelte"
   import {
-      infographicsModal,
-      showModal,
-      tensorState,
+    infographicsModal,
+    showModal,
+    tensorState,
   } from "@sharedstate/infographics.svelte"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
@@ -103,12 +103,11 @@
 
   function handleClick() {
     if (layerName != "Input") {
-      const { dependencyTensors, dependencyTensorLocations } =
-        getTensorDependencies(
-          layerName,
-          tensorIndex,
-          previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
-        )
+      const { dependencyTensors } = getTensorDependencies(
+        layerName,
+        tensorIndex,
+        previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+      )
 
       const pointSizeToGrayBoxScale = 1 / 22
 
@@ -136,12 +135,11 @@
 
   function handlePointerOver() {
     if (layerName != "Input") {
-      const { dependencyTensors, dependencyTensorLocations } =
-        getTensorDependencies(
-          layerName,
-          tensorIndex,
-          previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
-        )
+      const { dependencyTensorLocations } = getTensorDependencies(
+        layerName,
+        tensorIndex,
+        previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+      )
 
       setCurrentFlow(
         dependencyTensorLocations.map((start) => [start, worldPosition]),
