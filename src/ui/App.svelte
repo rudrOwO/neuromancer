@@ -16,7 +16,7 @@
   import Output from "@components/output/Output.svelte"
 
   // lazy import to parallelize network requests
-  const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
+  const neuralNetworkImport = import("@components/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)
   let inferenceResponse = $state<InferenceResponse>(
