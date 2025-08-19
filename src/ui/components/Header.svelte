@@ -1,6 +1,6 @@
 <script lang="ts">
+  import brainIcon from "/brain-icon.svg?inline"
   import githubIcon from "/github-icon.svg?inline"
-  import Processing from "./Processing.svelte"
 
   type Props = {
     isAnimating: boolean
@@ -10,9 +10,13 @@
 </script>
 
 <header class="flex fixed top-0 w-[100vw] flex-row justify-between z-10 py-4">
-  <div class="w-10 ml-2 sm:ml-6">
-    <Processing {isAnimating} />
-  </div>
+  <a
+    href="https://en.wikipedia.org/wiki/Convolutional_neural_network"
+    target="_blank"
+    class="w-10 ml-2 sm:ml-6"
+  >
+    <img class="h-8 mx-2" src={brainIcon} alt="Github Icon" />
+  </a>
   <div class="flex flex-col text-text-color text-center">
     <span class="font-title text-lg sm:text-xl"> Neuromancer </span>
     <span class="text-base"> 3D Neural Network Visualizer </span>
