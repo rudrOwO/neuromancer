@@ -103,12 +103,11 @@
 
   function handleClick() {
     if (layerName != "Input") {
-      const { dependencyTensors, dependencyTensorLocations } =
-        getTensorDependencies(
-          layerName,
-          tensorIndex,
-          previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
-        )
+      const { dependencyTensors } = getTensorDependencies(
+        layerName,
+        tensorIndex,
+        previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+      )
 
       const pointSizeToGrayBoxScale = 1 / 22
 
@@ -136,12 +135,11 @@
 
   function handlePointerOver() {
     if (layerName != "Input") {
-      const { dependencyTensors, dependencyTensorLocations } =
-        getTensorDependencies(
-          layerName,
-          tensorIndex,
-          previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
-        )
+      const { dependencyTensorLocations } = getTensorDependencies(
+        layerName,
+        tensorIndex,
+        previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+      )
 
       setCurrentFlow(
         dependencyTensorLocations.map((start) => [start, worldPosition]),
