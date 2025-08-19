@@ -1,31 +1,22 @@
 <script lang="ts">
-  import brainIcon from "/brain-icon.svg?inline"
-  import githubIcon from "/github-icon.svg?inline"
-
-  type Props = {
-    isAnimating: boolean
-  }
-
-  const { isAnimating }: Props = $props()
+  import LinkIcon from "./LinkIcon.svelte"
 </script>
 
-<header class="flex fixed top-0 w-[100vw] flex-row justify-between z-10 py-4">
-  <a
+<header
+  class="flex fixed top-0 w-[100vw] flex-row justify-between content-center z-10 py-2"
+>
+  <LinkIcon
     href="https://en.wikipedia.org/wiki/Convolutional_neural_network"
-    target="_blank"
-    class="w-10 ml-2 sm:ml-6"
-  >
-    <img class="h-8 mx-2" src={brainIcon} alt="Github Icon" />
-  </a>
+    iconSrc="/brain-icon.svg"
+  />
+
   <div class="flex flex-col text-text-color text-center">
     <span class="font-title text-lg sm:text-xl"> Neuromancer </span>
     <span class="text-base"> 3D Neural Network Visualizer </span>
   </div>
-  <a
-    href="https://github.com/rudrowo/Neuromancer"
-    target="_blank"
-    class="mr-2 sm:mr-6"
-  >
-    <img class="h-8 mx-2" src={githubIcon} alt="Github Icon" />
-  </a>
+
+  <LinkIcon
+    href="https://github.com/rudrowo/neuromancer"
+    iconSrc="/github-icon.svg"
+  />
 </header>
