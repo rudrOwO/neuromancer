@@ -22,7 +22,6 @@
     inferenceResponse: InferenceResponse
     inputTensorData: Float32Array
     showHint: boolean
-    isDrawing: boolean
     isDesktop: boolean
   }
 
@@ -30,11 +29,8 @@
     inferenceResponse = $bindable(),
     inputTensorData = $bindable(),
     showHint = $bindable(),
-    isDrawing = $bindable(),
     isDesktop,
   }: Props = $props()
-
-  let isUIVisible = true
 
   let showCanvas: HTMLDivElement
   let containerDiv: HTMLDivElement
@@ -45,6 +41,8 @@
   let ctxCenterCrop: CanvasRenderingContext2D
   let ctxScaled: CanvasRenderingContext2D
 
+  let isDrawing = false
+  let isUIVisible = true
   let strokes: any = []
   let isThrottled = false
 
