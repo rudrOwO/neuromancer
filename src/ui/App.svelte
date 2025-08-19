@@ -14,7 +14,7 @@
   import DesktopOutputPanel from "@components/output/Desktop.svelte"
   import Loading from "@components/Loading.svelte"
   import Error from "@components/Error.svelte"
-  import Navbar from "@components/Navbar.svelte"
+  import Header from "@components/Header.svelte"
   import Footer from "@components/Footer.svelte"
 
   // lazy import to parallelize network requests
@@ -37,6 +37,7 @@
   })
 </script>
 
+<Header isAnimating={isDrawing} />
 <main class="bg-black h-svh">
   {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
     <Loading message="Loading Runtime..." />
@@ -44,7 +45,6 @@
     {#await neuralNetworkImport}
       <Loading message="Loading 3D Assets..." />
     {:then { default: NeuralNetwork }}
-      <Navbar isAnimating={isDrawing} />
       {#if isDesktop}
         <DesktopOutputPanel {showHint} {inferenceResponse} />
       {:else}
@@ -62,7 +62,6 @@
         {inputTensorData}
         {inferenceResponse}
       />
-      <Footer {isDesktop} />
     {:catch _}
       <Error message="Error: could not load 3D assets" />
     {/await}
@@ -70,3 +69,4 @@
     <Error message="Could not initialize model" />
   {/await}
 </main>
+<Footer {isDesktop} />
