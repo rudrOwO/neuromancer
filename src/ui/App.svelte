@@ -21,7 +21,6 @@
   const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)
-  let isDrawing = $state(false)
   let inferenceResponse = $state<InferenceResponse>(
     ACTIVATION_MAPS_DEFAULT_VALUE,
   )
@@ -37,7 +36,7 @@
   })
 </script>
 
-<Header isAnimating={isDrawing} />
+<Header />
 <main class="bg-black h-svh">
   {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
     <Loading message="Loading Runtime..." />
@@ -54,7 +53,6 @@
         bind:inferenceResponse
         bind:inputTensorData
         bind:showHint
-        bind:isDrawing
         {isDesktop}
       />
       <NeuralNetwork
