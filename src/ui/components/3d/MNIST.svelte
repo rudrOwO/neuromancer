@@ -1,12 +1,12 @@
 <script lang="ts">
   import {
-      CAMERA_FOV,
-      DEFAULT_CAMERA_POSITION,
-      DISTANCE_BETWEEN_TENSORS,
-      GRID_POSITION,
-      GRID_SECTION_COLOR,
-      GRID_SECTION_SIZE,
-      GRID_SECTION_THICKNESS,
+    CAMERA_FOV,
+    DEFAULT_CAMERA_POSITION,
+    DISTANCE_BETWEEN_TENSORS,
+    GRID_POSITION,
+    GRID_SECTION_COLOR,
+    GRID_SECTION_SIZE,
+    GRID_SECTION_THICKNESS,
   } from "@constants/graphics"
   import { T } from "@threlte/core"
   import { Grid, OrbitControls, interactivity } from "@threlte/extras"

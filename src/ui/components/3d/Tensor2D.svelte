@@ -1,18 +1,18 @@
 <script lang="ts">
   import {
-      TENSOR_HIGHLIGHT_MAGNITUDE,
-      TENSOR_ZOOM_CONSTANT,
+    TENSOR_HIGHLIGHT_MAGNITUDE,
+    TENSOR_ZOOM_CONSTANT,
   } from "@constants/graphics"
   import { KERNEL_INFO, type LayerName } from "@constants/mnist"
   import {
-      clearCurrentFlow,
-      setCurrentFlow,
-      tensorLocationMatrix,
+    clearCurrentFlow,
+    setCurrentFlow,
+    tensorLocationMatrix,
   } from "@sharedstate/inferenceflow.svelte"
   import {
-      infographicsModal,
-      showModal,
-      tensorState,
+    infographicsModal,
+    showModal,
+    tensorState,
   } from "@sharedstate/infographics.svelte"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"

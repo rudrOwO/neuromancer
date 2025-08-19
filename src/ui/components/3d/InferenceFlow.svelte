@@ -1,8 +1,8 @@
 <script lang="ts">
   import {
-      _3D_STROKE_DASH_ARRAY,
-      _3D_STROKE_DASH_RATIO,
-      _3D_STROKE_WIDTH,
+    _3D_STROKE_DASH_ARRAY,
+    _3D_STROKE_DASH_RATIO,
+    _3D_STROKE_WIDTH,
   } from "@constants/graphics"
   import { getCurrentFlow } from "@sharedstate/inferenceflow.svelte"
   import { T, useTask } from "@threlte/core"
