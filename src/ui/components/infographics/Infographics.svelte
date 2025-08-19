@@ -1,13 +1,13 @@
 <script lang="ts">
-  import {
-    infographicsModal,
-    tensorState,
-  } from "@sharedstate/infographics.svelte"
-  import UnmaskedTensor from "./UnmaskedTensor.svelte"
-  import MaskedTensor from "./MaskedTensor.svelte"
-  import Aggregate from "./Aggregate.svelte"
-  import { initializeSVG } from "@utils/svgarrows"
   import { SVG_ARROW_OFFSET_PER_FRAME } from "@constants/graphics"
+  import {
+      infographicsModal,
+      tensorState,
+  } from "@sharedstate/infographics.svelte"
+  import { initializeSVG } from "@utils/svgarrows"
+  import Aggregate from "./Aggregate.svelte"
+  import MaskedTensor from "./MaskedTensor.svelte"
+  import UnmaskedTensor from "./UnmaskedTensor.svelte"
 
   const kernelTick = tensorState.unmaskedTensors[0].kernelTick
   const kernelDimension = tensorState.unmaskedTensors[0].kernelDimension

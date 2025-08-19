@@ -1,11 +1,11 @@
 <script lang="ts">
-  import mouseIcon from "/mouse-icon.svg?inline"
-  import { Canvas } from "@threlte/core"
   import MNIST from "@components/3d/MNIST.svelte"
-  import type { InferenceResponse } from "bridge"
   import Hint from "@components/Hint.svelte"
   import Modal from "@components/infographics/Modal.svelte"
+  import { Canvas } from "@threlte/core"
   import { isFirstVisit } from "@utils/firstvisit"
+  import type { InferenceResponse } from "bridge"
+  import mouseIcon from "/mouse-icon.svg?inline"
 
   type Props = {
     inputTensorDimension: number[]

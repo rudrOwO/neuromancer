@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { InferenceResponse } from "bridge"
   import Hint from "@components/Hint.svelte"
+  import type { InferenceResponse } from "bridge"
   import clsx from "clsx"
 
   type Props = {
