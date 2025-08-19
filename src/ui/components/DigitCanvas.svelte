@@ -6,11 +6,11 @@
 
   import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
   import {
-      ACTIVATION_MAPS_DEFAULT_VALUE,
-      FINAL_NODE,
-      INPUT_TENSOR_DEFAULT_VALUE,
-      INPUT_TENSOR_DIMENSION,
-      ORDERED_NODE_NAMES,
+    ACTIVATION_MAPS_DEFAULT_VALUE,
+    FINAL_NODE,
+    INPUT_TENSOR_DEFAULT_VALUE,
+    INPUT_TENSOR_DIMENSION,
+    ORDERED_NODE_NAMES,
   } from "@constants/mnist"
   import { centerCrop, getCoordinates, getMidpoint } from "@utils/math"
   import type { InferenceResponse } from "bridge"
