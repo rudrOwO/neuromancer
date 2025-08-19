@@ -1,9 +1,7 @@
 <script lang="ts">
   import { isFirstVisit } from "@utils/firstvisit"
   import DigitCanvas from "@components/DigitCanvas.svelte"
-  import MobileOutputPanel from "@components/output/Mobile.svelte"
-  import type { InferenceResponse } from "bridge"
-  import { initializeModel } from "bridge"
+  import { type InferenceResponse, initializeModel } from "bridge"
   import {
     INPUT_TENSOR_DIMENSION,
     MODEL_URL,
@@ -11,11 +9,11 @@
     INPUT_TENSOR_DEFAULT_VALUE,
   } from "@constants/mnist"
   import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
-  import DesktopOutputPanel from "@components/output/Desktop.svelte"
   import Loading from "@components/Loading.svelte"
   import Error from "@components/Error.svelte"
   import Header from "@components/Header.svelte"
   import Footer from "@components/Footer.svelte"
+  import Output from "@components/output/Output.svelte"
 
   // lazy import to parallelize network requests
   const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
@@ -44,11 +42,7 @@
     {#await neuralNetworkImport}
       <Loading message="Loading 3D Assets..." />
     {:then { default: NeuralNetwork }}
-      {#if isDesktop}
-        <DesktopOutputPanel {showHint} {inferenceResponse} />
-      {:else}
-        <MobileOutputPanel {inferenceResponse} {showHint} />
-      {/if}
+      <Output {isDesktop} {showHint} {inferenceResponse} />
       <DigitCanvas
         bind:inferenceResponse
         bind:inputTensorData
