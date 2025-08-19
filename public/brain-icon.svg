@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104.33422 93.206172">
   <style>
-    .stroke-animation {
+    path {
       --stroke-length: 0;
       stroke-dasharray: var(--stroke-length);
       stroke-dashoffset: calc(var(--stroke-length) * -1);
