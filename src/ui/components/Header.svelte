@@ -9,7 +9,7 @@
   const { isAnimating }: Props = $props()
 </script>
 
-<nav class="flex fixed top-0 w-[100vw] flex-row justify-between z-10 py-4">
+<header class="flex fixed top-0 w-[100vw] flex-row justify-between z-10 py-4">
   <div class="w-10 ml-2 sm:ml-6">
     <Processing {isAnimating} />
   </div>
@@ -24,4 +24,4 @@
   >
     <img class="h-8 mx-2" src={githubIcon} alt="Github Icon" />
   </a>
-</nav>
+</header>
