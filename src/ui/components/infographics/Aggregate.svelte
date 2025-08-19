@@ -1,5 +1,6 @@
 <script lang="ts">
   import plusIcon from "/plus-icon.svg?inline"
+
   type Props = {
     arrowTarget: HTMLImageElement
   }

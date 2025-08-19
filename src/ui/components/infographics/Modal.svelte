@@ -1,11 +1,11 @@
 <script lang="ts">
-  import clearIcon from "/clear-icon.svg?inline"
+  import Button from "@components/Button.svelte"
   import {
-    infographicsModal,
-    closeModal,
+      closeModal,
+      infographicsModal,
   } from "@sharedstate/infographics.svelte"
   import Infographics from "./Infographics.svelte"
-  import Button from "@components/Button.svelte"
+  import clearIcon from "/clear-icon.svg?inline"
 
   function preventClickEventPropagation(e: MouseEvent) {
     e.stopPropagation()

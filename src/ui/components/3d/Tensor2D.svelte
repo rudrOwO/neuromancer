@@ -1,24 +1,24 @@
 <script lang="ts">
   import {
-    TENSOR_HIGHLIGHT_MAGNITUDE,
-    TENSOR_ZOOM_CONSTANT,
+      TENSOR_HIGHLIGHT_MAGNITUDE,
+      TENSOR_ZOOM_CONSTANT,
   } from "@constants/graphics"
+  import { KERNEL_INFO, type LayerName } from "@constants/mnist"
+  import {
+      clearCurrentFlow,
+      setCurrentFlow,
+      tensorLocationMatrix,
+  } from "@sharedstate/inferenceflow.svelte"
+  import {
+      infographicsModal,
+      showModal,
+      tensorState,
+  } from "@sharedstate/infographics.svelte"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
-  import {
-    infographicsModal,
-    showModal,
-    tensorState,
-  } from "@sharedstate/infographics.svelte"
   import { getTensorDependencies } from "@utils/tensordeps"
-  import { KERNEL_INFO, type LayerName } from "@constants/mnist"
   import type { OutputNode } from "bridge"
   import { AdditiveBlending, Vector3, type Mesh } from "three"
-  import {
-    clearCurrentFlow,
-    setCurrentFlow,
-    tensorLocationMatrix,
-  } from "@sharedstate/inferenceflow.svelte"
 
   type Props = {
     layerName: LayerName
