@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { useTask } from "@threlte/core"
-  import { getCurrentFlow } from "@sharedstate/inferenceflow.svelte"
-  import { T } from "@threlte/core"
-  import { MeshLineGeometry, MeshLineMaterial } from "@threlte/extras"
   import {
-    _3D_STROKE_DASH_ARRAY,
-    _3D_STROKE_DASH_RATIO,
-    _3D_STROKE_WIDTH,
+      _3D_STROKE_DASH_ARRAY,
+      _3D_STROKE_DASH_RATIO,
+      _3D_STROKE_WIDTH,
   } from "@constants/graphics"
+  import { getCurrentFlow } from "@sharedstate/inferenceflow.svelte"
+  import { T, useTask } from "@threlte/core"
+  import { MeshLineGeometry, MeshLineMaterial } from "@threlte/extras"
 
   let dashOffset = $state(0)
 

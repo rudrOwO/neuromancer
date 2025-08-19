@@ -1,20 +1,20 @@
 <script lang="ts">
-  import penIcon from "/pen-icon.svg?inline"
+  import canvasIcon from "/canvas-icon.svg?inline"
   import clearIcon from "/clear-icon.svg?inline"
   import hideIcon from "/hide-icon.svg?inline"
-  import canvasIcon from "/canvas-icon.svg?inline"
+  import penIcon from "/pen-icon.svg?inline"
 
+  import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
+  import {
+      ACTIVATION_MAPS_DEFAULT_VALUE,
+      FINAL_NODE,
+      INPUT_TENSOR_DEFAULT_VALUE,
+      INPUT_TENSOR_DIMENSION,
+      ORDERED_NODE_NAMES,
+  } from "@constants/mnist"
   import { centerCrop, getCoordinates, getMidpoint } from "@utils/math"
   import type { InferenceResponse } from "bridge"
   import { runModel } from "bridge"
-  import {
-    FINAL_NODE,
-    INPUT_TENSOR_DIMENSION,
-    ORDERED_NODE_NAMES,
-    INPUT_TENSOR_DEFAULT_VALUE,
-    ACTIVATION_MAPS_DEFAULT_VALUE,
-  } from "@constants/mnist"
-  import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
   import Button from "./Button.svelte"
   import Hint from "./Hint.svelte"
 

@@ -1,19 +1,19 @@
 <script lang="ts">
-  import { isFirstVisit } from "@utils/firstvisit"
   import DigitCanvas from "@components/DigitCanvas.svelte"
-  import { type InferenceResponse, initializeModel } from "bridge"
+  import Error from "@components/Error.svelte"
+  import Footer from "@components/Footer.svelte"
+  import Header from "@components/Header.svelte"
+  import Loading from "@components/Loading.svelte"
+  import Output from "@components/output/Output.svelte"
   import {
-    INPUT_TENSOR_DIMENSION,
-    MODEL_URL,
     ACTIVATION_MAPS_DEFAULT_VALUE,
     INPUT_TENSOR_DEFAULT_VALUE,
+    INPUT_TENSOR_DIMENSION,
+    MODEL_URL,
   } from "@constants/mnist"
+  import { isFirstVisit } from "@utils/firstvisit"
   import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
-  import Loading from "@components/Loading.svelte"
-  import Error from "@components/Error.svelte"
-  import Header from "@components/Header.svelte"
-  import Footer from "@components/Footer.svelte"
-  import Output from "@components/output/Output.svelte"
+  import { type InferenceResponse, initializeModel } from "bridge"
 
   // lazy import to parallelize network requests
   const neuralNetworkImport = import("@components/NeuralNetwork.svelte")

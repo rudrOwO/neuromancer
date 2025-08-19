@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { InferenceResponse } from "bridge"
-  import MobileOutputPanel from "@components/output/Mobile.svelte"
   import DesktopOutputPanel from "@components/output/Desktop.svelte"
+  import MobileOutputPanel from "@components/output/Mobile.svelte"
+  import type { InferenceResponse } from "bridge"
 
   type Props = {
     isDesktop: boolean

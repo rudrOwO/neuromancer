@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { OutputNode } from "bridge"
-  import Tensor2D from "./Tensor2D.svelte"
-  import { Text, Align } from "@threlte/extras"
   import {
-    TENSOR_FONT_SIZE,
-    TENSOR_ZOOM_CONSTANT,
-    TENSOR_TEXT_COLOR,
+      TENSOR_FONT_SIZE,
+      TENSOR_TEXT_COLOR,
+      TENSOR_ZOOM_CONSTANT,
   } from "@constants/graphics"
   import type { LayerName } from "@constants/mnist"
+  import { Align, Text } from "@threlte/extras"
+  import type { OutputNode } from "bridge"
+  import Tensor2D from "./Tensor2D.svelte"
 
   type Props = OutputNode & {
     layerName: LayerName
