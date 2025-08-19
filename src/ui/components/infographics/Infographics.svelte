@@ -1,8 +1,8 @@
 <script lang="ts">
   import { SVG_ARROW_OFFSET_PER_FRAME } from "@constants/graphics"
   import {
-      infographicsModal,
-      tensorState,
+    infographicsModal,
+    tensorState,
   } from "@sharedstate/infographics.svelte"
   import { initializeSVG } from "@utils/svgarrows"
   import Aggregate from "./Aggregate.svelte"
