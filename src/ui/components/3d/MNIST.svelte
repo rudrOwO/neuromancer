@@ -1,18 +1,18 @@
 <script lang="ts">
+  import {
+      CAMERA_FOV,
+      DEFAULT_CAMERA_POSITION,
+      DISTANCE_BETWEEN_TENSORS,
+      GRID_POSITION,
+      GRID_SECTION_COLOR,
+      GRID_SECTION_SIZE,
+      GRID_SECTION_THICKNESS,
+  } from "@constants/graphics"
   import { T } from "@threlte/core"
   import { Grid, OrbitControls, interactivity } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
-  import TensorGrid from "./TensorGrid.svelte"
-  import {
-    CAMERA_FOV,
-    DEFAULT_CAMERA_POSITION,
-    DISTANCE_BETWEEN_TENSORS,
-    GRID_POSITION,
-    GRID_SECTION_COLOR,
-    GRID_SECTION_SIZE,
-    GRID_SECTION_THICKNESS,
-  } from "@constants/graphics"
   import InferenceFlow from "./InferenceFlow.svelte"
+  import TensorGrid from "./TensorGrid.svelte"
 
   type Props = {
     inputTensorDimension: number[]

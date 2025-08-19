@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Kernel from "./Kernel.svelte"
   import Cell from "./Cell.svelte"
+  import Kernel from "./Kernel.svelte"
 
   type Props = {
     tensorData: Float32Array
