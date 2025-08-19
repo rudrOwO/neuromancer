@@ -60,10 +60,10 @@
         {inputTensorData}
         {inferenceResponse}
       />
-    {:catch _}
+    {:catch}
       <Error message="Error: could not load 3D assets" />
     {/await}
-  {:catch _}
+  {:catch}
     <Error message="Could not initialize model" />
   {/await}
 </main>
