@@ -1,9 +1,7 @@
 <script lang="ts">
   import { isFirstVisit } from "@utils/firstvisit"
   import DigitCanvas from "@components/DigitCanvas.svelte"
-  import MobileOutputPanel from "@components/output/Mobile.svelte"
-  import type { InferenceResponse } from "bridge"
-  import { initializeModel } from "bridge"
+  import { type InferenceResponse, initializeModel } from "bridge"
   import {
     INPUT_TENSOR_DIMENSION,
     MODEL_URL,
@@ -11,17 +9,16 @@
     INPUT_TENSOR_DEFAULT_VALUE,
   } from "@constants/mnist"
   import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
-  import DesktopOutputPanel from "@components/output/Desktop.svelte"
   import Loading from "@components/Loading.svelte"
   import Error from "@components/Error.svelte"
-  import Navbar from "@components/Navbar.svelte"
+  import Header from "@components/Header.svelte"
   import Footer from "@components/Footer.svelte"
+  import Output from "@components/output/Output.svelte"
 
   // lazy import to parallelize network requests
-  const neuralNetworkImport = import("@components/3d/NeuralNetwork.svelte")
+  const neuralNetworkImport = import("@components/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)
-  let isDrawing = $state(false)
   let inferenceResponse = $state<InferenceResponse>(
     ACTIVATION_MAPS_DEFAULT_VALUE,
   )
@@ -37,6 +34,7 @@
   })
 </script>
 
+<Header />
 <main class="bg-black h-svh">
   {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
     <Loading message="Loading Runtime..." />
@@ -44,17 +42,11 @@
     {#await neuralNetworkImport}
       <Loading message="Loading 3D Assets..." />
     {:then { default: NeuralNetwork }}
-      <Navbar isAnimating={isDrawing} />
-      {#if isDesktop}
-        <DesktopOutputPanel {showHint} {inferenceResponse} />
-      {:else}
-        <MobileOutputPanel {inferenceResponse} {showHint} />
-      {/if}
+      <Output {isDesktop} {showHint} {inferenceResponse} />
       <DigitCanvas
         bind:inferenceResponse
         bind:inputTensorData
         bind:showHint
-        bind:isDrawing
         {isDesktop}
       />
       <NeuralNetwork
@@ -62,11 +54,11 @@
         {inputTensorData}
         {inferenceResponse}
       />
-      <Footer {isDesktop} />
-    {:catch _}
+    {:catch}
       <Error message="Error: could not load 3D assets" />
     {/await}
-  {:catch _}
+  {:catch}
     <Error message="Could not initialize model" />
   {/await}
 </main>
+<Footer {isDesktop} />
