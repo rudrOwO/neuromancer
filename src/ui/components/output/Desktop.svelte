@@ -1,7 +1,6 @@
 <script lang="ts">
   import Hint from "@components/Hint.svelte"
   import type { InferenceResponse } from "bridge"
-  import clsx from "clsx"
 
   type Props = {
     inferenceResponse: InferenceResponse
@@ -30,9 +29,7 @@
         {index}
       </span>
       <div
-        class={clsx(
-          "py-1 text-sm text-text-color grid place-items-center bg-accent-dark rounded-lg prediction-bar",
-        )}
+        class="py-1 text-sm text-text-color grid place-items-center bg-accent-dark rounded-lg prediction-bar"
         style:width={p}
       >
         {#if p !== "10%"}
