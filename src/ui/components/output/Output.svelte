@@ -1,6 +1,6 @@
 <script lang="ts">
-  import DesktopOutputPanel from "@components/output/Desktop.svelte"
-  import MobileOutputPanel from "@components/output/Mobile.svelte"
+  import DesktopOutputPanel from "./Desktop.svelte"
+  import MobileOutputPanel from "./Mobile.svelte"
   import type { InferenceResponse } from "bridge"
 
   type Props = {
