@@ -36,26 +36,13 @@
 
     return predictionBitmap
   })
-
-  const color = [
-    "bg-accent-dark",
-    "bg-background",
-    "bg-accent-dark",
-    "bg-background",
-    "bg-accent-dark",
-    "bg-background",
-    "bg-accent-dark",
-    "bg-background",
-    "bg-accent-dark",
-    "bg-background",
-  ]
 </script>
 
 <div
   class="flex flex-col top-12 bottom-2 my-auto left-2 fixed z-100 h-[90dvh] self-center"
 >
   {#if showHint}
-    <Hint  message="Predictions" />
+    <Hint message="Predictions" />
   {/if}
 
   <div
@@ -65,7 +52,7 @@
       <div
         class={clsx(
           "py-1 grid place-items-center font-bold text-base sm:text-xl text-text-color prediction-bar",
-          color[index],
+          index % 2 ? "bg-background" : "bg-accent-dark",
           predictionBitmap[index] && "highlight-box",
         )}
         style:flex={p}
