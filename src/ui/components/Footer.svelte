@@ -10,7 +10,7 @@
   <footer
     class="text-text-color text-center text-lg fixed left-0 right-0 bottom-2 mx-auto"
   >
-    © 2025
+    v{__APP_VERSION__} • © 2025
     <a href="https://rudro.me" target="_blank" class="text-red-400"
       ><u>rudro.me</u></a
     >
