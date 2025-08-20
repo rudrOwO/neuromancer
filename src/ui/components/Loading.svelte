@@ -7,10 +7,8 @@
 
   const { message }: Props = $props()
 
-  let paths: NodeListOf<SVGPathElement>
-
   $effect(() => {
-    paths = document.querySelectorAll("path")
+    const paths = document.querySelectorAll("path")
     paths.forEach((path) => {
       path.style.setProperty(
         "--stroke-length",
