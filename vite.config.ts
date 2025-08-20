@@ -1,4 +1,4 @@
-import fs from "fs"
+import { readFileSync, existsSync, createReadStream } from "fs"
 import path from "path"
 import { defineConfig, Plugin } from "vite"
 import { svelte } from "@sveltejs/vite-plugin-svelte"
@@ -20,9 +20,9 @@ const wasmMimeTypePlugin: Plugin = {
           "node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.wasm",
         )
 
-        if (fs.existsSync(filePath)) {
+        if (existsSync(filePath)) {
           res.setHeader("Content-Type", "application/wasm")
-          fs.createReadStream(filePath).pipe(res)
+          createReadStream(filePath).pipe(res)
         } else {
           console.error("WASM file not found:", filePath)
           res.statusCode = 404
@@ -35,6 +35,8 @@ const wasmMimeTypePlugin: Plugin = {
   },
 }
 
+const packageJson = JSON.parse(readFileSync("./package.json", "utf8"))
+
 // https://vite.dev/config/
 export default defineConfig({
   build: {
@@ -45,4 +47,8 @@ export default defineConfig({
     plugins: () => [tsconfigPaths()],
   },
   envDir: "./env-local/",
+
+  define: {
+    __APP_VERSION__: JSON.stringify(packageJson.version),
+  },
 })
