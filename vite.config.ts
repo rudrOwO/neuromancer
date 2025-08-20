@@ -47,7 +47,6 @@ export default defineConfig({
     plugins: () => [tsconfigPaths()],
   },
   envDir: "./env-local/",
-
   define: {
     __APP_VERSION__: JSON.stringify(packageJson.version),
   },
