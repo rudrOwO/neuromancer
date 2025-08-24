@@ -1,0 +1,25 @@
+#!/bin/sh
+# pre-push hook: prompt for version bump before pushing
+
+exec </dev/tty
+
+echo "Choose version bump: [p]atch or [m]inor? (default: skip)"
+read BUMP_CHOICE
+
+case "$BUMP_CHOICE" in
+m | M) BUMP_TYPE="minor" ;;
+p | P) BUMP_TYPE="patch" ;;
+*)
+  echo "No version bump performed."
+  exit 0
+  ;;
+esac
+
+echo "Performing a $BUMP_TYPE version bump..."
+npm version "$BUMP_TYPE"
+if [ $? -ne 0 ]; then
+  echo "npm version command failed. Aborting push."
+  exit 1
+fi
+
+exit 0
