@@ -34,23 +34,22 @@ export function initializeModel(
   inputTensorDimension: number[],
 ): Promise<InitializationResponse> {
   return new Promise((resolve, reject) => {
-    const eventHandler = function (
+    onnxRuntime.onmessage = function (
       event: MessageEvent<InitializationResponse>,
     ) {
-      if (event.data.isSuccessful == true) {
+      if (event.data.isSuccessful) {
         resolve(event.data)
       } else {
         reject()
       }
-      onnxRuntime.removeEventListener("message", eventHandler)
     }
-    onnxRuntime.addEventListener("message", eventHandler)
 
     const message: InitializationRequest = {
       action: "initialize",
       modelURL,
       inputTensorDimension,
     }
+
     onnxRuntime.postMessage(message)
   })
 }
@@ -62,15 +61,13 @@ export function runModel(
   finalNodeName: string,
 ): Promise<InferenceResponse> {
   return new Promise((resolve, reject) => {
-    const eventHandler = function (event: MessageEvent<InferenceResponse>) {
-      if (event.data.isSuccessful == true) {
+    onnxRuntime.onmessage = function (event: MessageEvent<InferenceResponse>) {
+      if (event.data.isSuccessful) {
         resolve(event.data)
       } else {
         reject()
       }
-      onnxRuntime.removeEventListener("message", eventHandler)
     }
-    onnxRuntime.addEventListener("message", eventHandler)
 
     const message: InferenceRequest = {
       action: "run",
