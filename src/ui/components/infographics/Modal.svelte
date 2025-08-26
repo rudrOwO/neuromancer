@@ -4,7 +4,7 @@
       closeModal,
       infographicsModal,
   } from "@sharedstate/infographics.svelte"
-  import Infographics from "./Infographics.svelte"
+  import ConvolutionInfographics from "./ConvolutionInfographics.svelte"
   import clearIcon from "/clear-icon.svg?inline"
 
   function preventClickEventPropagation(e: MouseEvent) {
@@ -43,7 +43,7 @@
     </div>
 
     {#if infographicsModal.isOpen}
-      <Infographics />
+      <ConvolutionInfographics />
     {/if}
   </div>
 </dialog>

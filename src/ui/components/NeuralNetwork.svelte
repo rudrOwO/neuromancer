@@ -1,7 +1,7 @@
 <script lang="ts">
   import MNIST from "@components/3d/MNIST.svelte"
   import Hint from "@components/Hint.svelte"
-  import Modal from "@components/infographics/Modal.svelte"
+  import InfographicsModal from "@components/infographics/Modal.svelte"
   import { Canvas } from "@threlte/core"
   import { isFirstVisit } from "@utils/firstvisit"
   import type { InferenceResponse } from "bridge"
@@ -29,7 +29,7 @@
   onmousedown={handlePointerDown}
   ontouchstart={handlePointerDown}
 >
-  <Modal />
+  <InfographicsModal />
   <div
     class="fixed flex w-dvw text-text-color z-100 justify-center items-center top-16 left-16"
   >

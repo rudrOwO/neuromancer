@@ -36,7 +36,7 @@
   position={DEFAULT_CAMERA_POSITION}
   fov={CAMERA_FOV}
 >
-  <OrbitControls enableDamping></OrbitControls>
+  <OrbitControls enableDamping />
 </T.PerspectiveCamera>
 
 <TensorGrid
