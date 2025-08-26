@@ -39,7 +39,6 @@
   let ctx: CanvasRenderingContext2D
   let ctxCenterCrop: CanvasRenderingContext2D
   let ctxScaled: CanvasRenderingContext2D
-
   let isDrawing = false
   let isUIVisible = true
   let strokes: any = []
