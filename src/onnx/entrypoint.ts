@@ -34,7 +34,7 @@ onmessage = async (
       predictions: [],
     }
     /*
-      Transfering buffers instead of an expresive serialized copy
+      Transfering buffers instead of an expensive serialized copy
       https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects
      */
     const transfer = []

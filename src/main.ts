@@ -1,10 +1,10 @@
+import { inject as vercelAnalytics } from "@vercel/analytics"
 import { mount } from "svelte"
-import "ui/global.css"
 import App from "ui/App.svelte"
 import ONNXRuntime from "onnx/entrypoint.ts?worker"
-import { inject } from "@vercel/analytics"
+import "ui/global.css"
 
-inject()
+vercelAnalytics()
 
 export const onnxRuntime = new ONNXRuntime()
 
