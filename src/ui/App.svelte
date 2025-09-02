@@ -15,7 +15,7 @@
   import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
   import { type InferenceResponse, initializeModel } from "bridge"
 
-  // lazy import to parallelize network requests
+  // dynamic import to parallelize network requests
   const neuralNetworkImport = import("@components/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)
