@@ -7,9 +7,6 @@ import "ui/global.css"
 vercelAnalytics()
 
 export const onnxRuntime = new ONNXRuntime()
-
-const app = mount(App, {
-  target: document.getElementById("app")!,
-})
+const app = mount(App, { target: document.body })
 
 export default app
