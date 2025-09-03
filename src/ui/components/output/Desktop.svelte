@@ -1,18 +1,15 @@
 <script lang="ts">
   import Hint from "@components/Hint.svelte"
-  import type { InferenceResponse } from "bridge"
 
   type Props = {
-    inferenceResponse: InferenceResponse
+    predictions: number[]
     showHint: boolean
   }
 
-  const { inferenceResponse, showHint }: Props = $props()
+  const { predictions, showHint }: Props = $props()
 
   const predictionStrings = $derived(
-    inferenceResponse.predictions.map(
-      (prediction) => `${(prediction * 100).toFixed(0)}%`,
-    ),
+    predictions.map((prediction) => `${(prediction * 100).toFixed(0)}%`),
   )
 </script>
 

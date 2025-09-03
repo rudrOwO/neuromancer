@@ -15,7 +15,7 @@
   import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
   import { type InferenceResponse, initializeModel } from "bridge"
 
-  // dynamic import to parallelize network requests
+  // dynamic import for code-splitting (parallelize network requests)
   const neuralNetworkImport = import("@components/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)
@@ -42,7 +42,11 @@
     {#await neuralNetworkImport}
       <Loading message="Loading 3D Assets..." />
     {:then { default: NeuralNetwork }}
-      <Output {isDesktop} {showHint} {inferenceResponse} />
+      <Output
+        {isDesktop}
+        {showHint}
+        predictions={inferenceResponse.predictions}
+      />
       <DigitCanvas
         bind:inferenceResponse
         bind:inputTensorData
