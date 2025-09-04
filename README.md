@@ -16,7 +16,11 @@
 
 ## How it works
 
-<img src="/notes/workflow.excalidraw.svg"/>
+- I run a neural network in a seperate webworker using [ONNX Web Runtime](https://onnxruntime.ai/docs/tutorials/web/).
+- Before painting each frame, extract values from the network and render them into 3d with three.js.
+  <br>
+  <br>
+  <img src="/notes/workflow.excalidraw.svg"/>
 
 ## Models
 
