@@ -1,4 +1,5 @@
 <script lang="ts">
+  // TODO
   type Props = {
     predictions: number[]
   }
