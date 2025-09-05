@@ -1,15 +1,12 @@
+import { inject as vercelAnalytics } from "@vercel/analytics"
 import { mount } from "svelte"
-import "ui/global.css"
 import App from "ui/App.svelte"
 import ONNXRuntime from "onnx/entrypoint.ts?worker"
-import { inject } from "@vercel/analytics"
+import "ui/global.css"
 
-inject()
+vercelAnalytics()
 
 export const onnxRuntime = new ONNXRuntime()
-
-const app = mount(App, {
-  target: document.getElementById("app")!,
-})
+const app = mount(App, { target: document.body })
 
 export default app

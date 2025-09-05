@@ -1,10 +1,10 @@
 <script lang="ts">
   import Button from "@components/Button.svelte"
   import {
-      closeModal,
-      infographicsModal,
+    closeModal,
+    infographicsModal,
   } from "@sharedstate/infographics.svelte"
-  import Infographics from "./Infographics.svelte"
+  import Convolution from "./Convolution.svelte"
   import clearIcon from "/clear-icon.svg?inline"
 
   function preventClickEventPropagation(e: MouseEvent) {
@@ -43,7 +43,7 @@
     </div>
 
     {#if infographicsModal.isOpen}
-      <Infographics />
+      <Convolution />
     {/if}
   </div>
 </dialog>

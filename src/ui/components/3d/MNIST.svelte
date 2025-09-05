@@ -11,6 +11,7 @@
   import { T } from "@threlte/core"
   import { Grid, OrbitControls, interactivity } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
+  import FinalLayer from "./FinalLayer.svelte"
   import InferenceFlow from "./InferenceFlow.svelte"
   import TensorGrid from "./TensorGrid.svelte"
 
@@ -36,7 +37,7 @@
   position={DEFAULT_CAMERA_POSITION}
   fov={CAMERA_FOV}
 >
-  <OrbitControls enableDamping></OrbitControls>
+  <OrbitControls enableDamping />
 </T.PerspectiveCamera>
 
 <TensorGrid
@@ -92,6 +93,8 @@
   gap={40}
   previousOutputNode={inferenceResponse.orderedOutputNodes[2]}
 />
+
+<FinalLayer predictions={inferenceResponse.predictions} />
 
 <InferenceFlow />
 

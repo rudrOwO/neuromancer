@@ -13,8 +13,7 @@
     ORDERED_NODE_NAMES,
   } from "@constants/mnist"
   import { centerCrop, getCoordinates, getMidpoint } from "@utils/math"
-  import type { InferenceResponse } from "bridge"
-  import { runModel } from "bridge"
+  import { runModel, type InferenceResponse } from "bridge"
   import Button from "./Button.svelte"
   import Hint from "./Hint.svelte"
 
@@ -40,7 +39,6 @@
   let ctx: CanvasRenderingContext2D
   let ctxCenterCrop: CanvasRenderingContext2D
   let ctxScaled: CanvasRenderingContext2D
-
   let isDrawing = false
   let isUIVisible = true
   let strokes: any = []
@@ -142,8 +140,6 @@
   }
 
   function draw(e: any) {
-    // disable scrolling behavior when drawing
-    // e.preventDefault()
     ctx.lineWidth = 20
     ctx.lineJoin = ctx.lineCap = "round"
     ctx.strokeStyle = window.getComputedStyle(canvas).color
