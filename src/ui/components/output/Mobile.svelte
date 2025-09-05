@@ -1,19 +1,16 @@
 <script lang="ts">
   import Hint from "@components/Hint.svelte"
-  import type { InferenceResponse } from "bridge"
   import clsx from "clsx"
 
   type Props = {
-    inferenceResponse: InferenceResponse
+    predictions: number[]
     showHint: boolean
   }
 
-  const { inferenceResponse, showHint }: Props = $props()
+  const { predictions, showHint }: Props = $props()
 
   const predictionStrings = $derived(
-    inferenceResponse.predictions.map((prediction) =>
-      (prediction * 100).toFixed(0),
-    ),
+    predictions.map((prediction) => (prediction * 100).toFixed(0)),
   )
 
   const predictionBitmap = $derived.by(function () {
@@ -24,8 +21,8 @@
     let predictionIndex = -1
 
     for (let i = 0; i < 10; i++) {
-      if (inferenceResponse.predictions[i] > prediction) {
-        prediction = inferenceResponse.predictions[i]
+      if (predictions[i] > prediction) {
+        prediction = predictions[i]
         predictionIndex = i
       }
     }
