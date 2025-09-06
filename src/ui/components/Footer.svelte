@@ -12,7 +12,7 @@
   >
     v{__APP_VERSION__} • © 2025
     <a href="https://rudro.me" target="_blank" class="text-red-400"
-      ><u>rudro.me</u></a
+      ><u>rudrOwO</u></a
     >
   </footer>
 {/if}
