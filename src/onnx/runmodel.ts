@@ -1,5 +1,18 @@
 import { InferenceSession, Tensor } from "onnxruntime-web"
 
+/*
+ * Portions of this code are derived from ONNX Runtime Web Demo which is licensed under the MIT License.
+ *
+ * Copyright (c) Microsoft Corporation.
+ *
+ * This file has been modified by Dardaul (Rudro) Hoque and is also licensed under the MIT License.
+ *
+ * Modified sources:
+ * https://github.com/microsoft/onnxruntime-web-demo/blob/35239ea55876779fae9829654ce60fb352b252d7/src/utils/runModel.ts
+ *
+ * The original full license text is available in the root directory of this project.
+ */
+
 export async function createModel(modelURL: string): Promise<InferenceSession> {
   return await InferenceSession.create(modelURL, {
     executionProviders: ["wasm"],

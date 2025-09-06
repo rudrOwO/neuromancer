@@ -4,7 +4,7 @@
 
 3d Convolutional Neural Network Visualilzer
 
-![Preview video](/docs/demo.gif)
+<img src="/.docs/demo.gif" width="80%" alt="Preview GIF"/>
 
 </div>
 
@@ -16,12 +16,26 @@
 
 ## How it works
 
-- I run a neural network in a seperate webworker using [ONNX Web Runtime](https://onnxruntime.ai/docs/tutorials/web/).
+- I run a neural network in a seperate webworker using [ONNX Web Runtime](https://onnxruntime.ai/.docs/tutorials/web/).
 - Before painting each frame, extract values from the network and render them into 3d with three.js.
 
-  <br>
+<br>
 
-  <img src="/docs/workflow.excalidraw.svg"/>
+<div align="center">
+  <img src="/.docs/workflow.excalidraw.svg" width="80%" alt="How it works"/>
+</div>
+
+<br>
+
+This dual-thread architecture is also reflected in the arrangement of `src/` directory:
+
+<pre>
+./src
+├── onnx
+├── ui
+├── bridge.ts
+└── main.ts
+</pre>
 
 ## Models
 
@@ -50,7 +64,7 @@
 
 - **Vite deepdive:** Vite is a super awesome bundler that comes with a ton of quality of life features for great developer experience.
   I learned about things such as:
-  - Importing files as webworkers!,
+  - Importing files as webworkers!.
   - Code-splitting with dynamic import- great for reducing initial load times.
   - You can even write custom middleware for the vite development server!! I used this feature to ship .wasm files during development.
 
