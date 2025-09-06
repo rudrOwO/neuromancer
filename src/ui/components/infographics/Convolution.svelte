@@ -4,7 +4,7 @@
     infographicsModal,
     tensorState,
   } from "@sharedstate/infographics.svelte"
-  import { initializeSVG } from "@utils/svgarrows"
+  import { initializeSVG } from "@lib/svgarrows"
   import Aggregate from "./Aggregate.svelte"
   import MaskedTensor from "./MaskedTensor.svelte"
   import UnmaskedTensor from "./UnmaskedTensor.svelte"

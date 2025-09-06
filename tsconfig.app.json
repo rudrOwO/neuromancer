@@ -24,9 +24,9 @@
     "baseUrl": "src",
     "paths": {
       "@components/*": ["ui/components/*"],
-      "@sharedstate/*": ["ui/sharedstate/*"],
-      "@utils/*": ["ui/utils/*"],
-      "@constants/*": ["ui/constants/*"]
+      "@lib/*": ["ui/lib/*"],
+      "@sharedstate/*": ["ui/lib/sharedstate/*"],
+      "@constants/*": ["ui/lib/constants/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
