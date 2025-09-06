@@ -11,25 +11,24 @@
     INPUT_TENSOR_DIMENSION,
     MODEL_URL,
   } from "@constants/mnist"
-  import { isFirstVisit } from "@utils/firstvisit"
-  import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
+  import { isFirstVisit } from "@lib/firstvisit"
   import { type InferenceResponse, initializeModel } from "bridge"
 
   // dynamic import for code-splitting (parallelize network requests)
   const neuralNetworkImport = import("@components/NeuralNetwork.svelte")
+
+  const isDesktopMediaQuery = window.matchMedia("(min-width: 1280px)")
 
   let showHint = $state(isFirstVisit)
   let inferenceResponse = $state<InferenceResponse>(
     ACTIVATION_MAPS_DEFAULT_VALUE,
   )
   let inputTensorData = $state<Float32Array>(INPUT_TENSOR_DEFAULT_VALUE)
-  let isDesktop = $state(
-    checkIfDesktop(mediaQuery as unknown as MediaQueryListEvent),
-  )
+  let isDesktop = $state(isDesktopMediaQuery.matches)
 
   $effect(() => {
-    mediaQuery.addEventListener("change", (ev: MediaQueryListEvent) => {
-      isDesktop = checkIfDesktop(ev)
+    isDesktopMediaQuery.addEventListener("change", (_: MediaQueryListEvent) => {
+      isDesktop = isDesktopMediaQuery.matches
     })
   })
 </script>
