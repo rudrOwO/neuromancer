@@ -1,5 +1,9 @@
 import { onnxRuntime } from "main"
 
+/**
+  Communication bridge between webworkers, made by wrapping message events with Promise
+ */
+
 export type InitializationRequest = {
   action: "initialize"
   modelURL: string
