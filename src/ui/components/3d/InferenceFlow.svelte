@@ -11,8 +11,7 @@
   let dashOffset = $state(0)
 
   useTask((delta) => {
-    // every frame we:
-    // increase the dash offset
+    //  increase the dash offset every frame
     dashOffset -= delta * 2
   })
 

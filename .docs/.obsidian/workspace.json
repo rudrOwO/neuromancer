@@ -11,10 +11,12 @@
             "id": "f29ec7157db4d5ed",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "excalidraw",
+              "state": {
+                "file": "workflow.excalidraw.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "workflow.excalidraw"
             }
           }
         ]
@@ -36,8 +38,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical",
-                "autoReveal": false
+                "sortOrder": "alphabetical"
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -168,6 +169,7 @@
   },
   "active": "f29ec7157db4d5ed",
   "lastOpenFiles": [
+    "workflow.excalidraw.svg",
     "ActivationMap.md",
     "TODO/Improve UX.md",
     "TODO/TODO Kanban.md",

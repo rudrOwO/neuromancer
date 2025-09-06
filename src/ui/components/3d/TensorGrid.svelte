@@ -31,8 +31,10 @@
 
   const tensorWidth = dimension[2] * TENSOR_ZOOM_CONSTANT * pointSize
 
-  // Calculate midpoint for rendering ActivationMap's name
-  // because <Align> isn't working for <Text> 🤷
+  /**
+    Calculate midpoint for rendering ActivationMap's name
+    because <Align> isn't working for <Text> 🤷
+   */
   const rightBound = gap * (numberOfColumns / 2)
   const leftBound = gap * (numberOfColumns / 2 - 1) + tensorWidth
   const midPoint = rightBound + (leftBound - rightBound) / 2

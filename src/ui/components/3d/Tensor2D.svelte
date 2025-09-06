@@ -48,8 +48,7 @@
   const worldPosition = new Vector3()
   const { onPointerEnter, onPointerLeave } = useCursor()
 
-  // Enumerating vertices
-  // 3 consecutive values define one vertex (x, y, z)
+  // Enumerating vertices: 3 consecutive values define one vertex (x, y, z)
   for (
     let i = 0, vertexIndex = 0;
     i < bufferGeometryLength;
@@ -250,7 +249,7 @@
     />
   </T.Points>
 
-  <!-- usually z = -1 would suffice ro render a back mesh. -->
+  <!-- usually z = -1 would suffice to render a back mesh. -->
   <!-- But for some reason, it does not render correctly on small screens. -->
   <T.Mesh
     bind:ref={meshRef}
