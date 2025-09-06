@@ -4,7 +4,7 @@
 
 3d Convolutional Neural Network Visualilzer
 
-![Preview video](/docs/demo.gif)
+![Preview video](/.docs/demo.gif)
 
 </div>
 
@@ -16,12 +16,12 @@
 
 ## How it works
 
-- I run a neural network in a seperate webworker using [ONNX Web Runtime](https://onnxruntime.ai/docs/tutorials/web/).
+- I run a neural network in a seperate webworker using [ONNX Web Runtime](https://onnxruntime.ai/.docs/tutorials/web/).
 - Before painting each frame, extract values from the network and render them into 3d with three.js.
 
   <br>
 
-  <img src="/docs/workflow.excalidraw.svg"/>
+  <img src="/.docs/workflow.excalidraw.svg"/>
 
 ## Models
 
