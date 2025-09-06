@@ -3,7 +3,6 @@
    * Portions of this code are derived from ONNX Runtime Web Demo which is licensed under the MIT License.
    *
    * Copyright (c) Microsoft Corporation.
-   * All rights reserved.
    *
    * This file has been modified by Dardaul (Rudro) Hoque and is also licensed under the MIT License.
    *
@@ -81,9 +80,7 @@
     return [x, y]
   }
 
-  /**
-  Centers and crops canvas ImageData based on alpha channel.
- */
+  // Centers and crops canvas ImageData based on alpha channel.
   export function centerCrop(imageData: ImageData): ImageData {
     const { data, width, height } = imageData
     let [xmin, ymin] = [width, height]
