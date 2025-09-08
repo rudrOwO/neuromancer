@@ -37,7 +37,12 @@
   position={DEFAULT_CAMERA_POSITION}
   fov={CAMERA_FOV}
 >
-  <OrbitControls enableDamping />
+  <OrbitControls
+    enableDamping
+    maxPolarAngle={Math.PI / 2}
+    minAzimuthAngle={-Math.PI / 3}
+    maxAzimuthAngle={Math.PI / 3}
+  />
 </T.PerspectiveCamera>
 
 <TensorGrid
