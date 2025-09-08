@@ -18,8 +18,12 @@
   import clearIcon from "/clear-icon.svg?inline"
   import hideIcon from "/hide-icon.svg?inline"
   import penIcon from "/pen-icon.svg?inline"
-
-  import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
+  import {
+    CANVAS_LINE_CAP,
+    CANVAS_LINE_JOIN,
+    CANVAS_LINE_WIDTH,
+    TENSOR_DEFAULT_GRAY_VALUE,
+  } from "@constants/graphics"
   import {
     ACTIVATION_MAPS_DEFAULT_VALUE,
     FINAL_NODE,
@@ -239,8 +243,9 @@
   }
 
   function draw(e: any) {
-    ctx.lineWidth = 20
-    ctx.lineJoin = ctx.lineCap = "round"
+    ctx.lineWidth = CANVAS_LINE_WIDTH
+    ctx.lineJoin = CANVAS_LINE_JOIN
+    ctx.lineCap = CANVAS_LINE_CAP
     ctx.strokeStyle = window.getComputedStyle(canvas).color
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     let points = strokes[strokes.length - 1]

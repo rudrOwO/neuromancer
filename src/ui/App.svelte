@@ -14,7 +14,7 @@
   import { isFirstVisit } from "@lib/firstvisit"
   import { type InferenceResponse, initializeModel } from "bridge"
 
-  // dynamic import for code-splitting (parallelize network requests)
+  // dynamic import for code-splitting (quicker first contentful paint)
   const neuralNetworkImport = import("@components/NeuralNetwork.svelte")
 
   const isDesktopMediaQuery = window.matchMedia("(min-width: 1280px)")

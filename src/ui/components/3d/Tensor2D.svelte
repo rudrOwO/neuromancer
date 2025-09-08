@@ -15,9 +15,9 @@
     tensorState,
   } from "@sharedstate/infographics.svelte"
   import { T } from "@threlte/core"
-  import { useCursor } from "@threlte/extras"
+  import { interactivity, useCursor } from "@threlte/extras"
   import type { OutputNode } from "bridge"
-  import { AdditiveBlending, Vector3, type Mesh } from "three"
+  import { AdditiveBlending, FrontSide, Vector3, type Mesh } from "three"
 
   type Props = {
     layerName: LayerName
@@ -249,7 +249,8 @@
     />
   </T.Points>
 
-  <!-- usually z = -1 would suffice to render a back mesh. -->
+  <!-- This is the backmesh used for interactivity (raycaster can only intersect meshes 🤷)
+  <!-- usually z = -1 would suffice to render a backmesh. -->
   <!-- But for some reason, it does not render correctly on small screens. -->
   <T.Mesh
     bind:ref={meshRef}
@@ -268,9 +269,8 @@
       args={[
         {
           color: 0x000000,
-          side: 2,
-          transparent: true,
-          opacity: 0.9,
+          transparent: false,
+          side: FrontSide,
         },
       ]}
     />
