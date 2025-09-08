@@ -36,9 +36,7 @@ export function initializeModel(
   inputTensorDimension: number[],
 ): Promise<InitializationResponse> {
   return new Promise((resolve, reject) => {
-    onnxRuntime.onmessage = function (
-      event: MessageEvent<InitializationResponse>,
-    ) {
+    onnxRuntime.onmessage = (event: MessageEvent<InitializationResponse>) => {
       if (event.data.isSuccessful) {
         resolve(event.data)
       } else {
@@ -63,7 +61,7 @@ export function runModel(
   finalNodeName: string,
 ): Promise<InferenceResponse> {
   return new Promise((resolve, reject) => {
-    onnxRuntime.onmessage = function (event: MessageEvent<InferenceResponse>) {
+    onnxRuntime.onmessage = (event: MessageEvent<InferenceResponse>) => {
       if (event.data.isSuccessful) {
         resolve(event.data)
       } else {
