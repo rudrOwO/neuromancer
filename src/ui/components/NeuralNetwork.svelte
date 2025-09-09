@@ -3,7 +3,7 @@
   import Hint from "@components/Hint.svelte"
   import InfographicsModal from "@components/infographics/Modal.svelte"
   import { Canvas } from "@threlte/core"
-  import { isFirstVisit } from "@lib/firstvisit"
+  import { isFirstVisit } from "@utils/firstvisit"
   import type { InferenceResponse } from "bridge"
   import mouseIcon from "/mouse-icon.svg?inline"
 

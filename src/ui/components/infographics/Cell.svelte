@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { brightnessToGrayscale } from "@utils/drawing"
+
   type Props = {
     grayValue: number
     cellSize: number
@@ -6,23 +8,10 @@
   }
 
   const { grayValue, cellSize, masked }: Props = $props()
-
-  function brightnessToGrayscale(brightness: number) {
-    const gray = Math.round(brightness * 255)
-    return `rgb(${gray}, ${gray}, ${gray})`
-  }
 </script>
 
-{#if masked}
-  <div
-    style={`background-color: black;
+<div
+  style={`background-color: ${masked ? "black" : brightnessToGrayscale(grayValue)};
           width:${cellSize}rem; 
           height:${cellSize}rem`}
-  ></div>
-{:else}
-  <div
-    style={`background-color: ${brightnessToGrayscale(grayValue)};
-          width:${cellSize}rem; 
-          height:${cellSize}rem`}
-  ></div>
-{/if}
+></div>
