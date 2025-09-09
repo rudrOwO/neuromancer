@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "67e9b3da745d1da2",
+        "id": "eb7f1d7f1d939e90",
         "type": "tabs",
         "children": [
           {
-            "id": "f29ec7157db4d5ed",
+            "id": "cc65b795e9b7f147",
             "type": "leaf",
             "state": {
               "type": "excalidraw",
@@ -38,7 +38,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -157,6 +158,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -167,7 +169,7 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "f29ec7157db4d5ed",
+  "active": "cc65b795e9b7f147",
   "lastOpenFiles": [
     "workflow.excalidraw.svg",
     "ActivationMap.md",
