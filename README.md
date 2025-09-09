@@ -2,7 +2,9 @@
 
 # Neuromancer
 
-3d Convolutional Neural Network Visualilzer
+<h3>
+  👀 Visualize Neural Networks Blazingly Fast <span><img src="/.docs/speed.gif" width="62px" alt="Bun Logo" /></span> in 3D
+</h3>
 
 <img src="/.docs/demo.gif" width="80%" alt="Preview GIF"/>
 
@@ -16,13 +18,13 @@
 
 ## How it works
 
-- I run a neural network in a seperate webworker using [ONNX Web Runtime](https://onnxruntime.ai/.docs/tutorials/web/).
-- Before painting each frame, extract values from the network and render them into 3d with three.js.
+- I run a neural network in a seperate webworker using ONNX Web Runtime.
+- Before painting each frame, extract values from the network and render them into 3d with Threlte.
 
 <br>
 
 <div align="center">
-  <img src="/.docs/workflow.excalidraw.svg" width="80%" alt="How it works"/>
+  <img src="/.docs/workflow.excalidraw.svg" width="70%" alt="How it works"/>
 </div>
 
 <br>
@@ -42,12 +44,22 @@ This dual-thread architecture is also reflected in the arrangement of `src/` dir
 1. [ convolutional neural network for identifying handwritten digits (MNIST dataset) ](https://github.com/onnx/models/tree/main/validated/vision/classification/mnist)
 2. [ AlexNet (planned) ](https://github.com/onnx/models/tree/main/validated/vision/classification/alexnet)
 
-## Inspired by
+> [!NOTE]  
+> Work in progress- More models and features are on the way 🫡
 
-- [These YouTube Videos](https://www.youtube.com/playlist?list=PLYLFPRdcr4f3uq4ji1JgXTt0gITCitG45)
-- [Netron](https://github.com/lutzroeder/netron)
-- [Transformer Explainer](https://github.com/poloclub/transformer-explainer)
-- [ONNX Runtime Web Demo](https://github.com/microsoft/onnxruntime-web-demo)
+<h2>
+  Visit the <a href="https://neuromancer.rudro.me">Live Demo</a> or Run Locally with 
+  <a href="https://bun.com">
+    Bun <img src="/.docs/bun_logo.svg" width="20px" alt="Bun Logo" />
+  </a>
+</h2>
+
+```shell
+  git clone https://github.com/rudrowo/neuromancer &&\
+  cd neuromancer &&\
+  bun install &&\
+  bun run dev
+```
 
 ## Stuff I learned on this project
 
@@ -75,6 +87,13 @@ This dual-thread architecture is also reflected in the arrangement of `src/` dir
   - Signal-driven reactivity is a godsend!
   - Sevelte 5 offers a much better DX than react- where you have to spend half your time just fighting the framework 🤷.
     No more `useFootgun()` hooks to ruin my day 💀.
+
+## Inspired by
+
+- [These YouTube Videos](https://www.youtube.com/playlist?list=PLYLFPRdcr4f3uq4ji1JgXTt0gITCitG45)
+- [Netron](https://github.com/lutzroeder/netron)
+- [Transformer Explainer](https://github.com/poloclub/transformer-explainer)
+- [ONNX Runtime Web Demo](https://github.com/microsoft/onnxruntime-web-demo)
 
 <br>
 
