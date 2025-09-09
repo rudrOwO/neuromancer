@@ -62,7 +62,7 @@
   let strokes: any = []
   let isThrottled = false
 
-  export function getMidpoint(p1: number[], p2: number[]): number[] {
+  function getMidpoint(p1: number[], p2: number[]): number[] {
     const [x1, y1] = p1
     const [x2, y2] = p2
     return [x1 + (x2 - x1) / 2, y1 + (y2 - y1) / 2]
@@ -72,7 +72,7 @@
   Gets the (x, y) coordinates of an UI event relative to its target,
   e.g., canvas. Accounts for touch events as well as mouse events.
  */
-  export function getCoordinates(e: any) {
+  function getCoordinates(e: any) {
     let { clientX, clientY } = e
     // for touch event
     if (e.touches && e.touches.length) {
@@ -85,7 +85,7 @@
   }
 
   // Centers and crops canvas ImageData based on alpha channel.
-  export function centerCrop(imageData: ImageData): ImageData {
+  function centerCrop(imageData: ImageData): ImageData {
     const { data, width, height } = imageData
     let [xmin, ymin] = [width, height]
     let [xmax, ymax] = [-1, -1]

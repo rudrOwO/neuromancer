@@ -62,8 +62,8 @@
   }
 
   type TensorColor = {
-    normal: Float32Array<ArrayBuffer>
-    highlighted: Float32Array<ArrayBuffer>
+    normal: Float32Array
+    highlighted: Float32Array
   }
 
   let tensorcolor: TensorColor = $derived.by(() => {
