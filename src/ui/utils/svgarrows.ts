@@ -1,8 +1,8 @@
 import { SVG_STROKE_DASH_ARRAY, SVG_STROKE_WIDTH } from "@constants/graphics"
 
-function getArrowSourceCoordinates(el: HTMLElement, parent: HTMLElement) {
+function getArrowSourceCoordinates(el: HTMLElement, container: SVGElement) {
   const rect = el.getBoundingClientRect()
-  const parentRect = parent.getBoundingClientRect()
+  const parentRect = container.getBoundingClientRect()
 
   return {
     x: rect.right - parentRect.left,
@@ -10,9 +10,9 @@ function getArrowSourceCoordinates(el: HTMLElement, parent: HTMLElement) {
   }
 }
 
-function getArrowTargetCoordinates(el: HTMLElement, parent: HTMLElement) {
+function getArrowTargetCoordinates(el: HTMLElement, container: SVGElement) {
   const rect = el.getBoundingClientRect()
-  const parentRect = parent.getBoundingClientRect()
+  const parentRect = container.getBoundingClientRect()
 
   return {
     x: rect.left - parentRect.left,
@@ -20,18 +20,10 @@ function getArrowTargetCoordinates(el: HTMLElement, parent: HTMLElement) {
   }
 }
 
-export function initializeSVG(parent: HTMLElement) {
-  const svgViewBox = document.createElementNS(
-    "http://www.w3.org/2000/svg",
-    "svg",
-  )
-  svgViewBox.setAttribute("width", "100%")
-  svgViewBox.setAttribute("height", "100%")
-  parent.appendChild(svgViewBox)
-
+export function initializeSVG(container: SVGElement) {
   return function drawArrow(source: HTMLElement, target: HTMLElement) {
-    const sourceCoordinates = getArrowSourceCoordinates(source, parent)
-    const targetCoordinates = getArrowTargetCoordinates(target, parent)
+    const sourceCoordinates = getArrowSourceCoordinates(source, container)
+    const targetCoordinates = getArrowTargetCoordinates(target, container)
 
     const newArrow = document.createElementNS(
       "http://www.w3.org/2000/svg",
@@ -43,7 +35,7 @@ export function initializeSVG(parent: HTMLElement) {
     newArrow.setAttribute("y1", sourceCoordinates.y.toString())
     newArrow.setAttribute("x2", targetCoordinates.x.toString())
     newArrow.setAttribute("y2", targetCoordinates.y.toString())
-    svgViewBox.appendChild(newArrow)
+    container.appendChild(newArrow)
 
     return newArrow
   }

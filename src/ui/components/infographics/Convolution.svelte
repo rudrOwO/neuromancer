@@ -50,7 +50,7 @@
     infographicsModal.layerName == "Convolution Layer #1" ||
     infographicsModal.layerName == "Convolution Layer #2"
 
-  let svgContainer: HTMLDivElement
+  let svgContainer: SVGElement
   let unmaskedTensorDivs: HTMLDivElement[] = new Array(
     unmaskedTensorData.length,
   )
@@ -160,8 +160,11 @@
     transformStyle={maskedTransformStyle}
     {maskMatrix}
   ></MaskedTensor>
-  <div
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
     bind:this={svgContainer}
     class="absolute inset-0 stroke-accent-light"
-  ></div>
+    width="100%"
+    height="100%"
+  />
 </div>
