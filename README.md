@@ -61,7 +61,7 @@ This dual-thread architecture is also reflected in the arrangement of `src/` dir
   bun run dev
 ```
 
-## Stuff I learned on this project
+## My Takes & Stuff I Learned
 
 - **WebAssembly is awesome:** In 2025 your browser is pretty much a mini virtual machine lol. No need to spin-up a costly server- just run a neural
   network in your client's browser.

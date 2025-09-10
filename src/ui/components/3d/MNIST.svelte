@@ -11,7 +11,6 @@
   import { T } from "@threlte/core"
   import { Grid, OrbitControls, interactivity } from "@threlte/extras"
   import type { InferenceResponse } from "bridge"
-  import FinalLayer from "./FinalLayer.svelte"
   import InferenceFlow from "./InferenceFlow.svelte"
   import TensorGrid from "./TensorGrid.svelte"
 
@@ -98,8 +97,6 @@
   gap={40}
   previousOutputNode={inferenceResponse.orderedOutputNodes[2]}
 />
-
-<FinalLayer predictions={inferenceResponse.predictions} />
 
 <InferenceFlow />
 
