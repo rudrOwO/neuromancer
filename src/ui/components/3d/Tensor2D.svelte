@@ -135,7 +135,7 @@
       const { dependencyTensorLocations } = getTensorDependencies(
         layerName,
         tensorIndex,
-        previousOutputNode!.activationMaps, // This will nver be null because user can't click on Input tensor
+        previousOutputNode!.activationMaps, // This will never be null because user can't click on Input tensor
       )
 
       setCurrentFlow(
