@@ -45,13 +45,13 @@ This dual-thread architecture is also reflected in the arrangement of `src/` dir
 > [!NOTE]  
 > Work in progress- More models and features are on the way 🫡
 
-## Visit the [Live Demo](https://neuromancer.rudro.me) or Run Locally with [Bun](https://bun.com) <img style="display: inline;" src="/.docs/bun_logo.svg" width="20px" alt="Bun Logo" />
+## Visit the [Live Demo](https://neuromancer.rudro.me) or Run Locally
 
 ```shell
   git clone https://github.com/rudrowo/neuromancer &&\
   cd neuromancer &&\
-  bun install &&\
-  bun run dev
+  npm install &&\
+  npm run dev
 ```
 
 ## My Takes & Stuff I Learned
