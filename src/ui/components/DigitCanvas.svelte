@@ -188,21 +188,18 @@
     if (!isDrawing || isThrottled) {
       return
     }
-    requestAnimationFrame(async function () {
+    requestAnimationFrame(function () {
       draw(e)
       const preProcessResult = preProcess()
 
-      setInferenceResponse(
-        await runModel(
-          preProcessResult.inputTensorData,
-          INPUT_TENSOR_DIMENSION,
-          ORDERED_NODE_NAMES,
-          FINAL_NODE,
-        ),
-      )
+      runModel(
+        preProcessResult.inputTensorData,
+        INPUT_TENSOR_DIMENSION,
+        ORDERED_NODE_NAMES,
+        FINAL_NODE,
+      ) // inference response is updated asynchronously at bridge
 
       inputTensorData = preProcessResult.renderTensorData
-
       isThrottled = false
     })
     isThrottled = true

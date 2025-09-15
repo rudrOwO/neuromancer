@@ -1,6 +1,7 @@
-import { onnxRuntime } from "main"
+// Communication bridge between webworkers => resoponsive UI with asynchronous updates
 
-// Communication bridge between webworkers, made by wrapping message events with Promise
+import { setInferenceResponse } from "@sharedstate/inference.svelte"
+import { onnxRuntime } from "main"
 
 export type InitializationRequest = {
   action: "initialize"
@@ -31,18 +32,35 @@ export type InferenceResponse = {
   predictions: number[]
 }
 
+function registerDefaultEventListener() {
+  onnxRuntime.addEventListener(
+    "message",
+    (event: MessageEvent<InferenceResponse>) => {
+      if (event.data.isSuccessful) {
+        setInferenceResponse(event.data)
+      } else {
+        console.error("default message hanlder has received malformed data")
+      }
+    },
+  )
+}
+
 export function initializeModel(
   modelURL: string,
   inputTensorDimension: number[],
 ): Promise<InitializationResponse> {
   return new Promise((resolve, reject) => {
-    onnxRuntime.onmessage = (event: MessageEvent<InitializationResponse>) => {
+    const handler = (event: MessageEvent<InitializationResponse>) => {
       if (event.data.isSuccessful) {
+        registerDefaultEventListener()
         resolve(event.data)
       } else {
         reject()
       }
+      onnxRuntime.removeEventListener("message", handler)
     }
+
+    onnxRuntime.addEventListener("message", handler)
 
     const message: InitializationRequest = {
       action: "initialize",
@@ -59,24 +77,14 @@ export function runModel(
   inputTensorDimension: Array<number>,
   orderedOutputNodeNames: string[],
   finalNodeName: string,
-): Promise<InferenceResponse> {
-  return new Promise((resolve, reject) => {
-    onnxRuntime.onmessage = (event: MessageEvent<InferenceResponse>) => {
-      if (event.data.isSuccessful) {
-        resolve(event.data)
-      } else {
-        reject()
-      }
-    }
+) {
+  const message: InferenceRequest = {
+    action: "run",
+    inputTensorData,
+    inputTensorDimension,
+    orderedOutputNodeNames,
+    finalNodeName,
+  }
 
-    const message: InferenceRequest = {
-      action: "run",
-      inputTensorData,
-      inputTensorDimension,
-      orderedOutputNodeNames,
-      finalNodeName,
-    }
-
-    onnxRuntime.postMessage(message, { transfer: [inputTensorData.buffer] })
-  })
+  onnxRuntime.postMessage(message, { transfer: [inputTensorData.buffer] })
 }
