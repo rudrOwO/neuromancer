@@ -1,5 +1,5 @@
 import { type LayerName } from "@constants/mnist"
-import { tensorLocationMatrix } from "@sharedstate/inferenceflow.svelte"
+import { tensorLocationMatrix } from "@sharedstate/flow.svelte"
 import { Vector3 } from "three"
 
 export function getTensorDependencies(

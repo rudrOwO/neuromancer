@@ -4,7 +4,7 @@
     _3D_STROKE_DASH_RATIO,
     _3D_STROKE_WIDTH,
   } from "@constants/graphics"
-  import { getCurrentFlow } from "@sharedstate/inferenceflow.svelte"
+  import { getCurrentFlow } from "@sharedstate/flow.svelte"
   import { T, useTask } from "@threlte/core"
   import { MeshLineGeometry, MeshLineMaterial } from "@threlte/extras"
 

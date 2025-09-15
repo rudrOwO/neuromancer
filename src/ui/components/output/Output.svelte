@@ -1,18 +1,24 @@
 <script lang="ts">
+  import { getInferenceResponse } from "@sharedstate/inference.svelte"
   import DesktopOutputPanel from "./Desktop.svelte"
   import MobileOutputPanel from "./Mobile.svelte"
 
   type Props = {
     isDesktop: boolean
-    predictions: number[]
     showHint: boolean
   }
 
-  const { isDesktop, predictions, showHint }: Props = $props()
+  const { isDesktop, showHint }: Props = $props()
 </script>
 
 {#if isDesktop}
-  <DesktopOutputPanel {showHint} {predictions} />
+  <DesktopOutputPanel
+    {showHint}
+    predictions={getInferenceResponse().predictions}
+  />
 {:else}
-  <MobileOutputPanel {showHint} {predictions} />
+  <MobileOutputPanel
+    {showHint}
+    predictions={getInferenceResponse().predictions}
+  />
 {/if}
