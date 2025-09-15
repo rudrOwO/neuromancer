@@ -8,7 +8,7 @@
     clearCurrentFlow,
     setCurrentFlow,
     tensorLocationMatrix,
-  } from "@sharedstate/inferenceflow.svelte"
+  } from "@sharedstate/flow.svelte"
   import {
     infographicsModal,
     showModal,

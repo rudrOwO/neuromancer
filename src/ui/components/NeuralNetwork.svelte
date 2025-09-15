@@ -4,17 +4,15 @@
   import InfographicsModal from "@components/infographics/Modal.svelte"
   import { Canvas } from "@threlte/core"
   import { isFirstVisit } from "@utils/firstvisit"
-  import type { InferenceResponse } from "bridge"
   import mouseIcon from "/mouse-icon.svg?inline"
+  import { getInferenceResponse } from "@sharedstate/inference.svelte"
 
   type Props = {
     inputTensorDimension: number[]
     inputTensorData: Float32Array
-    inferenceResponse: InferenceResponse
   }
 
-  const { inputTensorDimension, inputTensorData, inferenceResponse }: Props =
-    $props()
+  const { inputTensorDimension, inputTensorData }: Props = $props()
 
   let showHint = $state(isFirstVisit)
 
@@ -41,6 +39,10 @@
     {/if}
   </div>
   <Canvas>
-    <MNIST {inputTensorDimension} {inputTensorData} {inferenceResponse} />
+    <MNIST
+      {inputTensorDimension}
+      {inputTensorData}
+      inferenceResponse={getInferenceResponse()}
+    />
   </Canvas>
 </div>

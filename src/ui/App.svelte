@@ -6,22 +6,18 @@
   import Loading from "@components/Loading.svelte"
   import Output from "@components/output/Output.svelte"
   import {
-    ACTIVATION_MAPS_DEFAULT_VALUE,
     INPUT_TENSOR_DEFAULT_VALUE,
     INPUT_TENSOR_DIMENSION,
     MODEL_URL,
   } from "@constants/mnist"
   import { isFirstVisit } from "@utils/firstvisit"
   import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
-  import { type InferenceResponse, initializeModel } from "bridge"
+  import { initializeModel } from "bridge"
 
   // dynamic import for code-splitting (quicker first contentful paint)
   const neuralNetworkImport = import("@components/NeuralNetwork.svelte")
 
   let showHint = $state(isFirstVisit)
-  let inferenceResponse = $state<InferenceResponse>(
-    ACTIVATION_MAPS_DEFAULT_VALUE,
-  )
   let inputTensorData = $state<Float32Array>(INPUT_TENSOR_DEFAULT_VALUE)
   let isDesktop = $state(
     checkIfDesktop(mediaQuery as unknown as MediaQueryListEvent),
@@ -42,21 +38,11 @@
     {#await neuralNetworkImport}
       <Loading message="Loading 3D Assets..." />
     {:then { default: NeuralNetwork }}
-      <Output
-        {isDesktop}
-        {showHint}
-        predictions={inferenceResponse.predictions}
-      />
-      <DigitCanvas
-        bind:inferenceResponse
-        bind:inputTensorData
-        bind:showHint
-        {isDesktop}
-      />
+      <Output {isDesktop} {showHint} />
+      <DigitCanvas bind:inputTensorData bind:showHint {isDesktop} />
       <NeuralNetwork
         inputTensorDimension={INPUT_TENSOR_DIMENSION}
         {inputTensorData}
-        {inferenceResponse}
       />
     {:catch}
       <Error message="Error: could not load 3D assets" />

@@ -26,8 +26,9 @@
     INPUT_TENSOR_DIMENSION,
     ORDERED_NODE_NAMES,
   } from "@constants/mnist"
+  import { setInferenceResponse } from "@sharedstate/inference.svelte"
   import { centerCrop, getCoordinates, getMidpoint } from "@utils/drawing"
-  import { runModel, type InferenceResponse } from "bridge"
+  import { runModel } from "bridge"
   import Button from "./Button.svelte"
   import Hint from "./Hint.svelte"
   import canvasIcon from "/canvas-icon.svg?inline"
@@ -36,14 +37,12 @@
   import penIcon from "/pen-icon.svg?inline"
 
   type Props = {
-    inferenceResponse: InferenceResponse
     inputTensorData: Float32Array
     showHint: boolean
     isDesktop: boolean
   }
 
   let {
-    inferenceResponse = $bindable(),
     inputTensorData = $bindable(),
     showHint = $bindable(),
     isDesktop,
@@ -123,7 +122,7 @@
     )
     ctxScaled.clearRect(0, 0, ctxScaled.canvas.width, ctxScaled.canvas.height)
     inputTensorData = INPUT_TENSOR_DEFAULT_VALUE
-    inferenceResponse = ACTIVATION_MAPS_DEFAULT_VALUE
+    setInferenceResponse(ACTIVATION_MAPS_DEFAULT_VALUE)
     strokes = []
   }
 
@@ -193,12 +192,15 @@
       draw(e)
       const preProcessResult = preProcess()
 
-      inferenceResponse = await runModel(
-        preProcessResult.inputTensorData,
-        INPUT_TENSOR_DIMENSION,
-        ORDERED_NODE_NAMES,
-        FINAL_NODE,
+      setInferenceResponse(
+        await runModel(
+          preProcessResult.inputTensorData,
+          INPUT_TENSOR_DIMENSION,
+          ORDERED_NODE_NAMES,
+          FINAL_NODE,
+        ),
       )
+
       inputTensorData = preProcessResult.renderTensorData
 
       isThrottled = false
