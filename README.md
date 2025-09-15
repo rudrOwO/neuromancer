@@ -18,7 +18,7 @@
 
 - I run a neural network in a seperate webworker using ONNX Web Runtime.
 - Output from the neural network is transferred over to main thread using efficient [Transferable](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects) ArrayBuffer.
-- The UI is updated [asynchronously](https://github.com/rudrOwO/neuromancer/blob/8504a934dccac62e01b6ceb8a00f6ff7b00733e7/src/bridge.ts) with smooth 60 FPS.
+- The 3D neural network is updated [asynchronously](https://github.com/rudrOwO/neuromancer/blob/8504a934dccac62e01b6ceb8a00f6ff7b00733e7/src/bridge.ts) @ 30 FPS.
 
 <br>
 

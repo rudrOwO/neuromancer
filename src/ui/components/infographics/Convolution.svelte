@@ -61,51 +61,53 @@
   let padding = isConvolutionLayer ? Math.round(kernelDimension / 2) : 0
 
   function animate(timestamp: DOMHighResTimeStamp) {
-    if (timestamp - lastTime >= kernelTick) {
-      lastTime = timestamp
+    animationId = requestAnimationFrame(animate)
 
-      maskMatrix[mask_i][mask_j] = false // unmask with each animation iteration
-
-      const unmaskedX = (unmaskedColumnIndex - padding) * unmaskedCellSize
-      const unmaskedY = (unmaskedRowIndex - padding) * unmaskedCellSize
-      unmaskedTransformStyle = `transform: translate(${unmaskedX}rem, ${unmaskedY}rem);`
-
-      const maskedX = maskedColumnIndex * maskedCellSize
-      const maskedY = maskedRowIndex * maskedCellSize
-      maskedTransformStyle = `transform: translate(${maskedX}rem, ${maskedY}rem);`
-
-      // Slide kernel to right - 1 step
-      unmaskedColumnIndex += unmaskedKernelStride
-      maskedColumnIndex += maskedKernelStride
-      mask_j += 1
-
-      if (maskedColumnIndex == maskedColumns) {
-        // This is basically CRLF equivalent of a typwriter
-        unmaskedColumnIndex = 0
-        maskedColumnIndex = 0
-        mask_j = 0
-
-        unmaskedRowIndex += unmaskedKernelStride
-        maskedRowIndex += maskedKernelStride
-        mask_i += 1
-      }
-
-      if (maskedRowIndex == maskedRows) {
-        // Reset everything once the last cell is animated
-        unmaskedRowIndex = 0
-        maskedRowIndex = 0
-        mask_i = 0
-
-        fillMaskArray()
-      }
-
-      for (const arrow of arrows) {
-        arrowOffset = (arrowOffset - SVG_ARROW_OFFSET_PER_FRAME) % 60 // Resetting after 60 frames ~ 1 second
-        arrow.setAttribute("stroke-dashoffset", arrowOffset.toString())
-      }
+    if (timestamp - lastTime < kernelTick) {
+      return
     }
 
-    animationId = requestAnimationFrame(animate)
+    lastTime = timestamp
+
+    maskMatrix[mask_i][mask_j] = false // unmask with each animation iteration
+
+    const unmaskedX = (unmaskedColumnIndex - padding) * unmaskedCellSize
+    const unmaskedY = (unmaskedRowIndex - padding) * unmaskedCellSize
+    unmaskedTransformStyle = `transform: translate(${unmaskedX}rem, ${unmaskedY}rem);`
+
+    const maskedX = maskedColumnIndex * maskedCellSize
+    const maskedY = maskedRowIndex * maskedCellSize
+    maskedTransformStyle = `transform: translate(${maskedX}rem, ${maskedY}rem);`
+
+    // Slide kernel to right - 1 step
+    unmaskedColumnIndex += unmaskedKernelStride
+    maskedColumnIndex += maskedKernelStride
+    mask_j += 1
+
+    if (maskedColumnIndex == maskedColumns) {
+      // This is basically CRLF equivalent of a typwriter
+      unmaskedColumnIndex = 0
+      maskedColumnIndex = 0
+      mask_j = 0
+
+      unmaskedRowIndex += unmaskedKernelStride
+      maskedRowIndex += maskedKernelStride
+      mask_i += 1
+    }
+
+    if (maskedRowIndex == maskedRows) {
+      // Reset everything once the last cell is animated
+      unmaskedRowIndex = 0
+      maskedRowIndex = 0
+      mask_i = 0
+
+      fillMaskArray()
+    }
+
+    for (const arrow of arrows) {
+      arrowOffset = (arrowOffset - SVG_ARROW_OFFSET_PER_FRAME) % 60 // Resetting after 60 frames ~ 1 second
+      arrow.setAttribute("stroke-dashoffset", arrowOffset.toString())
+    }
   }
 
   $effect(() => {

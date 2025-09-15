@@ -17,6 +17,7 @@
     CANVAS_LINE_CAP,
     CANVAS_LINE_JOIN,
     CANVAS_LINE_WIDTH,
+    CANVAS_TICK,
     TENSOR_DEFAULT_GRAY_VALUE,
   } from "@constants/graphics"
   import {
@@ -59,7 +60,7 @@
   let isDrawing = false
   let isUIVisible = true
   let strokes: any = []
-  let isThrottled = false
+  let lastTime = performance.now()
 
   function preProcess(): {
     inputTensorData: Float32Array
@@ -185,10 +186,17 @@
   }
 
   function handleMouseMove(e: any) {
-    if (!isDrawing || isThrottled) {
+    if (!isDrawing) {
       return
     }
-    requestAnimationFrame(function () {
+
+    requestAnimationFrame(function (timestamp: DOMHighResTimeStamp) {
+      if (timestamp - lastTime < CANVAS_TICK) {
+        return
+      }
+
+      lastTime = timestamp
+
       draw(e)
       const preProcessResult = preProcess()
 
@@ -200,9 +208,7 @@
       ) // inference response is updated asynchronously at bridge
 
       inputTensorData = preProcessResult.renderTensorData
-      isThrottled = false
     })
-    isThrottled = true
   }
 
   function handleMouseDown() {
