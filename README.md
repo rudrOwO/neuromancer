@@ -17,7 +17,8 @@
 ## How it works
 
 - I run a neural network in a seperate webworker using ONNX Web Runtime.
-- Before painting each frame, extract values from the network and render them into 3d with Threlte.
+- Output from the neural network is transferred over to main thread using efficient [Transferable](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects) ArrayBuffer.
+- The UI is updated [asynchronously](https://github.com/rudrOwO/neuromancer/blob/8504a934dccac62e01b6ceb8a00f6ff7b00733e7/src/bridge.ts) with smooth 60 FPS.
 
 <br>
 
