@@ -2,15 +2,14 @@
   "name": "neuromancer",
   "description": "Real-time 3D visualilzer for convolutional neural networks running on the ONNX runtime",
   "private": true,
-  "version": "0.14.2",
+  "version": "0.14.3",
   "type": "module",
   "author": "Dardaul (Rudro) Hoque (https://rudro.me)",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "test": "vitest",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite build && vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {

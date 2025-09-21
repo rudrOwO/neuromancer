@@ -187,6 +187,8 @@
       return
     }
 
+    draw(e)
+
     requestAnimationFrame(function (timestamp: DOMHighResTimeStamp) {
       if (timestamp - lastTime < CANVAS_TICK) {
         return
@@ -194,7 +196,6 @@
 
       lastTime = timestamp
 
-      draw(e)
       const preProcessResult = preProcess()
 
       runModel(

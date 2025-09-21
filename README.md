@@ -8,12 +8,6 @@
 
 </div>
 
-## Tech Used
-
-- [Svelte](https://svelte.dev/), [Tailwind CSS](https://tailwindcss.com)
-- [Threlte - 3D library based on svelte and three.js](https://threlte.xyz)
-- [Open Neural Network Exchange - ONNX Web Runtime](https://onnxruntime.ai)
-
 ## How it works
 
 - I run a neural network in a seperate [webworker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) using [ONNX Web Runtime](https://onnxruntime.ai).
@@ -38,14 +32,12 @@ This dual-thread architecture is also reflected in source:
 └── main.ts
 </pre>
 
-## Models
+## Models You Can Visualize
 
-1. [ convolutional neural network for identifying handwritten digits (MNIST dataset) ](https://github.com/onnx/models/tree/main/validated/vision/classification/mnist)
-2. [ AlexNet (planned) ](https://github.com/onnx/models/tree/main/validated/vision/classification/alexnet)
+1. [ Convolutional neural network for identifying handwritten digits (MNIST dataset) ](https://huggingface.co/onnxmodelzoo/mnist-12)
+2. [ AlexNet (planned) ](https://en.wikipedia.org/wiki/AlexNet)
 
-### Editing Models
-
-Models have been edited with [ONNX python package](https://pypi.org/project/onnx/) to expose internal tensors and post-process them into a format suitable for 3D rendering. You'll need [uv](https://docs.astral.sh/uv/) to run the python project.
+> Models have been modified using [ONNX python package](https://pypi.org/project/onnx/).
 
 > [!NOTE]  
 > Work in progress- More models and features are on the way 🫡
@@ -56,7 +48,7 @@ Models have been edited with [ONNX python package](https://pypi.org/project/onnx
   git clone https://github.com/rudrowo/neuromancer &&\
   cd neuromancer &&\
   npm install &&\
-  npm run dev
+  npm run preview
 ```
 
 ## Inspired by
