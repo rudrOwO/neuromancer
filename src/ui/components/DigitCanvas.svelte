@@ -28,6 +28,7 @@
     ORDERED_NODE_NAMES,
   } from "@constants/mnist"
   import { setInferenceResponse } from "@sharedstate/inference.svelte"
+  import { isDesktop } from "@sharedstate/mediaquery.svelte"
   import { centerCrop, getCoordinates, getMidpoint } from "@utils/drawing"
   import { runModel } from "bridge"
   import Button from "./Button.svelte"
@@ -40,14 +41,10 @@
   type Props = {
     inputTensorData: Float32Array
     showHint: boolean
-    isDesktop: boolean
   }
 
-  let {
-    inputTensorData = $bindable(),
-    showHint = $bindable(),
-    isDesktop,
-  }: Props = $props()
+  let { inputTensorData = $bindable(), showHint = $bindable() }: Props =
+    $props()
 
   let showCanvas: HTMLDivElement
   let containerDiv: HTMLDivElement
@@ -267,7 +264,7 @@
       text="Clear"
       type="clear"
     />
-    {#if !isDesktop}
+    {#if !isDesktop()}
       <Button
         onclick={toggleUI}
         iconSrc={hideIcon}

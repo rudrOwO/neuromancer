@@ -2,16 +2,16 @@
   import { getInferenceResponse } from "@sharedstate/inference.svelte"
   import DesktopOutputPanel from "./Desktop.svelte"
   import MobileOutputPanel from "./Mobile.svelte"
+  import { isDesktop } from "@sharedstate/mediaquery.svelte"
 
   type Props = {
-    isDesktop: boolean
     showHint: boolean
   }
 
-  const { isDesktop, showHint }: Props = $props()
+  const { showHint }: Props = $props()
 </script>
 
-{#if isDesktop}
+{#if isDesktop()}
   <DesktopOutputPanel
     {showHint}
     predictions={getInferenceResponse().predictions}
