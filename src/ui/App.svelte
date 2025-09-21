@@ -11,7 +11,6 @@
     MODEL_URL,
   } from "@constants/mnist"
   import { isFirstVisit } from "@utils/firstvisit"
-  import { checkIfDesktop, mediaQuery } from "@utils/mediaquery"
   import { initializeModel } from "bridge"
 
   // dynamic import for code-splitting (quicker first contentful paint)
@@ -19,15 +18,6 @@
 
   let showHint = $state(isFirstVisit)
   let inputTensorData = $state<Float32Array>(INPUT_TENSOR_DEFAULT_VALUE)
-  let isDesktop = $state(
-    checkIfDesktop(mediaQuery as unknown as MediaQueryListEvent),
-  )
-
-  $effect(() => {
-    mediaQuery.addEventListener("change", (ev: MediaQueryListEvent) => {
-      isDesktop = checkIfDesktop(ev)
-    })
-  })
 </script>
 
 <Header />
@@ -38,8 +28,8 @@
     {#await neuralNetworkImport}
       <Loading message="Loading 3D Assets..." />
     {:then { default: NeuralNetwork }}
-      <Output {isDesktop} {showHint} />
-      <DigitCanvas bind:inputTensorData bind:showHint {isDesktop} />
+      <Output {showHint} />
+      <DigitCanvas bind:inputTensorData bind:showHint />
       <NeuralNetwork
         inputTensorDimension={INPUT_TENSOR_DIMENSION}
         {inputTensorData}
@@ -51,4 +41,4 @@
     <Error message="Could not initialize model" />
   {/await}
 </main>
-<Footer {isDesktop} />
+<Footer />
