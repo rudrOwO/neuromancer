@@ -1,7 +1,13 @@
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte'
+import { vitePreprocess } from "@sveltejs/vite-plugin-svelte"
 
 export default {
-  // Consult https://svelte.dev/docs#compile-time-svelte-preprocess
-  // for more information about preprocessors
   preprocess: vitePreprocess(),
+  onwarn(warning, defaultHandler) {
+    // ignore accessability warnings cause they're annoying :/
+    if (/^a11y/.test(warning.code)) {
+      return
+    }
+
+    defaultHandler(warning)
+  },
 }
