@@ -1,3 +1,7 @@
+# Python
+__pycache__
+src/onnx/modeleditor/*.onnx
+
 # Logs
 logs
 *.log

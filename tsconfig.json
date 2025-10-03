@@ -21,7 +21,7 @@
         "assumeIsSvelteProject": true
       }
     ],
-    "baseUrl": "src",
+    "baseUrl": "web",
     "paths": {
       "@components/*": ["ui/components/*"],
       "@utils/*": ["ui/utils/*"],
@@ -29,5 +29,5 @@
       "@constants/*": ["ui/constants/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+  "include": ["web/**/*.ts", "web/**/*.js", "web/**/*.svelte"]
 }

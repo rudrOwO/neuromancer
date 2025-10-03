@@ -39,6 +39,7 @@ const packageJson = JSON.parse(readFileSync("./package.json", "utf8"))
 
 // https://vite.dev/config/
 export default defineConfig({
+  publicDir: "static",
   build: {
     assetsInlineLimit: 5 * 1024,
   },

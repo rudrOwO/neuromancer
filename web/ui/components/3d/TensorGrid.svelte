@@ -49,7 +49,7 @@
     anchorX="center"
     anchorY="bottom"
   />
-  {#each activationMaps as map, i}
+  {#each { length: dimension[1] }, i}
     <Tensor2D
       {layerName}
       position={[
@@ -60,7 +60,10 @@
       {pointSize}
       rows={dimension[2]}
       columns={dimension[3]}
-      tensorData={map}
+      tensorData={activationMaps.subarray(
+        i * dimension[2] * dimension[3],
+        (i + 1) * dimension[2] * dimension[3],
+      )}
       tensorIndex={i}
       {previousOutputNode}
     />

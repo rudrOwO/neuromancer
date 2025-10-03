@@ -11,7 +11,7 @@
     MODEL_URL,
   } from "@constants/mnist"
   import { isFirstVisit } from "@utils/firstvisit"
-  import { initializeModel } from "bridge"
+  import { initializeRuntime } from "bridge"
 
   // dynamic import for code-splitting (quicker first contentful paint)
   const neuralNetworkImport = import("@components/NeuralNetwork.svelte")
@@ -22,7 +22,7 @@
 
 <Header />
 <main class="bg-black h-svh">
-  {#await initializeModel(MODEL_URL, INPUT_TENSOR_DIMENSION)}
+  {#await initializeRuntime(MODEL_URL, INPUT_TENSOR_DIMENSION)}
     <Loading message="Loading Runtime..." />
   {:then}
     {#await neuralNetworkImport}
@@ -38,7 +38,7 @@
       <Error message="Error: could not load 3D assets" />
     {/await}
   {:catch}
-    <Error message="Could not initialize model" />
+    <Error message="Could not initialize runtime" />
   {/await}
 </main>
 <Footer />
