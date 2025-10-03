@@ -43,6 +43,10 @@ This dual-thread architecture is also reflected in the arrangement of `src/` dir
 1. [ convolutional neural network for identifying handwritten digits (MNIST dataset) ](https://github.com/onnx/models/tree/main/validated/vision/classification/mnist)
 2. [ AlexNet (planned) ](https://github.com/onnx/models/tree/main/validated/vision/classification/alexnet)
 
+### Editing Models
+
+Models have been edited with [ONNX python package](https://pypi.org/project/onnx/) to expose internal tensors and post-process them into a format suitable for 3D rendering. You'll need [uv](https://docs.astral.sh/uv/) to run the python project.
+
 > [!NOTE]  
 > Work in progress- More models and features are on the way 🫡
 
@@ -54,37 +58,6 @@ This dual-thread architecture is also reflected in the arrangement of `src/` dir
   npm install &&\
   npm run dev
 ```
-
-## My Takes & Stuff I Learned
-
-<details>
-  <summary>Click to expand</summary>
-
-- **[ WebAssembly ](https://www.youtube.com/watch?v=cbB3QEwWMlA) is awesome:** Modern web browsers pretty much stand in par with lightweight virtual machines. Many intensive computations that once
-  needed a dedicated server can now be done via WebAssembly on a client's machine. This includes everything from
-  running [AutoCAD](https://www.youtube.com/watch?v=BfkL3WgOPdI) to neural networks.
-
-- **Concurrency is awesome when done right:** I learned about co-ordinating between webworkers to offload expensive
-  neural net computations and deliver a responsive user interface. Still nowhere near as good as Go's concurrency though 🥱.
-
-- **Power of declarative code:**
-  - I used Threlte, a library built on top of three.js to write declarative 3d components as if they were regular DOM nodes!.
-  - It is always more intuitive to define what you want rather than writing the steps to get there 🗿.
-
-- **Vite deepdive:** Vite is a super awesome bundler that comes with a ton of quality of life features for great DX. I learned about things such as:
-  - Importing files as webworkers!.
-  - Code-splitting with dynamic import- great for reducing initial load times.
-  - You can even write custom middleware for the vite development server!! I used this feature to correctly set the MIME type of .wasm files during development- which were for some reason (🐛) being sent over as plaintext.
-
-- **3D raycasting for interactivity:** Did you know 3d graphics emulate mouse interaction by casting a ray and calculating whether it intersects
-  with objects? Well now you do.
-
-- **Svelte 5 is awesome- _chef's kiss_:**
-  - Signal-driven reactivity is a godsend!
-  - What I really enjoyed about Svelte is this- **I never had to think about what my UI framework was doing under the hood**.
-  - No more `useFootgun()` hooks to ruin my day ⚛️😐.
-
-</details>
 
 ## Inspired by
 

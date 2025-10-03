@@ -1,0 +1,9 @@
+[project]
+name = "neuromancer"
+version = "0.1.0"
+description = "This is a python sub-project for editing ONNX model files. See README for list of models"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "onnx>=1.19.0",
+]
