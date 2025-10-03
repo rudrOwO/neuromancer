@@ -2,9 +2,9 @@
 
 # Neuromancer
 
-### 👀 Visualize Neural Networks Blazingly Fast <img src="/.docs/speed.gif" width="62px" style="display: inline;" alt="Bun Logo" /> in 3D
+### 👀 Visualize Neural Networks Blazingly Fast <img src="/docs/speed.gif" width="62px" style="display: inline;" alt="Bun Logo" /> in 3D
 
-<img src="/.docs/demo.gif" width="80%" alt="Preview GIF"/>
+<img src="/docs/demo.gif" width="80%" alt="Preview GIF"/>
 
 </div>
 
@@ -23,7 +23,7 @@
 <br>
 
 <div align="center">
-  <img src="/.docs/workflow.excalidraw.svg" width="70%" alt="How it works"/>
+  <img src="/docs/workflow.excalidraw.svg" width="70%" alt="How it works"/>
 </div>
 
 <br>
