@@ -1,14 +1,5 @@
 import { TENSOR_DEFAULT_GRAY_VALUE } from "@constants/graphics"
 
-export function softmax(tensorData: Float32Array): number[] {
-  const arr = Array.from(tensorData)
-  const C = Math.max(...arr)
-  const d = arr.map((y) => Math.exp(y - C)).reduce((a, b) => a + b)
-  return arr.map((value) => {
-    return Math.exp(value - C) / d
-  })
-}
-
 export function postProcess(
   tensorData: Float32Array,
   tensorDimension: readonly number[],

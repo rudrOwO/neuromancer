@@ -9,7 +9,7 @@ export const ORDERED_NODE_NAMES = [
   "ReLU114_Output_0",
   "Pooling160_Output_0",
 ]
-export const FINAL_NODE = "Plus214_Output_0"
+export const FINAL_NODE = "Softmax_Output_0"
 const ORDERED_NODE_DIMENSIONS = [
   [1, 8, 28, 28],
   [1, 8, 14, 14],
@@ -41,7 +41,7 @@ export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
 
     return orderedOutputNodes
   })(),
-  predictions: Array(10).fill(0.1), // Probability of 1 distributed equally among 10 possibilities
+  predictions: new Float32Array(10).fill(0.1), // Probability of 1 distributed equally among 10 possibilities
 }
 
 export const INPUT_TENSOR_DEFAULT_VALUE = (() => {

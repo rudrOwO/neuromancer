@@ -1,5 +1,3 @@
-import { createModel, runModel, warmupModel } from "onnx/runmodel"
-import { Tensor, type InferenceSession } from "onnxruntime-web"
 import type {
   InferenceRequest,
   InferenceResponse,
@@ -7,7 +5,9 @@ import type {
   InitializationResponse,
   OutputNode,
 } from "bridge"
-import { postProcess, softmax } from "onnx/postprocess"
+import { postProcess } from "onnx/postprocess"
+import { createModel, runModel, warmupModel } from "onnx/runmodel"
+import { Tensor, type InferenceSession } from "onnxruntime-web"
 
 let model: InferenceSession
 
@@ -31,7 +31,7 @@ onmessage = async (
     let response: InferenceResponse = {
       isSuccessful: false,
       orderedOutputNodes: [],
-      predictions: [],
+      predictions: new Float32Array(),
     }
     /*
       Transfering buffers instead of an expensive serialized copy
@@ -46,9 +46,8 @@ onmessage = async (
       )
       const inferenceResult = await runModel(model, inputTensor)
       response.isSuccessful = true
-      response.predictions = softmax(
-        inferenceResult[request.finalNodeName].data as Float32Array,
-      )
+      response.predictions = inferenceResult[request.finalNodeName]
+        .data as Float32Array
 
       // Loading activation maps
       for (const nodeName of request.orderedOutputNodeNames) {

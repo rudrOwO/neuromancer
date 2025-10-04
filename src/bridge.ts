@@ -29,7 +29,7 @@ export type OutputNode = {
 export type InferenceResponse = {
   isSuccessful: boolean
   orderedOutputNodes: OutputNode[]
-  predictions: number[]
+  predictions: Float32Array
 }
 
 function registerDefaultEventListener() {

@@ -3,14 +3,14 @@
   import clsx from "clsx"
 
   type Props = {
-    predictions: number[]
+    predictions: Float32Array
     showHint: boolean
   }
 
   const { predictions, showHint }: Props = $props()
 
   const predictionStrings = $derived(
-    predictions.map((prediction) => (prediction * 100).toFixed(0)),
+    Array.from(predictions).map((prediction) => (prediction * 100).toFixed(0)),
   )
 
   const predictionBitmap = $derived.by(function () {

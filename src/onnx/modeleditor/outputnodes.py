@@ -1,9 +1,8 @@
-from utils.modelname import timestamped_model_name
-from utils.parseargs import parse_arguments
+from utils import parse_arguments, timestamped_model_name
 
 import onnx
 
-model_path, intermediate_node_names, model_name = parse_arguments()
+model_path, intermediate_node_names, model_name, _ = parse_arguments()
 
 model = onnx.load(model_path)
 graph = model.graph
