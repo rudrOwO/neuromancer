@@ -5,7 +5,6 @@ import type {
   InitializationResponse,
   OutputNode,
 } from "bridge"
-import { postProcess } from "onnx/postprocess"
 import { createModel, runModel, warmupModel } from "onnx/runmodel"
 import { Tensor, type InferenceSession } from "onnxruntime-web"
 
@@ -55,14 +54,12 @@ onmessage = async (
 
         const node: OutputNode = {
           dimension: tensor.dims,
-          activationMaps: postProcess(tensor.data as Float32Array, tensor.dims),
+          activationMaps: tensor.data as Float32Array,
         }
 
         response.orderedOutputNodes.push(node)
 
-        for (const map of node.activationMaps) {
-          transfer.push(map.buffer)
-        }
+        transfer.push(node.activationMaps.buffer)
       }
     } catch (error) {
       console.error("Error while RUNNING model", error)

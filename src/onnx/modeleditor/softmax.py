@@ -1,12 +1,10 @@
-from utils import parse_arguments, timestamped_model_name
+from utils import parse_arguments
+from onnx import TensorProto, helper, load, save
 
-import onnx
-from onnx import TensorProto, helper
-
-model_path, _, model_name, final_node_name = parse_arguments()
+model_path, _, final_node_name = parse_arguments()
 
 softmax_output_name = "Softmax_Output_0"
-model = onnx.load(model_path)
+model = load(model_path)
 graph = model.graph
 
 # Fist remove the current final output
@@ -30,4 +28,4 @@ output_value_info = helper.make_tensor_value_info(
 
 graph.output.append(output_value_info)
 
-onnx.save(model, timestamped_model_name(model_name))
+save(model, model_path)

@@ -14,14 +14,15 @@
   )
 
   const predictionBitmap = $derived.by(function () {
-    const predictionBitmap = new Array(10)
+    const predictionBitmap = new Array<boolean>(10)
     predictionBitmap.fill(false)
 
     let prediction = 0.1
     let predictionIndex = -1
 
     for (let i = 0; i < 10; i++) {
-      if (predictions[i] > prediction) {
+      // Need to add some padding because floating point precission blah blah blah
+      if (predictions[i] > prediction + 0.0001) {
         prediction = predictions[i]
         predictionIndex = i
       }
@@ -71,7 +72,6 @@
     animation: borderPulse 1.5s infinite ease-in-out;
   }
 
-  /* Keyframes for border animation */
   @keyframes borderPulse {
     0%,
     100% {

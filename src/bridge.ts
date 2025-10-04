@@ -23,7 +23,7 @@ export type InferenceRequest = {
 
 export type OutputNode = {
   dimension: readonly number[]
-  activationMaps: Float32Array[]
+  activationMaps: Float32Array
 }
 
 export type InferenceResponse = {
@@ -45,7 +45,7 @@ function registerDefaultEventListener() {
   )
 }
 
-export function initializeModel(
+export function initializeRuntime(
   modelURL: string,
   inputTensorDimension: number[],
 ): Promise<InitializationResponse> {

@@ -1,10 +1,9 @@
-from utils import parse_arguments, timestamped_model_name
+from utils import parse_arguments
+from onnx import load, save
 
-import onnx
+model_path, intermediate_node_names, _ = parse_arguments()
 
-model_path, intermediate_node_names, model_name, _ = parse_arguments()
-
-model = onnx.load(model_path)
+model = load(model_path)
 graph = model.graph
 
 existing_output_names = [o.name for o in graph.output]
@@ -14,4 +13,4 @@ for vi in graph.value_info:
         graph.output.append(vi)
         print(f"Appended output {vi.name} to graph")
 
-onnx.save(model, timestamped_model_name(model_name))
+save(model, model_path)

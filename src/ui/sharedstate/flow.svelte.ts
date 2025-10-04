@@ -15,15 +15,38 @@ let currentFlow: Array<[Vector3, Vector3]> = $state([
 ])
 
 /**
-why these trivial getters and setters?
+why do we need getters and setters?
 https://svelte.dev/docs/svelte/$state#Passing-state-across-modules
 */
 export function getCurrentFlow() {
   return currentFlow
 }
 
-export function setCurrentFlow(flow: Array<[Vector3, Vector3]>) {
-  currentFlow = flow
+export function setCurrentFlow(
+  layerName: LayerName,
+  tensorIndex: number,
+  end: Vector3,
+) {
+  switch (layerName) {
+    case "Convolution Layer #1":
+      currentFlow = tensorLocationMatrix["Input"].map((start) => [start, end])
+      break
+    case "Max Pool #1":
+      currentFlow = [
+        [tensorLocationMatrix["Convolution Layer #1"][tensorIndex], end],
+      ]
+      break
+    case "Convolution Layer #2":
+      currentFlow = tensorLocationMatrix["Max Pool #1"].map((start) => [
+        start,
+        end,
+      ])
+      break
+    case "Max Pool #2":
+      currentFlow = [
+        [tensorLocationMatrix["Convolution Layer #2"][tensorIndex], end],
+      ]
+  }
 }
 
 export function clearCurrentFlow() {

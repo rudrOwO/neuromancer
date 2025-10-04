@@ -48,7 +48,7 @@
   z={2 * DISTANCE_BETWEEN_TENSORS}
   layerName="Input"
   dimension={inputTensorDimension}
-  activationMaps={[inputTensorData]}
+  activationMaps={inputTensorData}
   numberOfColumns={1}
   pointSize={6}
   gap={0}
@@ -63,7 +63,7 @@
   pointSize={6}
   gap={60}
   previousOutputNode={{
-    activationMaps: [inputTensorData],
+    activationMaps: inputTensorData,
     dimension: inputTensorDimension,
   }}
 />

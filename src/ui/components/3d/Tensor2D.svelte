@@ -16,7 +16,6 @@
   } from "@sharedstate/infographics.svelte"
   import { T } from "@threlte/core"
   import { useCursor } from "@threlte/extras"
-  import { getTensorDependencies } from "@utils/tensordeps"
   import type { OutputNode } from "bridge"
   import { AdditiveBlending, FrontSide, Vector3, type Mesh } from "three"
 
@@ -100,23 +99,44 @@
 
   function handleClick() {
     if (layerName != "Input") {
-      const { dependencyTensors } = getTensorDependencies(
-        layerName,
-        tensorIndex,
-        previousOutputNode!.activationMaps, // This will never be null because user can't click on Input tensor
-      )
-
       const pointSizeToGrayBoxScale = 1 / 22
 
-      tensorState.unmaskedTensors = dependencyTensors.map((dep) => ({
-        tensorData: dep,
-        rows: previousOutputNode!.dimension[2],
-        columns: previousOutputNode!.dimension[3],
-        cellSize: pointSize * pointSizeToGrayBoxScale,
-        kernelStride: KERNEL_INFO[layerName]!.stride,
-        kernelDimension: KERNEL_INFO[layerName]!.dimension,
-        kernelTick: KERNEL_INFO[layerName]!.tick,
-      }))
+      tensorState.unmaskedTensors = []
+
+      const tensorLength =
+        previousOutputNode!.dimension[2] * previousOutputNode!.dimension[3]
+
+      for (let i = 0, len = previousOutputNode!.dimension[1]; i < len; i++) {
+        if (layerName === "Max Pool #1" || layerName === "Max Pool #2") {
+          if (i === tensorIndex) {
+            tensorState.unmaskedTensors.push({
+              tensorData: previousOutputNode!.activationMaps.subarray(
+                i * tensorLength,
+                (i + 1) * tensorLength,
+              ),
+              rows: previousOutputNode!.dimension[2],
+              columns: previousOutputNode!.dimension[3],
+              cellSize: pointSize * pointSizeToGrayBoxScale,
+              kernelStride: KERNEL_INFO[layerName]!.stride,
+              kernelDimension: KERNEL_INFO[layerName]!.dimension,
+              kernelTick: KERNEL_INFO[layerName]!.tick,
+            })
+          }
+        } else {
+          tensorState.unmaskedTensors.push({
+            tensorData: previousOutputNode!.activationMaps.subarray(
+              i * tensorLength,
+              (i + 1) * tensorLength,
+            ),
+            rows: previousOutputNode!.dimension[2],
+            columns: previousOutputNode!.dimension[3],
+            cellSize: pointSize * pointSizeToGrayBoxScale,
+            kernelStride: KERNEL_INFO[layerName]!.stride,
+            kernelDimension: KERNEL_INFO[layerName]!.dimension,
+            kernelTick: KERNEL_INFO[layerName]!.tick,
+          })
+        }
+      }
 
       tensorState.maskedTensor = {
         tensorData,
@@ -132,27 +152,16 @@
 
   function handlePointerOver() {
     if (layerName != "Input") {
-      const { dependencyTensorLocations } = getTensorDependencies(
-        layerName,
-        tensorIndex,
-        previousOutputNode!.activationMaps, // This will never be null because user can't click on Input tensor
-      )
-
-      setCurrentFlow(
-        dependencyTensorLocations.map((start) => [start, worldPosition]),
-      )
-
+      setCurrentFlow(layerName, tensorIndex, worldPosition)
       onPointerEnter()
       hightlighted = true
     }
   }
 
   function handlePointerOut() {
-    if (layerName != "Input") {
-      clearCurrentFlow()
-      onPointerLeave()
-      hightlighted = false
-    }
+    clearCurrentFlow()
+    onPointerLeave()
+    hightlighted = false
   }
 
   $effect(() => {

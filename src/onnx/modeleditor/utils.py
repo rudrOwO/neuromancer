@@ -1,15 +1,11 @@
-import argparse
-from datetime import datetime
+from argparse import ArgumentParser
 
 
-def parse_arguments():
-    parser = argparse.ArgumentParser(exit_on_error=True)
+def parse_arguments()->tuple[str, list[str], str]:
+    parser = ArgumentParser(exit_on_error=True)
 
     parser.add_argument(
         "model_path", type=str, help="The ABSOLUTE PATH to the input file (required)."
-    )
-    parser.add_argument(
-        "--name", dest="model_name", type=str, help="Model name (required)"
     )
     parser.add_argument(
         "--intermediate",
@@ -28,10 +24,5 @@ def parse_arguments():
     return (
         args.model_path,
         args.intermediate_node_names,
-        args.model_name,
         args.final_node_name,
     )
-
-
-def timestamped_model_name(model_name: str):
-    return f"{model_name}-{datetime.now().strftime('%d-%m-%Y-%H%M')}.onnx"

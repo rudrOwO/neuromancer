@@ -4,10 +4,10 @@ import type { InferenceResponse, OutputNode } from "bridge"
 export const MODEL_URL = "/mnist-12.onnx"
 export const INPUT_TENSOR_DIMENSION = [1, 1, 28, 28]
 export const ORDERED_NODE_NAMES = [
-  "ReLU32_Output_0",
-  "Pooling66_Output_0",
-  "ReLU114_Output_0",
-  "Pooling160_Output_0",
+  "Visual_ReLU32_Output_0",
+  "Visual_Pooling66_Output_0",
+  "Visual_ReLU114_Output_0",
+  "Visual_Pooling160_Output_0",
 ]
 export const FINAL_NODE = "Softmax_Output_0"
 const ORDERED_NODE_DIMENSIONS = [
@@ -18,24 +18,20 @@ const ORDERED_NODE_DIMENSIONS = [
 ]
 
 export const ACTIVATION_MAPS_DEFAULT_VALUE: InferenceResponse = {
-  isSuccessful: false,
+  isSuccessful: true,
   orderedOutputNodes: (() => {
     const orderedOutputNodes: OutputNode[] = []
 
     for (let i = 0; i < ORDERED_NODE_NAMES.length; i += 1) {
       const tensorDimension = ORDERED_NODE_DIMENSIONS[i]
-      const numberOfTensors = tensorDimension[1]
-      const activationMapLength = tensorDimension[2] * tensorDimension[3]
-      const activationMaps: Float32Array[] = new Array(numberOfTensors)
-
-      for (let i = 0; i < numberOfTensors; i += 1) {
-        activationMaps[i] = new Float32Array(activationMapLength)
-        activationMaps[i].fill(TENSOR_DEFAULT_GRAY_VALUE)
-      }
+      const activationMapLength =
+        tensorDimension[1] * tensorDimension[2] * tensorDimension[3]
 
       orderedOutputNodes.push({
         dimension: tensorDimension,
-        activationMaps,
+        activationMaps: new Float32Array(activationMapLength).fill(
+          TENSOR_DEFAULT_GRAY_VALUE,
+        ),
       })
     }
 

@@ -2,9 +2,9 @@
   "name": "neuromancer",
   "description": "Real-time 3D visualilzer for convolutional neural networks running on the ONNX runtime",
   "private": true,
-  "version": "0.13.13",
+  "version": "0.13.14",
   "type": "module",
-  "author": "Dardaul (Rudro) Hoque <rudrOwO> (https://rudro.me)",
+  "author": "Dardaul (Rudro) Hoque (https://rudro.me)",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
