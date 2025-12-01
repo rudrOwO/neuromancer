@@ -18,7 +18,7 @@
     </div>
 
     <LinkIcon
-      href="https://github.com/rudrowo/neuromancer"
+      href="https://github.com/rwdr0/neuromancer"
       iconSrc="/github-icon.svg"
     />
   </header>
