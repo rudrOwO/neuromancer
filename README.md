@@ -47,8 +47,8 @@ This dual-thread architecture is also reflected in source:
 ```shell
   git clone https://github.com/rwdr0/neuromancer &&\
   cd neuromancer &&\
-  npm install &&\
-  npm run preview
+  bun install &&\
+  bun run preview
 ```
 
 ## Inspired by
